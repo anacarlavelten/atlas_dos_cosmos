@@ -1,0 +1,82 @@
+[
+ {
+  "pl_name": "Proxima Cen b",
+  "hostname": "Proxima Cen",
+  "ra": 217.3934657,
+  "dec": -62.6761821,
+  "sy_dist": 1.30119,
+  "sy_pnum": 2,
+  "disc_year": 2016,
+  "discoverymethod": "Radial Velocity"
+ },
+ {
+  "pl_name": "Proxima Cen d",
+  "hostname": "Proxima Cen",
+  "ra": 217.3934657,
+  "dec": -62.6761821,
+  "sy_dist": 1.30119,
+  "sy_pnum": 2,
+  "disc_year": 2022,
+  "discoverymethod": "Radial Velocity"
+ },
+ {
+  "pl_name": "Barnard b",
+  "hostname": "Barnard's star",
+  "ra": 269.452082,
+  "dec": 4.6933647,
+  "sy_dist": 1.8266,
+  "sy_pnum": 4,
+  "disc_year": 2024,
+  "discoverymethod": "Radial Velocity"
+ },
+ {
+  "pl_name": "eps Eri b",
+  "hostname": "eps Eri",
+  "ra": 53.2326873,
+  "dec": -9.4582519,
+  "sy_dist": 3.2026,
+  "sy_pnum": 1,
+  "disc_year": 2000,
+  "discoverymethod": "Radial Velocity"
+ },
+ {
+  "pl_name": "GJ 887 b",
+  "hostname": "GJ 887",
+  "ra": 346.4663816,
+  "dec": -35.8530689,
+  "sy_dist": 3.29,
+  "sy_pnum": 2,
+  "disc_year": 2020,
+  "discoverymethod": "Radial Velocity"
+ },
+ {
+  "pl_name": "TRAPPIST-1 e",
+  "hostname": "TRAPPIST-1",
+  "ra": 346.6263919,
+  "dec": -5.0434618,
+  "sy_dist": 12.429888,
+  "sy_pnum": 7,
+  "disc_year": 2017,
+  "discoverymethod": "Transit"
+ },
+ {
+  "pl_name": "51 Peg b",
+  "hostname": "51 Peg",
+  "ra": 344.3665853,
+  "dec": 20.7688819,
+  "sy_dist": 15.4614,
+  "sy_pnum": 1,
+  "disc_year": 1995,
+  "discoverymethod": "Radial Velocity"
+ },
+ {
+  "pl_name": "Kepler-452 b",
+  "hostname": "Kepler-452",
+  "ra": 295.9282833,
+  "dec": 44.2770794,
+  "sy_dist": 551.727,
+  "sy_pnum": 1,
+  "disc_year": 2015,
+  "discoverymethod": "Transit"
+ }
+]

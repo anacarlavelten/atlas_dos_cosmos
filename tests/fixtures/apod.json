@@ -1,0 +1,10 @@
+{
+ "copyright": "\nFulano de Tal\n",
+ "date": "2026-10-26",
+ "explanation": "A spiral galaxy seen through a large telescope. This is example text in the same format as the APOD API.",
+ "hdurl": "https://apod.nasa.gov/apod/image/2610/example_big.jpg",
+ "media_type": "image",
+ "service_version": "v1",
+ "title": "Uma Galáxia de Exemplo",
+ "url": "https://apod.nasa.gov/apod/image/2610/example.jpg"
+}

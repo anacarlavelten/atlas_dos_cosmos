@@ -1,0 +1,195 @@
+{
+ "collection": {
+  "version": "1.0",
+  "href": "https://images-api.nasa.gov/search?q=jupiter",
+  "items": [
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA01/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 1",
+      "nasa_id": "PIA01",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA01/PIA01~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   },
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA02/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 2",
+      "nasa_id": "PIA02",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA02/PIA02~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   },
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA03/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 3",
+      "nasa_id": "PIA03",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA03/PIA03~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   },
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA04/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 4",
+      "nasa_id": "PIA04",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA04/PIA04~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   },
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA05/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 5",
+      "nasa_id": "PIA05",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA05/PIA05~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   },
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA06/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 6",
+      "nasa_id": "PIA06",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA06/PIA06~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   },
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA07/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 7",
+      "nasa_id": "PIA07",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA07/PIA07~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   },
+   {
+    "href": "https://images-assets.nasa.gov/image/PIA08/collection.json",
+    "data": [
+     {
+      "center": "JPL",
+      "title": "Imagem de exemplo 8",
+      "nasa_id": "PIA08",
+      "date_created": "2017-05-25T00:00:00Z",
+      "media_type": "image",
+      "keywords": [
+       "Jupiter"
+      ],
+      "description": "Descrição da imagem de exemplo."
+     }
+    ],
+    "links": [
+     {
+      "href": "https://images-assets.nasa.gov/image/PIA08/PIA08~thumb.jpg",
+      "rel": "preview",
+      "render": "image"
+     }
+    ]
+   }
+  ],
+  "metadata": {
+   "total_hits": 8
+  }
+ }
+}

@@ -1,0 +1,18 @@
+[
+ {
+  "identifier": "20261025003633",
+  "caption": "This image was taken by NASA's EPIC camera onboard the NOAA DSCOVR spacecraft",
+  "image": "epic_1b_20261025003633",
+  "version": "03",
+  "centroid_coordinates": {
+   "lat": -8.91,
+   "lon": 167.34
+  },
+  "dscovr_j2000_position": {
+   "x": -1300000.0,
+   "y": -690000.0,
+   "z": -120000.0
+  },
+  "date": "2026-10-25 00:31:45"
+ }
+]

@@ -1,0 +1,3313 @@
+{
+ "version": 2,
+ "levels": [
+  {
+   "level": 1,
+   "name": "Sistema Solar",
+   "unit": "UA",
+   "description": "O Sol, os planetas, luas, planetas-anões, cometas, sondas e os asteroides que passam perto da Terra."
+  },
+  {
+   "level": 2,
+   "name": "Via Láctea",
+   "unit": "mil anos-luz",
+   "description": "A nossa galáxia: braços espirais, estrelas famosas, nebulosas e as estrelas com exoplanetas."
+  },
+  {
+   "level": 3,
+   "name": "Universo",
+   "unit": "milhões de anos-luz",
+   "description": "Galáxias vizinhas e as grandes estruturas do cosmos."
+  }
+ ],
+ "bodies": [
+  {
+   "slug": "sol",
+   "level": 1,
+   "category": "star",
+   "group": "Estrela",
+   "name": "Sol",
+   "kind": "Estrela · anã amarela (G2V)",
+   "summary": "O Sol é a estrela no centro do nosso sistema. A luz e o calor dele fazem a vida na Terra possível, e a gravidade dele mantém todos os planetas em órbita.",
+   "curiosity": "Caberiam cerca de 1,3 milhão de Terras dentro do Sol. A luz que sai dele hoje levou milhares de anos para sair do núcleo até a superfície.",
+   "color": null,
+   "parent": null,
+   "sort": 10,
+   "facts": [
+    [
+     "Diâmetro",
+     "1.391.400 km (109× a Terra)"
+    ],
+    [
+     "Massa",
+     "333.000× a Terra (99,86% de todo o sistema)"
+    ],
+    [
+     "Temperatura",
+     "≈ 5.500 °C na superfície; ≈ 15 milhões °C no núcleo"
+    ],
+    [
+     "Idade",
+     "≈ 4,6 bilhões de anos"
+    ],
+    [
+     "Rotação",
+     "≈ 25 dias (no equador)"
+    ],
+    [
+     "Composição",
+     "73% hidrogênio, 25% hélio"
+    ],
+    [
+     "Luz até a Terra",
+     "8 min 20 s"
+    ]
+   ],
+   "render": {
+    "radius_km": 695700,
+    "texture": "sun",
+    "tilt_deg": 7.25,
+    "rotation_hours": 609
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Sun SDO"
+   },
+   "action": {
+    "label": "Ver o Sol dentro da Via Láctea",
+    "level": 2
+   },
+   "live": [
+    "flares"
+   ]
+  },
+  {
+   "slug": "mercurio",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Mercúrio",
+   "kind": "Planeta rochoso",
+   "summary": "O menor planeta e o mais próximo do Sol. Não tem atmosfera que segure o calor, por isso o dia é escaldante e a noite é congelante.",
+   "curiosity": "Um ano em Mercúrio dura menos que 3 meses da Terra, mas um dia solar lá dura 176 dias terrestres.",
+   "color": null,
+   "parent": null,
+   "sort": 20,
+   "facts": [
+    [
+     "Diâmetro",
+     "4.879 km"
+    ],
+    [
+     "Distância do Sol",
+     "0,39 UA (57,9 milhões km)"
+    ],
+    [
+     "Ano (órbita)",
+     "88 dias"
+    ],
+    [
+     "Dia (rotação)",
+     "58,6 dias terrestres"
+    ],
+    [
+     "Temperatura",
+     "−180 °C a 430 °C"
+    ],
+    [
+     "Luas",
+     "0"
+    ],
+    [
+     "Gravidade",
+     "3,7 m/s²"
+    ]
+   ],
+   "render": {
+    "radius_km": 2439.7,
+    "texture": "mercury",
+    "tilt_deg": 0.03,
+    "rotation_hours": 1407.6,
+    "atmosphere": null,
+    "ring": null,
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "199",
+    "sbdb": null,
+    "images": "Mercury MESSENGER"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "venus",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Vênus",
+   "kind": "Planeta rochoso",
+   "summary": "Quase do tamanho da Terra, mas coberto por nuvens densas de gás carbônico que prendem o calor. É o planeta mais quente do Sistema Solar.",
+   "curiosity": "Vênus gira ao contrário dos outros planetas, então lá o Sol nasce no oeste. O dia dele é mais longo que o ano.",
+   "color": null,
+   "parent": null,
+   "sort": 30,
+   "facts": [
+    [
+     "Diâmetro",
+     "12.104 km"
+    ],
+    [
+     "Distância do Sol",
+     "0,72 UA (108,2 milhões km)"
+    ],
+    [
+     "Ano (órbita)",
+     "224,7 dias"
+    ],
+    [
+     "Dia (rotação)",
+     "243 dias (sentido contrário)"
+    ],
+    [
+     "Temperatura",
+     "≈ 465 °C"
+    ],
+    [
+     "Luas",
+     "0"
+    ],
+    [
+     "Pressão atmosférica",
+     "≈ 92× a da Terra"
+    ]
+   ],
+   "render": {
+    "radius_km": 6051.8,
+    "texture": "venus",
+    "tilt_deg": 177.4,
+    "rotation_hours": -5832.5,
+    "atmosphere": [
+     "#ffd9a0",
+     0.5,
+     3
+    ],
+    "ring": null,
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "299",
+    "sbdb": null,
+    "images": "Venus planet"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "terra",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Terra",
+   "kind": "Planeta rochoso",
+   "summary": "Nosso lar. É o único lugar conhecido com vida, com oceanos de água líquida e uma atmosfera rica em oxigênio.",
+   "curiosity": "Cerca de 71% da superfície é coberta por água. Vista do espaço, a Terra é chamada de “ponto azul pálido”.",
+   "color": null,
+   "parent": null,
+   "sort": 40,
+   "facts": [
+    [
+     "Diâmetro",
+     "12.742 km"
+    ],
+    [
+     "Distância do Sol",
+     "1 UA (149,6 milhões km)"
+    ],
+    [
+     "Ano (órbita)",
+     "365,25 dias"
+    ],
+    [
+     "Dia (rotação)",
+     "23 h 56 min"
+    ],
+    [
+     "Temperatura média",
+     "≈ 15 °C"
+    ],
+    [
+     "Luas",
+     "1"
+    ],
+    [
+     "Gravidade",
+     "9,81 m/s²"
+    ],
+    [
+     "Atmosfera",
+     "78% nitrogênio, 21% oxigênio"
+    ]
+   ],
+   "render": {
+    "radius_km": 6371,
+    "texture": "earth",
+    "tilt_deg": 23.44,
+    "rotation_hours": 23.934,
+    "atmosphere": [
+     "#6fb2ff",
+     0.55,
+     3.2
+    ],
+    "ring": null,
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "399",
+    "sbdb": null,
+    "images": "Earth from space"
+   },
+   "action": null,
+   "live": [
+    "epic"
+   ]
+  },
+  {
+   "slug": "lua",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Lua",
+   "kind": "Satélite natural da Terra",
+   "summary": "A única lua da Terra e o único outro mundo onde seres humanos já pisaram, entre 1969 e 1972.",
+   "curiosity": "A Lua mostra sempre a mesma face para nós e se afasta da Terra cerca de 3,8 cm por ano.",
+   "color": null,
+   "parent": "terra",
+   "sort": 50,
+   "facts": [
+    [
+     "Diâmetro",
+     "3.474 km"
+    ],
+    [
+     "Distância da Terra",
+     "384.400 km"
+    ],
+    [
+     "Período orbital",
+     "27,3 dias"
+    ],
+    [
+     "Temperatura",
+     "−173 °C a 127 °C"
+    ],
+    [
+     "Gravidade",
+     "1,62 m/s² (1/6 da Terra)"
+    ]
+   ],
+   "render": {
+    "radius_km": 1737.4,
+    "texture": "moon",
+    "rotation_hours": 655.6800000000001,
+    "fallback": {
+     "a_km": 384400,
+     "period_days": 27.32,
+     "inc_deg": 5.1,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "301",
+    "sbdb": null,
+    "images": "Moon lunar surface"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "marte",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Marte",
+   "kind": "Planeta rochoso",
+   "summary": "O “planeta vermelho” tem a cor da ferrugem espalhada pelo solo. Já foi mais úmido e hoje é visitado por vários robôs.",
+   "curiosity": "Marte tem o Monte Olimpo, o maior vulcão conhecido do Sistema Solar, com cerca de 22 km de altura, quase três vezes o Everest.",
+   "color": null,
+   "parent": null,
+   "sort": 60,
+   "facts": [
+    [
+     "Diâmetro",
+     "6.779 km"
+    ],
+    [
+     "Distância do Sol",
+     "1,52 UA (227,9 milhões km)"
+    ],
+    [
+     "Ano (órbita)",
+     "687 dias"
+    ],
+    [
+     "Dia (rotação)",
+     "24 h 37 min"
+    ],
+    [
+     "Temperatura média",
+     "≈ −63 °C"
+    ],
+    [
+     "Luas",
+     "2 (Fobos e Deimos)"
+    ],
+    [
+     "Gravidade",
+     "3,71 m/s²"
+    ]
+   ],
+   "render": {
+    "radius_km": 3389.5,
+    "texture": "mars",
+    "tilt_deg": 25.19,
+    "rotation_hours": 24.623,
+    "atmosphere": [
+     "#ff9d70",
+     0.5,
+     3
+    ],
+    "ring": null,
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "499",
+    "sbdb": null,
+    "images": "Mars planet"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "fobos",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Fobos",
+   "kind": "Satélite natural de Marte",
+   "summary": "A maior das duas luas de Marte. É um bloco irregular de rocha, coberto de crateras, que dá uma volta no planeta em menos de 8 horas.",
+   "curiosity": "Fobos está se aproximando de Marte cerca de 2 m a cada século. Em dezenas de milhões de anos deve se despedaçar e formar um anel.",
+   "color": null,
+   "parent": "marte",
+   "sort": 70,
+   "facts": [
+    [
+     "Tamanho",
+     "≈ 27 × 22 × 18 km"
+    ],
+    [
+     "Distância de Marte",
+     "≈ 9.376 km (do centro)"
+    ],
+    [
+     "Período orbital",
+     "7 h 39 min"
+    ],
+    [
+     "Maior cratera",
+     "Stickney (≈ 9 km)"
+    ]
+   ],
+   "render": {
+    "radius_km": 11.1,
+    "texture": "phobos",
+    "rotation_hours": 7.653840000000001,
+    "fallback": {
+     "a_km": 9376,
+     "period_days": 0.31891,
+     "inc_deg": 1.08,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "401",
+    "sbdb": null,
+    "images": "Phobos Mars moon"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "deimos",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Deimos",
+   "kind": "Satélite natural de Marte",
+   "summary": "A lua menor e mais distante de Marte. É tão pequena que, vista da superfície marciana, parece apenas uma estrela brilhante.",
+   "curiosity": "Fobos e Deimos podem ser asteroides capturados pela gravidade de Marte ou restos de um impacto antigo; a missão japonesa MMX vai investigar.",
+   "color": null,
+   "parent": "marte",
+   "sort": 80,
+   "facts": [
+    [
+     "Tamanho",
+     "≈ 15 × 12 × 11 km"
+    ],
+    [
+     "Distância de Marte",
+     "≈ 23.463 km (do centro)"
+    ],
+    [
+     "Período orbital",
+     "30 h 18 min"
+    ]
+   ],
+   "render": {
+    "radius_km": 6.2,
+    "texture": "deimos",
+    "rotation_hours": 30.298560000000002,
+    "fallback": {
+     "a_km": 23463,
+     "period_days": 1.26244,
+     "inc_deg": 1.79,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "402",
+    "sbdb": null,
+    "images": "Deimos Mars moon"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "ceres",
+   "level": 1,
+   "category": "dwarf",
+   "group": "Anões e cometas",
+   "name": "Ceres",
+   "kind": "Planeta-anão · cinturão de asteroides",
+   "summary": "O maior objeto do cinturão de asteroides entre Marte e Júpiter. Tem gelo e sais brilhantes na superfície.",
+   "curiosity": "Ceres sozinho tem cerca de um terço de toda a massa do cinturão de asteroides. A posição dele nesta simulação é ilustrativa.",
+   "color": null,
+   "parent": null,
+   "sort": 90,
+   "facts": [
+    [
+     "Diâmetro",
+     "940 km"
+    ],
+    [
+     "Distância do Sol",
+     "2,77 UA"
+    ],
+    [
+     "Ano (órbita)",
+     "4,6 anos"
+    ],
+    [
+     "Rotação",
+     "9 h 4 min"
+    ],
+    [
+     "Visitada por",
+     "Sonda Dawn (2015)"
+    ]
+   ],
+   "render": {
+    "radius_km": 473,
+    "texture": "ceres",
+    "tilt_deg": 4,
+    "rotation_hours": 9.07,
+    "atmosphere": null,
+    "ring": null,
+    "orbit_color": "#8a7aa8"
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": "Ceres",
+    "images": "Ceres Dawn"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "cinturao",
+   "level": 1,
+   "category": "region",
+   "group": "Regiões",
+   "name": "Cinturão de Asteroides",
+   "kind": "Região de pequenos corpos",
+   "summary": "Uma faixa com milhões de rochas entre as órbitas de Marte e Júpiter. São restos de um planeta que nunca chegou a se formar.",
+   "curiosity": "Nos filmes o cinturão parece lotado, mas as rochas ficam tão afastadas que sondas atravessam sem dificuldade. Os pontos aqui são ilustrativos.",
+   "color": null,
+   "parent": null,
+   "sort": 100,
+   "facts": [
+    [
+     "Localização",
+     "2,2 a 3,2 UA do Sol"
+    ],
+    [
+     "Corpos conhecidos",
+     "Mais de 1 milhão de asteroides"
+    ],
+    [
+     "Massa total",
+     "Cerca de 4% da massa da Lua"
+    ],
+    [
+     "Maior corpo",
+     "Ceres"
+    ]
+   ],
+   "render": {
+    "r_au": 2.75,
+    "angle": 3.3,
+    "view": 9
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "asteroid belt"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "jupiter",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Júpiter",
+   "kind": "Planeta gasoso gigante",
+   "summary": "O maior planeta do Sistema Solar. É feito principalmente de hidrogênio e hélio, e tem tempestades gigantes e dezenas de luas.",
+   "curiosity": "A Grande Mancha Vermelha é uma tempestade maior que a Terra, observada há pelo menos 150 anos. Cabem mais de 1.300 Terras dentro de Júpiter.",
+   "color": null,
+   "parent": null,
+   "sort": 110,
+   "facts": [
+    [
+     "Diâmetro",
+     "139.820 km (11× a Terra)"
+    ],
+    [
+     "Distância do Sol",
+     "5,2 UA (778 milhões km)"
+    ],
+    [
+     "Ano (órbita)",
+     "11,9 anos"
+    ],
+    [
+     "Dia (rotação)",
+     "9 h 56 min"
+    ],
+    [
+     "Temperatura",
+     "≈ −110 °C no topo das nuvens"
+    ],
+    [
+     "Luas",
+     "Mais de 90"
+    ],
+    [
+     "Massa",
+     "318× a Terra"
+    ]
+   ],
+   "render": {
+    "radius_km": 69911,
+    "texture": "jupiter",
+    "tilt_deg": 3.13,
+    "rotation_hours": 9.925,
+    "atmosphere": [
+     "#ffe2b8",
+     0.18,
+     3.5
+    ],
+    "ring": null,
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "599",
+    "sbdb": null,
+    "images": "Jupiter Juno"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "io",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Io",
+   "kind": "Lua de Júpiter",
+   "summary": "O lugar com mais vulcões ativos do Sistema Solar. A superfície amarela e laranja é coberta de enxofre.",
+   "curiosity": "A gravidade de Júpiter “amassa” Io o tempo todo, e esse atrito esquenta o interior e alimenta os vulcões.",
+   "color": null,
+   "parent": "jupiter",
+   "sort": 120,
+   "facts": [
+    [
+     "Diâmetro",
+     "3.643 km"
+    ],
+    [
+     "Distância de Júpiter",
+     "421.700 km"
+    ],
+    [
+     "Período orbital",
+     "1,77 dia"
+    ],
+    [
+     "Vulcões ativos",
+     "Mais de 400"
+    ]
+   ],
+   "render": {
+    "radius_km": 1821.6,
+    "texture": "io",
+    "rotation_hours": 42.455999999999996,
+    "fallback": {
+     "a_km": 421700,
+     "period_days": 1.769,
+     "inc_deg": 0.5,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "501",
+    "sbdb": null,
+    "images": "Io moon Jupiter"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "europa",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Europa",
+   "kind": "Lua de Júpiter",
+   "summary": "Uma lua coberta de gelo que esconde um oceano de água salgada por baixo. Está entre os melhores lugares para procurar vida fora da Terra.",
+   "curiosity": "O oceano de Europa pode ter mais água líquida que todos os oceanos da Terra juntos.",
+   "color": null,
+   "parent": "jupiter",
+   "sort": 130,
+   "facts": [
+    [
+     "Diâmetro",
+     "3.122 km"
+    ],
+    [
+     "Distância de Júpiter",
+     "671.000 km"
+    ],
+    [
+     "Período orbital",
+     "3,55 dias"
+    ],
+    [
+     "Missão a caminho",
+     "Europa Clipper (chegada prevista em 2030)"
+    ]
+   ],
+   "render": {
+    "radius_km": 1560.8,
+    "texture": "europa",
+    "rotation_hours": 85.224,
+    "fallback": {
+     "a_km": 671000,
+     "period_days": 3.551,
+     "inc_deg": 0.5,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "502",
+    "sbdb": null,
+    "images": "Europa moon Jupiter"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "ganimedes",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Ganimedes",
+   "kind": "Lua de Júpiter",
+   "summary": "A maior lua do Sistema Solar, maior até que o planeta Mercúrio.",
+   "curiosity": "É a única lua conhecida que tem seu próprio campo magnético.",
+   "color": null,
+   "parent": "jupiter",
+   "sort": 140,
+   "facts": [
+    [
+     "Diâmetro",
+     "5.268 km"
+    ],
+    [
+     "Distância de Júpiter",
+     "1.070.400 km"
+    ],
+    [
+     "Período orbital",
+     "7,15 dias"
+    ],
+    [
+     "Destaque",
+     "Tem campo magnético próprio"
+    ]
+   ],
+   "render": {
+    "radius_km": 2634.1,
+    "texture": "ganymede",
+    "rotation_hours": 171.72,
+    "fallback": {
+     "a_km": 1070400,
+     "period_days": 7.155,
+     "inc_deg": 0.2,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "503",
+    "sbdb": null,
+    "images": "Ganymede"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "calisto",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Calisto",
+   "kind": "Lua de Júpiter",
+   "summary": "Uma das superfícies mais antigas e mais cheias de crateras do Sistema Solar.",
+   "curiosity": "Quase não mudou em bilhões de anos, então funciona como um “museu” de impactos antigos.",
+   "color": null,
+   "parent": "jupiter",
+   "sort": 150,
+   "facts": [
+    [
+     "Diâmetro",
+     "4.821 km"
+    ],
+    [
+     "Distância de Júpiter",
+     "1.882.700 km"
+    ],
+    [
+     "Período orbital",
+     "16,7 dias"
+    ]
+   ],
+   "render": {
+    "radius_km": 2410.3,
+    "texture": "callisto",
+    "rotation_hours": 400.56000000000006,
+    "fallback": {
+     "a_km": 1882700,
+     "period_days": 16.69,
+     "inc_deg": 0.3,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "504",
+    "sbdb": null,
+    "images": "Callisto moon"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "saturno",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Saturno",
+   "kind": "Planeta gasoso gigante",
+   "summary": "Famoso pelos anéis de gelo e rocha. É tão pouco denso que, se existisse uma banheira enorme, ele boiaria.",
+   "curiosity": "Os anéis têm quase 280.000 km de largura, mas em geral só dezenas de metros de espessura.",
+   "color": null,
+   "parent": null,
+   "sort": 160,
+   "facts": [
+    [
+     "Diâmetro",
+     "116.460 km (sem os anéis)"
+    ],
+    [
+     "Distância do Sol",
+     "9,58 UA (1,43 bilhão km)"
+    ],
+    [
+     "Ano (órbita)",
+     "29,4 anos"
+    ],
+    [
+     "Dia (rotação)",
+     "10 h 34 min"
+    ],
+    [
+     "Temperatura",
+     "≈ −140 °C"
+    ],
+    [
+     "Luas",
+     "Mais de 270"
+    ],
+    [
+     "Densidade",
+     "0,69 g/cm³ (menor que a da água)"
+    ]
+   ],
+   "render": {
+    "radius_km": 58232,
+    "texture": "saturn",
+    "tilt_deg": 26.73,
+    "rotation_hours": 10.656,
+    "atmosphere": [
+     "#fff0c0",
+     0.12,
+     3.5
+    ],
+    "ring": [
+     1.24,
+     2.27
+    ],
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "699",
+    "sbdb": null,
+    "images": "Saturn Cassini"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "tita",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Titã",
+   "kind": "Lua de Saturno",
+   "summary": "A única lua com atmosfera densa. Tem rios e lagos, mas de metano líquido, e não de água.",
+   "curiosity": "A sonda Huygens pousou em Titã em 2005, o pouso mais distante da Terra já realizado.",
+   "color": null,
+   "parent": "saturno",
+   "sort": 170,
+   "facts": [
+    [
+     "Diâmetro",
+     "5.150 km"
+    ],
+    [
+     "Distância de Saturno",
+     "1.221.900 km"
+    ],
+    [
+     "Período orbital",
+     "15,9 dias"
+    ],
+    [
+     "Visitada por",
+     "Sonda Huygens (2005)"
+    ],
+    [
+     "Missão futura",
+     "Dragonfly (NASA)"
+    ]
+   ],
+   "render": {
+    "radius_km": 2574.7,
+    "texture": "titan",
+    "rotation_hours": 382.68,
+    "fallback": {
+     "a_km": 1221900,
+     "period_days": 15.945,
+     "inc_deg": 26.7,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "606",
+    "sbdb": null,
+    "images": "Titan moon Saturn"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "urano",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Urano",
+   "kind": "Gigante de gelo",
+   "summary": "Um planeta azul-esverdeado que gira “deitado”, como uma bola rolando em volta do Sol.",
+   "curiosity": "Por causa da inclinação, cada polo fica cerca de 42 anos no Sol e 42 anos no escuro.",
+   "color": null,
+   "parent": null,
+   "sort": 180,
+   "facts": [
+    [
+     "Diâmetro",
+     "50.724 km"
+    ],
+    [
+     "Distância do Sol",
+     "19,2 UA (2,87 bilhões km)"
+    ],
+    [
+     "Ano (órbita)",
+     "84 anos"
+    ],
+    [
+     "Dia (rotação)",
+     "17 h 14 min (sentido contrário)"
+    ],
+    [
+     "Inclinação do eixo",
+     "97,8°"
+    ],
+    [
+     "Temperatura",
+     "≈ −195 °C"
+    ],
+    [
+     "Luas",
+     "28"
+    ],
+    [
+     "Descoberta",
+     "1781, William Herschel"
+    ]
+   ],
+   "render": {
+    "radius_km": 25362,
+    "texture": "uranus",
+    "tilt_deg": 97.77,
+    "rotation_hours": -17.24,
+    "atmosphere": [
+     "#a8f0ff",
+     0.45,
+     3
+    ],
+    "ring": null,
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "799",
+    "sbdb": null,
+    "images": "Uranus planet"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "netuno",
+   "level": 1,
+   "category": "planet",
+   "group": "Planetas",
+   "name": "Netuno",
+   "kind": "Gigante de gelo",
+   "summary": "O planeta mais distante do Sol. É azul intenso e tem os ventos mais rápidos do Sistema Solar.",
+   "curiosity": "Netuno foi descoberto em 1846 por cálculos matemáticos antes de ser visto pelo telescópio. Desde a descoberta, completou só uma volta ao Sol.",
+   "color": null,
+   "parent": null,
+   "sort": 190,
+   "facts": [
+    [
+     "Diâmetro",
+     "49.244 km"
+    ],
+    [
+     "Distância do Sol",
+     "30,1 UA (4,5 bilhões km)"
+    ],
+    [
+     "Ano (órbita)",
+     "164,8 anos"
+    ],
+    [
+     "Dia (rotação)",
+     "16 h 6 min"
+    ],
+    [
+     "Temperatura",
+     "≈ −200 °C"
+    ],
+    [
+     "Luas",
+     "16"
+    ],
+    [
+     "Ventos",
+     "Até ≈ 2.100 km/h"
+    ]
+   ],
+   "render": {
+    "radius_km": 24622,
+    "texture": "neptune",
+    "tilt_deg": 28.32,
+    "rotation_hours": 16.11,
+    "atmosphere": [
+     "#7aa5ff",
+     0.5,
+     3
+    ],
+    "ring": null,
+    "orbit_color": "#6f88c8"
+   },
+   "nasa": {
+    "horizons": "899",
+    "sbdb": null,
+    "images": "Neptune Voyager"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "triton",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Tritão",
+   "kind": "Lua de Netuno",
+   "summary": "A maior lua de Netuno. Orbita no sentido contrário ao da rotação do planeta, sinal de que veio de fora.",
+   "curiosity": "Tem gêiseres que lançam nitrogênio gelado. Provavelmente é um objeto do cinturão de Kuiper capturado por Netuno.",
+   "color": null,
+   "parent": "netuno",
+   "sort": 200,
+   "facts": [
+    [
+     "Diâmetro",
+     "2.707 km"
+    ],
+    [
+     "Distância de Netuno",
+     "354.800 km"
+    ],
+    [
+     "Período orbital",
+     "5,88 dias (retrógrado)"
+    ],
+    [
+     "Superfície",
+     "≈ −235 °C"
+    ]
+   ],
+   "render": {
+    "radius_km": 1353.4,
+    "texture": "triton",
+    "rotation_hours": 141.048,
+    "fallback": {
+     "a_km": 354800,
+     "period_days": 5.877,
+     "inc_deg": 157,
+     "retro": true
+    }
+   },
+   "nasa": {
+    "horizons": "801",
+    "sbdb": null,
+    "images": "Triton moon"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "plutao",
+   "level": 1,
+   "category": "dwarf",
+   "group": "Anões e cometas",
+   "name": "Plutão",
+   "kind": "Planeta-anão",
+   "summary": "Já foi o nono planeta. Em 2006 passou a ser chamado de planeta-anão. Tem montanhas de gelo e uma grande região clara em forma de coração.",
+   "curiosity": "A órbita de Plutão é tão alongada que por vezes ele fica mais perto do Sol que Netuno.",
+   "color": null,
+   "parent": null,
+   "sort": 210,
+   "facts": [
+    [
+     "Diâmetro",
+     "2.377 km"
+    ],
+    [
+     "Distância do Sol",
+     "39,5 UA em média (29,7 a 49,3)"
+    ],
+    [
+     "Ano (órbita)",
+     "248 anos"
+    ],
+    [
+     "Dia (rotação)",
+     "6,4 dias (sentido contrário)"
+    ],
+    [
+     "Temperatura",
+     "≈ −230 °C"
+    ],
+    [
+     "Luas",
+     "5"
+    ],
+    [
+     "Visitado por",
+     "New Horizons (2015)"
+    ]
+   ],
+   "render": {
+    "radius_km": 1188.3,
+    "texture": "pluto",
+    "tilt_deg": 122.5,
+    "rotation_hours": -153.3,
+    "atmosphere": null,
+    "ring": null,
+    "orbit_color": "#9a88b8"
+   },
+   "nasa": {
+    "horizons": "999",
+    "sbdb": null,
+    "images": "Pluto New Horizons"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "caronte",
+   "level": 1,
+   "category": "moon",
+   "group": "Luas",
+   "name": "Caronte",
+   "kind": "Lua de Plutão",
+   "summary": "A maior lua de Plutão, com metade do diâmetro dele. Os dois se orbitam e ficam sempre com a mesma face voltada um para o outro.",
+   "curiosity": "Plutão e Caronte são tão parecidos em tamanho que muitos astrônomos os chamam de sistema duplo.",
+   "color": null,
+   "parent": "plutao",
+   "sort": 220,
+   "facts": [
+    [
+     "Diâmetro",
+     "1.212 km"
+    ],
+    [
+     "Distância de Plutão",
+     "19.600 km"
+    ],
+    [
+     "Período orbital",
+     "6,39 dias"
+    ]
+   ],
+   "render": {
+    "radius_km": 606,
+    "texture": "charon",
+    "rotation_hours": 153.28799999999998,
+    "fallback": {
+     "a_km": 19600,
+     "period_days": 6.387,
+     "inc_deg": 122,
+     "retro": false
+    }
+   },
+   "nasa": {
+    "horizons": "901",
+    "sbdb": null,
+    "images": "Charon Pluto moon"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "kuiper",
+   "level": 1,
+   "category": "region",
+   "group": "Regiões",
+   "name": "Cinturão de Kuiper",
+   "kind": "Região de pequenos corpos",
+   "summary": "Uma região de corpos gelados além de Netuno. É de lá que vêm muitos cometas, e nela vivem Plutão e outros planetas-anões.",
+   "curiosity": "Os pontos aqui são ilustrativos. Cientistas estimam que existam centenas de milhares de corpos com mais de 100 km.",
+   "color": null,
+   "parent": null,
+   "sort": 230,
+   "facts": [
+    [
+     "Localização",
+     "30 a 50 UA do Sol"
+    ],
+    [
+     "Habitantes famosos",
+     "Plutão, Éris, Haumea, Makemake"
+    ],
+    [
+     "Visitado por",
+     "New Horizons (Arrokoth, 2019)"
+    ]
+   ],
+   "render": {
+    "r_au": 42,
+    "angle": 5.4,
+    "view": 110
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Kuiper belt"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "halley",
+   "level": 1,
+   "category": "comet",
+   "group": "Anões e cometas",
+   "name": "Cometa Halley",
+   "kind": "Cometa periódico",
+   "summary": "O cometa mais famoso. Volta a ficar visível da Terra a cada 75 ou 76 anos, e a órbita dele é muito alongada.",
+   "curiosity": "Quando está perto do Sol, o gelo evapora e forma a cauda, que pode ter milhões de quilômetros.",
+   "color": null,
+   "parent": null,
+   "sort": 240,
+   "facts": [
+    [
+     "Núcleo",
+     "≈ 15 km de comprimento"
+    ],
+    [
+     "Período",
+     "≈ 75,3 anos"
+    ],
+    [
+     "Última passagem",
+     "1986"
+    ],
+    [
+     "Próxima passagem",
+     "2061"
+    ],
+    [
+     "Órbita",
+     "Sentido contrário aos planetas"
+    ]
+   ],
+   "render": {
+    "view": 3
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": "1P",
+    "images": "Halley comet"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "voyager",
+   "level": 1,
+   "category": "probe",
+   "group": "Sondas",
+   "name": "Voyager 1",
+   "kind": "Sonda espacial",
+   "summary": "Lançada em 1977, é o objeto feito por humanos mais distante da Terra. Já saiu da bolha de vento do Sol e viaja pelo espaço entre as estrelas.",
+   "curiosity": "No fim de 2026 a Voyager 1 chega a 1 dia-luz da Terra: o sinal dela leva 24 horas para chegar até nós. A posição mostrada vem do JPL Horizons.",
+   "color": null,
+   "parent": null,
+   "sort": 250,
+   "facts": [
+    [
+     "Distância do Sol",
+     "≈ 170 UA (≈ 25 bilhões km)"
+    ],
+    [
+     "Velocidade",
+     "≈ 17 km/s"
+    ],
+    [
+     "Sinal de rádio",
+     "≈ 23 horas para chegar até nós"
+    ],
+    [
+     "Lançamento",
+     "5 de setembro de 1977"
+    ],
+    [
+     "Saiu da heliosfera",
+     "2012 (≈ 121 UA)"
+    ]
+   ],
+   "render": {
+    "view": 60,
+    "fallback": {
+     "lon_deg": 256.1,
+     "lat_deg": 35.1,
+     "r_au": 170.0,
+     "epoch_jd": 2461041.5,
+     "au_per_year": 3.57
+    }
+   },
+   "nasa": {
+    "horizons": "-31",
+    "sbdb": null,
+    "images": "Voyager 1 spacecraft"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "voyager2",
+   "level": 1,
+   "category": "probe",
+   "group": "Sondas",
+   "name": "Voyager 2",
+   "kind": "Sonda espacial",
+   "summary": "A única sonda que visitou os quatro planetas gigantes: Júpiter, Saturno, Urano e Netuno. Desde 2018 também viaja pelo espaço interestelar.",
+   "curiosity": "Tudo o que sabemos de perto sobre Urano e Netuno veio dos sobrevoos da Voyager 2, em 1986 e 1989.",
+   "color": null,
+   "parent": null,
+   "sort": 260,
+   "facts": [
+    [
+     "Lançamento",
+     "20 de agosto de 1977"
+    ],
+    [
+     "Distância do Sol",
+     "≈ 140 UA"
+    ],
+    [
+     "Velocidade",
+     "≈ 15 km/s"
+    ],
+    [
+     "Saiu da heliosfera",
+     "2018 (≈ 119 UA)"
+    ]
+   ],
+   "render": {
+    "view": 60,
+    "fallback": {
+     "lon_deg": 290.1,
+     "lat_deg": -37.1,
+     "r_au": 142.0,
+     "epoch_jd": 2461041.5,
+     "au_per_year": 3.2
+    }
+   },
+   "nasa": {
+    "horizons": "-32",
+    "sbdb": null,
+    "images": "Voyager 2 spacecraft"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "newhorizons",
+   "level": 1,
+   "category": "probe",
+   "group": "Sondas",
+   "name": "New Horizons",
+   "kind": "Sonda espacial",
+   "summary": "Sonda que fez as primeiras fotos de perto de Plutão, em 2015, e depois visitou Arrokoth, um pequeno mundo do Cinturão de Kuiper.",
+   "curiosity": "A sonda carrega uma pequena parte das cinzas de Clyde Tombaugh, o astrônomo que descobriu Plutão em 1930.",
+   "color": null,
+   "parent": null,
+   "sort": 270,
+   "facts": [
+    [
+     "Lançamento",
+     "19 de janeiro de 2006"
+    ],
+    [
+     "Sobrevoo de Plutão",
+     "14 de julho de 2015"
+    ],
+    [
+     "Sobrevoo de Arrokoth",
+     "1º de janeiro de 2019"
+    ],
+    [
+     "Velocidade",
+     "≈ 14 km/s"
+    ]
+   ],
+   "render": {
+    "view": 30,
+    "fallback": {
+     "lon_deg": 289.4,
+     "lat_deg": 1.5,
+     "r_au": 64.0,
+     "epoch_jd": 2461041.5,
+     "au_per_year": 2.9
+    }
+   },
+   "nasa": {
+    "horizons": "-98",
+    "sbdb": null,
+    "images": "New Horizons spacecraft"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "neos",
+   "level": 1,
+   "category": "neo",
+   "group": "Asteroides desta semana",
+   "name": "Asteroides próximos da Terra",
+   "kind": "Dados ao vivo · NASA NeoWs",
+   "summary": "Todos os dias, asteroides passam relativamente perto da Terra. A lista ao lado vem do serviço NeoWs da NASA e mostra os que passam mais perto nesta semana, com a órbita real de cada um.",
+   "curiosity": "“Passar perto” em astronomia ainda é longe: a maioria desses asteroides cruza a dezenas de distâncias Terra–Lua de nós.",
+   "color": null,
+   "parent": null,
+   "sort": 280,
+   "facts": [
+    [
+     "Fonte",
+     "NASA NeoWs (Near Earth Object Web Service)"
+    ],
+    [
+     "Distância lunar",
+     "≈ 384.400 km"
+    ],
+    [
+     "Potencialmente perigoso",
+     "Passa a menos de 0,05 UA da órbita da Terra e tem mais de ≈ 140 m"
+    ]
+   ],
+   "render": {
+    "virtual": true,
+    "focus": "terra",
+    "view": 0.35
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "near-Earth asteroid"
+   },
+   "action": null,
+   "live": [
+    "neos"
+   ]
+  },
+  {
+   "slug": "mw",
+   "level": 2,
+   "category": "galaxy",
+   "group": "Nossa galáxia",
+   "name": "Via Láctea",
+   "kind": "Galáxia espiral barrada",
+   "summary": "A nossa galáxia. É um disco gigante e achatado de estrelas, gás e poeira com braços em espiral e uma barra no centro, onde vive um buraco negro enorme.",
+   "curiosity": "Só vemos uma faixa branca no céu porque estamos dentro do disco e olhamos para ele de lado. Os braços são ondas de densidade, e as estrelas passam por elas girando.",
+   "color": null,
+   "parent": null,
+   "sort": 290,
+   "facts": [
+    [
+     "Diâmetro do disco",
+     "≈ 100.000 a 120.000 anos-luz"
+    ],
+    [
+     "Espessura do disco",
+     "≈ 1.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "100 a 400 bilhões"
+    ],
+    [
+     "Massa total",
+     "≈ 1,5 trilhão de Sóis (com matéria escura)"
+    ],
+    [
+     "Idade",
+     "≈ 13,6 bilhões de anos"
+    ],
+    [
+     "Grupo",
+     "Grupo Local, com Andrômeda e a Triângulo"
+    ]
+   ],
+   "render": {
+    "virtual": true,
+    "view": 85
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Milky Way galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "sun2",
+   "level": 2,
+   "category": "star",
+   "group": "Nossa galáxia",
+   "name": "Sol (nossa estrela)",
+   "kind": "Estrela · Sistema Solar",
+   "summary": "Aqui o Sol é só mais um ponto entre centenas de bilhões. Ele fica no Esporão de Órion, um pedaço de braço espiral entre os braços de Sagitário e de Perseu.",
+   "curiosity": "A última vez que o Sistema Solar estava neste ponto da órbita, os dinossauros estavam começando a aparecer.",
+   "color": null,
+   "parent": null,
+   "sort": 300,
+   "facts": [
+    [
+     "Distância do centro da galáxia",
+     "≈ 26.000 anos-luz"
+    ],
+    [
+     "Velocidade ao redor do centro",
+     "≈ 220 km/s (≈ 800.000 km/h)"
+    ],
+    [
+     "Uma volta completa",
+     "≈ 225 milhões de anos"
+    ],
+    [
+     "Voltas já dadas",
+     "≈ 20 desde que nasceu"
+    ],
+    [
+     "Esporão de Órion",
+     "≈ 3.500 anos-luz de largura e 10.000 de comprimento"
+    ]
+   ],
+   "render": {
+    "px": 9,
+    "view": 0.0016,
+    "min": 1.2e-05
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Sun SDO"
+   },
+   "action": {
+    "label": "Entrar no Sistema Solar",
+    "level": 1
+   },
+   "live": []
+  },
+  {
+   "slug": "exoplanetas",
+   "level": 2,
+   "category": "exo",
+   "group": "Nossa galáxia",
+   "name": "Estrelas com exoplanetas",
+   "kind": "Dados ao vivo · NASA Exoplanet Archive",
+   "summary": "Cada ponto lilás ao redor do Sol é uma estrela onde já foi confirmado pelo menos um planeta. As posições e distâncias vêm do NASA Exoplanet Archive.",
+   "curiosity": "Quase todos os exoplanetas conhecidos estão a menos de alguns milhares de anos-luz: na escala da galáxia, é a nossa vizinhança imediata.",
+   "color": null,
+   "parent": null,
+   "sort": 310,
+   "facts": [
+    [
+     "Fonte",
+     "NASA Exoplanet Archive (tabela pscomppars)"
+    ],
+    [
+     "Primeira descoberta ao redor de uma estrela como o Sol",
+     "1995 (51 Pegasi b)"
+    ]
+   ],
+   "render": {
+    "virtual": true,
+    "focus": "sun2",
+    "view": 4
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "exoplanet"
+   },
+   "action": null,
+   "live": [
+    "exoplanets"
+   ]
+  },
+  {
+   "slug": "sgra",
+   "level": 2,
+   "category": "bh",
+   "group": "Buracos negros",
+   "name": "Sagitário A*",
+   "kind": "Buraco negro supermassivo",
+   "summary": "O buraco negro no centro da Via Láctea. Nada, nem a luz, escapa de dentro do horizonte de eventos dele.",
+   "curiosity": "As estrelas próximas dele passam a milhares de km/s. Foi observando essas estrelas que cientistas provaram que ele existe, o que rendeu o Nobel de Física de 2020.",
+   "color": null,
+   "parent": null,
+   "sort": 320,
+   "facts": [
+    [
+     "Massa",
+     "≈ 4,3 milhões de Sóis"
+    ],
+    [
+     "Distância",
+     "≈ 26.000 anos-luz"
+    ],
+    [
+     "Horizonte de eventos",
+     "≈ 24 milhões km de diâmetro (cabe na órbita de Mercúrio)"
+    ],
+    [
+     "Primeira imagem",
+     "2022, Event Horizon Telescope"
+    ]
+   ],
+   "render": {
+    "origin": true,
+    "px": 9,
+    "view": 1.5,
+    "min": 0.01
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Sagittarius A*"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "braco_sag",
+   "level": 2,
+   "category": "arm",
+   "group": "Braços espirais",
+   "name": "Braço de Sagitário",
+   "kind": "Braço espiral",
+   "summary": "Os braços espirais são regiões onde o gás se junta e nascem muitas estrelas novas, brilhantes e azuladas. A Via Láctea tem alguns braços principais e vários menores.",
+   "curiosity": "Os nomes vêm das constelações onde cada braço é visto da Terra. A posição aqui é uma representação, pois ainda estamos mapeando a forma exata da galáxia.",
+   "color": null,
+   "parent": null,
+   "sort": 330,
+   "facts": [
+    [
+     "O que é",
+     "Onda de densidade que gira pelo disco"
+    ],
+    [
+     "Largura",
+     "≈ 3.000 anos-luz"
+    ],
+    [
+     "Estrelas jovens",
+     "Concentradas nos braços"
+    ]
+   ],
+   "render": {
+    "arm_k": 0,
+    "arm_r": 19,
+    "view": 14
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Milky Way spiral arm"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "braco_per",
+   "level": 2,
+   "category": "arm",
+   "group": "Braços espirais",
+   "name": "Braço de Perseu",
+   "kind": "Braço espiral",
+   "summary": "Os braços espirais são regiões onde o gás se junta e nascem muitas estrelas novas, brilhantes e azuladas. A Via Láctea tem alguns braços principais e vários menores.",
+   "curiosity": "Os nomes vêm das constelações onde cada braço é visto da Terra. A posição aqui é uma representação, pois ainda estamos mapeando a forma exata da galáxia.",
+   "color": null,
+   "parent": null,
+   "sort": 340,
+   "facts": [
+    [
+     "O que é",
+     "Onda de densidade que gira pelo disco"
+    ],
+    [
+     "Largura",
+     "≈ 3.000 anos-luz"
+    ],
+    [
+     "Estrelas jovens",
+     "Concentradas nos braços"
+    ]
+   ],
+   "render": {
+    "arm_k": 1,
+    "arm_r": 21,
+    "view": 14
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Milky Way spiral arm"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "braco_ext",
+   "level": 2,
+   "category": "arm",
+   "group": "Braços espirais",
+   "name": "Braço Externo",
+   "kind": "Braço espiral",
+   "summary": "Os braços espirais são regiões onde o gás se junta e nascem muitas estrelas novas, brilhantes e azuladas. A Via Láctea tem alguns braços principais e vários menores.",
+   "curiosity": "Os nomes vêm das constelações onde cada braço é visto da Terra. A posição aqui é uma representação, pois ainda estamos mapeando a forma exata da galáxia.",
+   "color": null,
+   "parent": null,
+   "sort": 350,
+   "facts": [
+    [
+     "O que é",
+     "Onda de densidade que gira pelo disco"
+    ],
+    [
+     "Largura",
+     "≈ 3.000 anos-luz"
+    ],
+    [
+     "Estrelas jovens",
+     "Concentradas nos braços"
+    ]
+   ],
+   "render": {
+    "arm_k": 2,
+    "arm_r": 26,
+    "view": 14
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Milky Way spiral arm"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "braco_esc",
+   "level": 2,
+   "category": "arm",
+   "group": "Braços espirais",
+   "name": "Braço Escudo-Centauro",
+   "kind": "Braço espiral",
+   "summary": "Os braços espirais são regiões onde o gás se junta e nascem muitas estrelas novas, brilhantes e azuladas. A Via Láctea tem alguns braços principais e vários menores.",
+   "curiosity": "Os nomes vêm das constelações onde cada braço é visto da Terra. A posição aqui é uma representação, pois ainda estamos mapeando a forma exata da galáxia.",
+   "color": null,
+   "parent": null,
+   "sort": 360,
+   "facts": [
+    [
+     "O que é",
+     "Onda de densidade que gira pelo disco"
+    ],
+    [
+     "Largura",
+     "≈ 3.000 anos-luz"
+    ],
+    [
+     "Estrelas jovens",
+     "Concentradas nos braços"
+    ]
+   ],
+   "render": {
+    "arm_k": 3,
+    "arm_r": 17,
+    "view": 14
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Milky Way spiral arm"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "proxima",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Próxima Centauri",
+   "kind": "Estrela · anã vermelha",
+   "summary": "A estrela mais próxima do Sol. É pequena e fraca, impossível de ver a olho nu, mas tem um planeta na zona habitável.",
+   "curiosity": "Se o Sol fosse uma bola de basquete em São Paulo, Próxima Centauri seria uma laranja em Moscou.",
+   "color": "#ff8a6a",
+   "parent": null,
+   "sort": 370,
+   "facts": [
+    [
+     "Distância",
+     "4,24 anos-luz"
+    ],
+    [
+     "Massa",
+     "≈ 12% do Sol"
+    ],
+    [
+     "Planeta",
+     "Próxima b (órbita de 11,2 dias)"
+    ],
+    [
+     "Tempo da Voyager 1 até lá",
+     "≈ 75.000 anos"
+    ]
+   ],
+   "render": {
+    "l": 313.9,
+    "b": -1.9,
+    "d_ly": 4.24,
+    "view": 0.0008
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Proxima Centauri"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "acentauri",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Alfa Centauri A e B",
+   "kind": "Sistema de estrelas duplas",
+   "summary": "Duas estrelas parecidas com o Sol que orbitam uma à outra. É a estrela mais brilhante da constelação do Centauro e só é vista do Hemisfério Sul.",
+   "curiosity": "Junto com Próxima Centauri forma um sistema de três estrelas.",
+   "color": "#fff0b0",
+   "parent": null,
+   "sort": 380,
+   "facts": [
+    [
+     "Distância",
+     "4,37 anos-luz"
+    ],
+    [
+     "Alfa Centauri A",
+     "Parecida com o Sol (G2V)"
+    ],
+    [
+     "Alfa Centauri B",
+     "Um pouco menor e mais alaranjada (K1V)"
+    ],
+    [
+     "Período mútuo",
+     "≈ 80 anos"
+    ]
+   ],
+   "render": {
+    "l": 315.7,
+    "b": -0.7,
+    "d_ly": 4.37,
+    "view": 0.0008
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Alpha Centauri"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "sirius",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Sírius",
+   "kind": "Estrela · branca (A1V)",
+   "summary": "A estrela mais brilhante do céu noturno. Ela tem uma companheira pequena e densa, uma anã branca.",
+   "curiosity": "Sírius B, a companheira, tem a massa do Sol espremida num corpo do tamanho da Terra.",
+   "color": "#bcd4ff",
+   "parent": null,
+   "sort": 390,
+   "facts": [
+    [
+     "Distância",
+     "8,6 anos-luz"
+    ],
+    [
+     "Brilho",
+     "≈ 25× o do Sol"
+    ],
+    [
+     "Temperatura",
+     "≈ 9.900 K"
+    ],
+    [
+     "Massa",
+     "≈ 2× o Sol"
+    ]
+   ],
+   "render": {
+    "l": 227.2,
+    "b": -8.9,
+    "d_ly": 8.6,
+    "view": 0.002
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Sirius star"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "vega",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Vega",
+   "kind": "Estrela · branca-azulada (A0V)",
+   "summary": "Uma das estrelas mais brilhantes do céu do hemisfério norte, no triângulo de verão.",
+   "curiosity": "Há 12.000 anos Vega era a estrela polar e voltará a ser daqui a cerca de 11.700 anos.",
+   "color": "#c8dcff",
+   "parent": null,
+   "sort": 400,
+   "facts": [
+    [
+     "Distância",
+     "25 anos-luz"
+    ],
+    [
+     "Brilho",
+     "≈ 40× o do Sol"
+    ],
+    [
+     "Rotação",
+     "Gira tão rápido que é achatada"
+    ]
+   ],
+   "render": {
+    "l": 67.4,
+    "b": 19.2,
+    "d_ly": 25,
+    "view": 0.004
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Vega star"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "polaris",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Polaris (Estrela Polar)",
+   "kind": "Estrela · supergigante amarela",
+   "summary": "Fica quase exatamente sobre o polo norte da Terra, então parece parada enquanto as outras estrelas giram.",
+   "curiosity": "No Brasil ela não é visível, pois está sempre abaixo do horizonte.",
+   "color": "#ffeab0",
+   "parent": null,
+   "sort": 410,
+   "facts": [
+    [
+     "Distância",
+     "≈ 430 anos-luz"
+    ],
+    [
+     "Brilho",
+     "Mais de 1.000× o do Sol"
+    ],
+    [
+     "Tipo",
+     "Cefeida (pulsa de brilho)"
+    ]
+   ],
+   "render": {
+    "l": 123.3,
+    "b": 26.5,
+    "d_ly": 433,
+    "view": 0.06
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Polaris star"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "betelgeuse",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Betelgeuse",
+   "kind": "Estrela · supergigante vermelha",
+   "summary": "O ombro de Órion. É tão grande que, no lugar do Sol, engoliria as órbitas de Mercúrio a Marte, ou mais.",
+   "curiosity": "Em 2019 e 2020 ela escureceu de repente, e cientistas descobriram que expeliu uma nuvem de poeira. Ela não deve explodir tão cedo, só nos próximos ≈ 100 mil anos.",
+   "color": "#ff9a66",
+   "parent": null,
+   "sort": 420,
+   "facts": [
+    [
+     "Distância",
+     "≈ 550 anos-luz"
+    ],
+    [
+     "Raio",
+     "≈ 700 a 900× o do Sol"
+    ],
+    [
+     "Futuro",
+     "Vai explodir como supernova"
+    ]
+   ],
+   "render": {
+    "l": 199.8,
+    "b": -9,
+    "d_ly": 550,
+    "view": 0.08
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Betelgeuse"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "rigel",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Rigel",
+   "kind": "Estrela · supergigante azul",
+   "summary": "O pé de Órion. É muito mais quente e brilhante que o Sol.",
+   "curiosity": "Se estivesse tão perto quanto Sírius, iluminaria a Terra como uma pequena Lua.",
+   "color": "#a8c6ff",
+   "parent": null,
+   "sort": 430,
+   "facts": [
+    [
+     "Distância",
+     "≈ 860 anos-luz"
+    ],
+    [
+     "Brilho",
+     "≈ 120.000× o do Sol"
+    ],
+    [
+     "Temperatura",
+     "≈ 12.000 K"
+    ]
+   ],
+   "render": {
+    "l": 209.3,
+    "b": -25.1,
+    "d_ly": 860,
+    "view": 0.1
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Rigel star"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "antares",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Antares",
+   "kind": "Estrela · supergigante vermelha",
+   "summary": "O coração do Escorpião. Brilha vermelha no céu de inverno do Brasil.",
+   "curiosity": "O nome significa “rival de Marte”, porque as duas têm cor parecida.",
+   "color": "#ff7a55",
+   "parent": null,
+   "sort": 440,
+   "facts": [
+    [
+     "Distância",
+     "≈ 550 anos-luz"
+    ],
+    [
+     "Raio",
+     "≈ 680× o do Sol (passaria da órbita de Marte)"
+    ]
+   ],
+   "render": {
+    "l": 351.9,
+    "b": 15.1,
+    "d_ly": 550,
+    "view": 0.08
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Antares star"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "pleiades",
+   "level": 2,
+   "category": "cluster",
+   "group": "Aglomerados",
+   "name": "Plêiades (M45)",
+   "kind": "Aglomerado aberto",
+   "summary": "Um grupo de estrelas azuis jovens, as “Sete Irmãs”, que dá para ver a olho nu na constelação de Touro.",
+   "curiosity": "Os povos indígenas brasileiros chamam o grupo de Eixu e o usam para marcar épocas de plantio.",
+   "color": "#9fc4ff",
+   "parent": null,
+   "sort": 450,
+   "facts": [
+    [
+     "Distância",
+     "≈ 444 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "Mais de 1.000"
+    ],
+    [
+     "Idade",
+     "≈ 100 milhões de anos"
+    ]
+   ],
+   "render": {
+    "l": 166.6,
+    "b": -23.5,
+    "d_ly": 444,
+    "view": 0.05
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Pleiades"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "orion",
+   "level": 2,
+   "category": "nebula",
+   "group": "Nebulosas",
+   "name": "Nebulosa de Órion (M42)",
+   "kind": "Nebulosa de emissão · berçário de estrelas",
+   "summary": "Uma nuvem gigante de gás onde estrelas estão nascendo agora, visível a olho nu na “espada” de Órion.",
+   "curiosity": "Dentro dela o telescópio Hubble encontrou discos de poeira onde planetas devem estar se formando.",
+   "color": "#ff8fc0",
+   "parent": null,
+   "sort": 460,
+   "facts": [
+    [
+     "Distância",
+     "≈ 1.344 anos-luz"
+    ],
+    [
+     "Largura",
+     "≈ 24 anos-luz"
+    ],
+    [
+     "Estrelas novas",
+     "Milhares"
+    ]
+   ],
+   "render": {
+    "l": 209,
+    "b": -19.4,
+    "d_ly": 1344,
+    "view": 0.05
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Orion Nebula"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "caranguejo",
+   "level": 2,
+   "category": "nebula",
+   "group": "Nebulosas",
+   "name": "Nebulosa do Caranguejo (M1)",
+   "kind": "Remanescente de supernova",
+   "summary": "Os restos de uma estrela que explodiu, vista por astrônomos chineses e árabes em 1054 d.C. Até de dia dava para ver.",
+   "curiosity": "O núcleo da estrela que sobrou é uma estrela de nêutrons do tamanho de uma cidade.",
+   "color": "#ffa98a",
+   "parent": null,
+   "sort": 470,
+   "facts": [
+    [
+     "Distância",
+     "≈ 6.500 anos-luz"
+    ],
+    [
+     "Explosão",
+     "1054 d.C."
+    ],
+    [
+     "Centro",
+     "Pulsar que gira 30 vezes por segundo"
+    ]
+   ],
+   "render": {
+    "l": 184.6,
+    "b": -5.8,
+    "d_ly": 6500,
+    "view": 0.05
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Crab Nebula"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "etacarinae",
+   "level": 2,
+   "category": "star",
+   "group": "Estrelas",
+   "name": "Eta Carinae",
+   "kind": "Estrela binária massiva",
+   "summary": "Um par de estrelas gigantes, a maior com cerca de 100 vezes a massa do Sol. Deve explodir em supernova em breve, em tempo cósmico.",
+   "curiosity": "Dá para ver do Brasil, e é uma das estrelas mais massivas conhecidas.",
+   "color": "#ffc090",
+   "parent": null,
+   "sort": 480,
+   "facts": [
+    [
+     "Distância",
+     "≈ 7.500 anos-luz"
+    ],
+    [
+     "Brilho",
+     "Milhões de vezes o do Sol"
+    ],
+    [
+     "Grande Erupção",
+     "1840s, ficou a 2ª estrela mais brilhante do céu"
+    ]
+   ],
+   "render": {
+    "l": 287.6,
+    "b": -0.6,
+    "d_ly": 7500,
+    "view": 0.08
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Eta Carinae"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "cygx1",
+   "level": 2,
+   "category": "bh",
+   "group": "Buracos negros",
+   "name": "Cygnus X-1",
+   "kind": "Buraco negro estelar",
+   "summary": "O primeiro objeto aceito como um provável buraco negro. Ele puxa gás de uma estrela companheira, e esse gás brilha em raios X.",
+   "curiosity": "Em 1974 o físico Stephen Hawking apostou que ele não era um buraco negro. Perdeu a aposta.",
+   "color": "#c8b4ff",
+   "parent": null,
+   "sort": 490,
+   "facts": [
+    [
+     "Distância",
+     "≈ 7.200 anos-luz"
+    ],
+    [
+     "Massa",
+     "≈ 21 Sóis"
+    ]
+   ],
+   "render": {
+    "l": 71.3,
+    "b": 3.1,
+    "d_ly": 7200,
+    "view": 0.05
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Cygnus X-1"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "omegacen",
+   "level": 2,
+   "category": "cluster",
+   "group": "Aglomerados",
+   "name": "Ômega Centauri",
+   "kind": "Aglomerado globular",
+   "summary": "O maior aglomerado globular da Via Láctea. Uma bola com milhões de estrelas muito antigas.",
+   "curiosity": "Dá para ver a olho nu em céu escuro, como uma estrela borrada.",
+   "color": "#ffe3a8",
+   "parent": null,
+   "sort": 500,
+   "facts": [
+    [
+     "Distância",
+     "≈ 17.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "≈ 10 milhões"
+    ],
+    [
+     "Origem",
+     "Possível núcleo de uma galáxia anã engolida"
+    ]
+   ],
+   "render": {
+    "l": 309.1,
+    "b": 15,
+    "d_ly": 17000,
+    "view": 0.2
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Omega Centauri"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "lmc",
+   "level": 2,
+   "category": "galaxy",
+   "group": "Galáxias vizinhas",
+   "name": "Grande Nuvem de Magalhães",
+   "kind": "Galáxia anã irregular · satélite",
+   "summary": "Uma pequena galáxia que orbita a Via Láctea. Dá para ver a olho nu como uma nuvem clara no céu do Hemisfério Sul.",
+   "curiosity": "Marinheiros que cruzavam o hemisfério sul já a usavam para navegar.",
+   "color": "#9fe8c0",
+   "parent": null,
+   "sort": 510,
+   "facts": [
+    [
+     "Distância",
+     "≈ 163.000 anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 14.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "≈ 30 bilhões"
+    ],
+    [
+     "Famosa por",
+     "Nebulosa da Tarântula e a supernova 1987A"
+    ]
+   ],
+   "render": {
+    "l": 280.5,
+    "b": -32.9,
+    "d_ly": 163000,
+    "view": 25,
+    "sprite": "irregular",
+    "size": 14
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Large Magellanic Cloud"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "smc",
+   "level": 2,
+   "category": "galaxy",
+   "group": "Galáxias vizinhas",
+   "name": "Pequena Nuvem de Magalhães",
+   "kind": "Galáxia anã irregular · satélite",
+   "summary": "A companheira menor da Grande Nuvem. As duas estão sendo puxadas e deformadas pela gravidade da Via Láctea.",
+   "curiosity": "Daqui a alguns bilhões de anos as duas devem ser engolidas pela nossa galáxia.",
+   "color": "#9fe8c0",
+   "parent": null,
+   "sort": 520,
+   "facts": [
+    [
+     "Distância",
+     "≈ 200.000 anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 7.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "Alguns bilhões"
+    ]
+   ],
+   "render": {
+    "l": 302.8,
+    "b": -44.3,
+    "d_ly": 200000,
+    "view": 18,
+    "sprite": "irregular",
+    "size": 7
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Small Magellanic Cloud"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "mw3",
+   "level": 3,
+   "category": "galaxy",
+   "group": "Nossa vizinhança",
+   "name": "Via Láctea",
+   "kind": "Galáxia espiral barrada",
+   "summary": "A nossa galáxia. É um disco gigante e achatado de estrelas, gás e poeira com braços em espiral e uma barra no centro, onde vive um buraco negro enorme.",
+   "curiosity": "Só vemos uma faixa branca no céu porque estamos dentro do disco e olhamos para ele de lado. Os braços são ondas de densidade, e as estrelas passam por elas girando.",
+   "color": "#79bfff",
+   "parent": null,
+   "sort": 530,
+   "facts": [
+    [
+     "Diâmetro do disco",
+     "≈ 100.000 a 120.000 anos-luz"
+    ],
+    [
+     "Espessura do disco",
+     "≈ 1.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "100 a 400 bilhões"
+    ],
+    [
+     "Massa total",
+     "≈ 1,5 trilhão de Sóis (com matéria escura)"
+    ],
+    [
+     "Idade",
+     "≈ 13,6 bilhões de anos"
+    ],
+    [
+     "Grupo",
+     "Grupo Local, com Andrômeda e a Triângulo"
+    ]
+   ],
+   "render": {
+    "descend": true,
+    "view": 0.4,
+    "min": 0.06
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Milky Way galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m31",
+   "level": 3,
+   "category": "spiral",
+   "group": "Nossa vizinhança",
+   "name": "Andrômeda (M31)",
+   "kind": "Galáxia espiral",
+   "summary": "A grande galáxia mais próxima da nossa. Dá para ver a olho nu em céu bem escuro, como uma mancha alongada. Está vindo na direção da Via Láctea.",
+   "curiosity": "Quando as duas se fundirem, formarão uma galáxia elíptica que já ganhou o apelido de “Milkomeda”.",
+   "color": "#7cc4ff",
+   "parent": null,
+   "sort": 540,
+   "facts": [
+    [
+     "Distância",
+     "≈ 2,5 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 220.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "≈ 1 trilhão"
+    ],
+    [
+     "Aproximação",
+     "≈ 110 km/s"
+    ],
+    [
+     "Colisão com a Via Láctea",
+     "em ≈ 4,5 bilhões de anos"
+    ]
+   ],
+   "render": {
+    "l": 121.2,
+    "b": -21.6,
+    "d_mly": 2.5,
+    "size": 0.22,
+    "tex": "spiral",
+    "rot": 0.3,
+    "asp": 0.4
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Andromeda galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m33",
+   "level": 3,
+   "category": "spiral",
+   "group": "Nossa vizinhança",
+   "name": "Galáxia do Triângulo (M33)",
+   "kind": "Galáxia espiral",
+   "summary": "A terceira maior galáxia do Grupo Local. É tão apagada que serve de teste para ver se o céu está bem escuro.",
+   "curiosity": "Se você a enxergar sem telescópio, seu céu é excelente.",
+   "color": "#7cc4ff",
+   "parent": null,
+   "sort": 550,
+   "facts": [
+    [
+     "Distância",
+     "≈ 2,7 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 60.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "≈ 40 bilhões"
+    ]
+   ],
+   "render": {
+    "l": 133.6,
+    "b": -31.3,
+    "d_mly": 2.73,
+    "size": 0.06,
+    "tex": "spiral",
+    "rot": -0.3
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Triangulum galaxy M33"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "lmc3",
+   "level": 3,
+   "category": "irr",
+   "group": "Nossa vizinhança",
+   "name": "Grande Nuvem de Magalhães",
+   "kind": "Galáxia anã irregular · satélite",
+   "summary": "Uma pequena galáxia que orbita a Via Láctea. Dá para ver a olho nu como uma nuvem clara no céu do Hemisfério Sul.",
+   "curiosity": "Marinheiros que cruzavam o hemisfério sul já a usavam para navegar.",
+   "color": "#9fe8c0",
+   "parent": null,
+   "sort": 560,
+   "facts": [
+    [
+     "Distância",
+     "≈ 163.000 anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 14.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "≈ 30 bilhões"
+    ],
+    [
+     "Famosa por",
+     "Nebulosa da Tarântula e a supernova 1987A"
+    ]
+   ],
+   "render": {
+    "l": 280.5,
+    "b": -32.9,
+    "d_mly": 0.163,
+    "size": 0.014,
+    "tex": "irregular",
+    "rot": 0.2
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Large Magellanic Cloud"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "smc3",
+   "level": 3,
+   "category": "irr",
+   "group": "Nossa vizinhança",
+   "name": "Pequena Nuvem de Magalhães",
+   "kind": "Galáxia anã irregular · satélite",
+   "summary": "A companheira menor da Grande Nuvem. As duas estão sendo puxadas e deformadas pela gravidade da Via Láctea.",
+   "curiosity": "Daqui a alguns bilhões de anos as duas devem ser engolidas pela nossa galáxia.",
+   "color": "#9fe8c0",
+   "parent": null,
+   "sort": 570,
+   "facts": [
+    [
+     "Distância",
+     "≈ 200.000 anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 7.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "Alguns bilhões"
+    ]
+   ],
+   "render": {
+    "l": 302.8,
+    "b": -44.3,
+    "d_mly": 0.2,
+    "size": 0.007,
+    "tex": "irregular",
+    "rot": 0.2
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Small Magellanic Cloud"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m81",
+   "level": 3,
+   "category": "spiral",
+   "group": "Outras galáxias",
+   "name": "Galáxia de Bode (M81)",
+   "kind": "Galáxia espiral",
+   "summary": "Uma espiral de braços bem definidos, que forma um grupo com a vizinha M82.",
+   "curiosity": "Tem um buraco negro central com cerca de 70 milhões de Sóis.",
+   "color": "#7cc4ff",
+   "parent": null,
+   "sort": 580,
+   "facts": [
+    [
+     "Distância",
+     "≈ 12 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 90.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "≈ 250 bilhões"
+    ]
+   ],
+   "render": {
+    "l": 142.1,
+    "b": 40.9,
+    "d_mly": 12,
+    "size": 0.09,
+    "tex": "spiral",
+    "rot": 0.25
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "M81 galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m82",
+   "level": 3,
+   "category": "irr",
+   "group": "Outras galáxias",
+   "name": "Galáxia do Charuto (M82)",
+   "kind": "Galáxia irregular com formação intensa de estrelas",
+   "summary": "Ela forma estrelas cerca de 10 vezes mais rápido que a Via Láctea, o que a faz soprar gás e poeira para fora.",
+   "curiosity": "O formato de charuto é porque a vemos de lado.",
+   "color": "#ff9a9a",
+   "parent": null,
+   "sort": 590,
+   "facts": [
+    [
+     "Distância",
+     "≈ 12 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 40.000 anos-luz"
+    ]
+   ],
+   "render": {
+    "l": 141.4,
+    "b": 40.6,
+    "d_mly": 12,
+    "size": 0.04,
+    "tex": "edge",
+    "rot": 0
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "M82 galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "cena",
+   "level": 3,
+   "category": "ell",
+   "group": "Outras galáxias",
+   "name": "Centaurus A",
+   "kind": "Galáxia lenticular · radiogaláxia",
+   "summary": "Uma galáxia com uma faixa escura de poeira cortando o centro. Ela esconde um buraco negro que lança jatos gigantes.",
+   "curiosity": "É uma das fontes de rádio mais fortes do céu e fica bem visível do Brasil.",
+   "color": "#ffd27a",
+   "parent": null,
+   "sort": 600,
+   "facts": [
+    [
+     "Distância",
+     "≈ 13 milhões de anos-luz"
+    ],
+    [
+     "Buraco negro central",
+     "≈ 55 milhões de Sóis"
+    ],
+    [
+     "Jatos",
+     "Estendem-se por centenas de milhares de anos-luz"
+    ]
+   ],
+   "render": {
+    "l": 309.5,
+    "b": 19.4,
+    "d_mly": 13,
+    "size": 0.06,
+    "tex": "elliptical",
+    "rot": 0
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Centaurus A"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m101",
+   "level": 3,
+   "category": "spiral",
+   "group": "Outras galáxias",
+   "name": "Galáxia do Cata-vento (M101)",
+   "kind": "Galáxia espiral (vista de frente)",
+   "summary": "Uma espiral enorme vista de frente, bem simétrica, com braços cheios de regiões de nascimento de estrelas.",
+   "curiosity": "É quase duas vezes maior que a Via Láctea.",
+   "color": "#7cc4ff",
+   "parent": null,
+   "sort": 610,
+   "facts": [
+    [
+     "Distância",
+     "≈ 21 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 170.000 anos-luz"
+    ],
+    [
+     "Estrelas",
+     "≈ 1 trilhão"
+    ]
+   ],
+   "render": {
+    "l": 102,
+    "b": 59.8,
+    "d_mly": 21,
+    "size": 0.17,
+    "tex": "spiral",
+    "rot": 0.2
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Pinwheel galaxy M101"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m51",
+   "level": 3,
+   "category": "spiral",
+   "group": "Outras galáxias",
+   "name": "Galáxia do Redemoinho (M51)",
+   "kind": "Galáxia espiral em interação",
+   "summary": "Uma espiral que está sendo puxada por uma galáxia menor, a NGC 5195. Foi a primeira galáxia em que se viu a estrutura espiral, em 1845.",
+   "curiosity": "Quem a viu primeiro foi o astrônomo irlandês Lord Rosse, desenhando à mão no telescópio.",
+   "color": "#7cc4ff",
+   "parent": null,
+   "sort": 620,
+   "facts": [
+    [
+     "Distância",
+     "≈ 23 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 76.000 anos-luz"
+    ]
+   ],
+   "render": {
+    "l": 104.9,
+    "b": 68.6,
+    "d_mly": 23,
+    "size": 0.08,
+    "tex": "spiral",
+    "rot": 0.25
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Whirlpool galaxy M51"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m104",
+   "level": 3,
+   "category": "spiral",
+   "group": "Outras galáxias",
+   "name": "Galáxia do Sombrero (M104)",
+   "kind": "Galáxia espiral vista de lado",
+   "summary": "Parece um chapéu mexicano: um bojo central brilhante cercado por uma faixa escura de poeira.",
+   "curiosity": "Tem cerca de 2.000 aglomerados globulares, bem mais que a Via Láctea.",
+   "color": "#ffe3a8",
+   "parent": null,
+   "sort": 630,
+   "facts": [
+    [
+     "Distância",
+     "≈ 29 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 50.000 anos-luz"
+    ],
+    [
+     "Buraco negro central",
+     "≈ 1 bilhão de Sóis"
+    ]
+   ],
+   "render": {
+    "l": 298,
+    "b": 51.1,
+    "d_mly": 29,
+    "size": 0.05,
+    "tex": "edge",
+    "rot": 0
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Sombrero galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "m87",
+   "level": 3,
+   "category": "ell",
+   "group": "Outras galáxias",
+   "name": "Messier 87 (Aglomerado de Virgem)",
+   "kind": "Galáxia elíptica gigante",
+   "summary": "Uma galáxia elíptica gigante no centro do Aglomerado de Virgem, que reúne mais de mil galáxias. Foi a primeira com o buraco negro fotografado, em 2019.",
+   "curiosity": "O buraco negro de M87 é mais de 1.000 vezes maior que o da nossa galáxia.",
+   "color": "#ffd27a",
+   "parent": null,
+   "sort": 640,
+   "facts": [
+    [
+     "Distância",
+     "≈ 53 milhões de anos-luz"
+    ],
+    [
+     "Buraco negro central",
+     "≈ 6,5 bilhões de Sóis"
+    ],
+    [
+     "Jato",
+     "≈ 5.000 anos-luz de comprimento"
+    ],
+    [
+     "Primeira imagem de buraco negro",
+     "2019, Event Horizon Telescope"
+    ]
+   ],
+   "render": {
+    "l": 283.8,
+    "b": 74.5,
+    "d_mly": 53,
+    "size": 0.12,
+    "tex": "elliptical",
+    "rot": 0
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "M87 galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "cart",
+   "level": 3,
+   "category": "irr",
+   "group": "Outras galáxias",
+   "name": "Galáxia da Roda de Carroça",
+   "kind": "Galáxia em anel",
+   "summary": "Uma colisão com outra galáxia criou uma onda que se espalha como a de uma pedra na água, formando um grande anel de estrelas novas.",
+   "curiosity": "O anel cresce a cerca de 300.000 km/h. A posição no mapa é aproximada.",
+   "color": "#8fc2ff",
+   "parent": null,
+   "sort": 650,
+   "facts": [
+    [
+     "Distância",
+     "≈ 500 milhões de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "≈ 150.000 anos-luz"
+    ],
+    [
+     "Registrada por",
+     "Telescópio James Webb (2022)"
+    ]
+   ],
+   "render": {
+    "l": 350,
+    "b": -83,
+    "d_mly": 500,
+    "size": 0.15,
+    "tex": "ring",
+    "rot": 0.2
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Cartwheel galaxy"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "ga",
+   "level": 3,
+   "category": "struct",
+   "group": "Estruturas",
+   "name": "Grande Atrator",
+   "kind": "Anomalia gravitacional",
+   "summary": "Uma região do espaço que puxa nossa vizinhança cósmica, incluindo a Via Láctea, na direção dela. Fica escondida atrás do disco da nossa própria galáxia.",
+   "curiosity": "Os astrônomos não a veem direito porque a Via Láctea tapa a visão naquela direção.",
+   "color": "#ff8fc0",
+   "parent": null,
+   "sort": 660,
+   "facts": [
+    [
+     "Distância",
+     "≈ 150 a 250 milhões de anos-luz"
+    ],
+    [
+     "Massa",
+     "Dezenas de milhares de galáxias"
+    ],
+    [
+     "Efeito",
+     "Nos move a centenas de km/s"
+    ]
+   ],
+   "render": {
+    "l": 325,
+    "b": -7,
+    "d_mly": 220,
+    "size": 50,
+    "tex": "attractor",
+    "rot": 0,
+    "fixed": true
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Great Attractor"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "coma",
+   "level": 3,
+   "category": "struct",
+   "group": "Estruturas",
+   "name": "Aglomerado de Coma",
+   "kind": "Aglomerado de galáxias",
+   "summary": "Um grupo com mais de mil galáxias ligadas pela gravidade. Foi nele que o astrônomo Fritz Zwicky notou, em 1933, o primeiro sinal da matéria escura.",
+   "curiosity": "As galáxias se moviam rápido demais para ficarem presas só pela massa que se vê.",
+   "color": "#ffd27a",
+   "parent": null,
+   "sort": 670,
+   "facts": [
+    [
+     "Distância",
+     "≈ 320 milhões de anos-luz"
+    ],
+    [
+     "Galáxias",
+     "Mais de 1.000 brilhantes (milhares ao todo)"
+    ],
+    [
+     "Descoberta",
+     "Matéria escura, 1933"
+    ]
+   ],
+   "render": {
+    "l": 58.1,
+    "b": 88,
+    "d_mly": 320,
+    "size": 12,
+    "tex": "cluster",
+    "rot": 0,
+    "fixed": true
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Coma cluster"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "ic1101",
+   "level": 3,
+   "category": "ell",
+   "group": "Outras galáxias",
+   "name": "IC 1101",
+   "kind": "Galáxia elíptica supergigante",
+   "summary": "Uma das maiores galáxias já medidas, no centro do aglomerado Abell 2029. Perto dela a Via Láctea seria uma pontinha.",
+   "curiosity": "É ≈ 20 a 60 vezes mais larga que a Via Láctea. A posição no mapa é aproximada.",
+   "color": "#ffd27a",
+   "parent": null,
+   "sort": 680,
+   "facts": [
+    [
+     "Distância",
+     "≈ 1 bilhão de anos-luz"
+    ],
+    [
+     "Diâmetro",
+     "Estimativas de 2 a 6 milhões de anos-luz"
+    ],
+    [
+     "Estrelas",
+     "Cerca de 100 trilhões"
+    ]
+   ],
+   "render": {
+    "l": 6.4,
+    "b": 50.5,
+    "d_mly": 1045,
+    "size": 2,
+    "tex": "elliptical",
+    "rot": 0
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Abell 2029"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "lg",
+   "level": 3,
+   "category": "struct",
+   "group": "Estruturas",
+   "name": "Grupo Local",
+   "kind": "Grupo de galáxias",
+   "summary": "O pequeno “bairro” da Via Láctea. Reúne mais de 80 galáxias ligadas pela gravidade, a maioria anãs. As maiores são Andrômeda, a Via Láctea e a Triângulo.",
+   "curiosity": "O Grupo Local faz parte do Superaglomerado de Laniakea, que tem ≈ 100.000 galáxias.",
+   "color": "#ff8fc0",
+   "parent": null,
+   "sort": 690,
+   "facts": [
+    [
+     "Diâmetro",
+     "≈ 10 milhões de anos-luz"
+    ],
+    [
+     "Galáxias",
+     "Mais de 80"
+    ],
+    [
+     "Maiores",
+     "Andrômeda, Via Láctea, Triângulo"
+    ]
+   ],
+   "render": {
+    "l": 121.2,
+    "b": -21.6,
+    "d_mly": 1.2,
+    "view": 6,
+    "min": 0.5
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Local Group galaxies"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "laniakea",
+   "level": 3,
+   "category": "struct",
+   "group": "Estruturas",
+   "name": "Superaglomerado de Laniakea",
+   "kind": "Estrutura em grande escala",
+   "summary": "A “região” do universo em que vivemos, onde o fluxo de galáxias converge para o Grande Atrator. O nome vem do havaiano “céu imenso”.",
+   "curiosity": "Foi definido em 2014 quando astrônomos mapearam como as galáxias se movem.",
+   "color": null,
+   "parent": null,
+   "sort": 700,
+   "facts": [
+    [
+     "Diâmetro",
+     "≈ 520 milhões de anos-luz"
+    ],
+    [
+     "Galáxias",
+     "≈ 100.000"
+    ],
+    [
+     "Massa",
+     "≈ 100 milhões de bilhões de Sóis"
+    ]
+   ],
+   "render": {
+    "virtual": true,
+    "nofly": true
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "galaxy supercluster"
+   },
+   "action": null,
+   "live": []
+  },
+  {
+   "slug": "universo",
+   "level": 3,
+   "category": "struct",
+   "group": "Estruturas",
+   "name": "Universo observável",
+   "kind": "Tudo o que podemos observar",
+   "summary": "A parte do cosmos de onde a luz teve tempo de chegar até nós desde o Big Bang. É uma esfera com a Terra no centro, mas sem borda real: o universo pode ser bem maior.",
+   "curiosity": "Os pontos de fundo são galáxias ilustrativas, só para dar ideia de que existem muitas outras.",
+   "color": null,
+   "parent": null,
+   "sort": 710,
+   "facts": [
+    [
+     "Diâmetro",
+     "≈ 93 bilhões de anos-luz"
+    ],
+    [
+     "Idade",
+     "≈ 13,8 bilhões de anos"
+    ],
+    [
+     "Galáxias",
+     "Algumas centenas de bilhões a ≈ 2 trilhões"
+    ],
+    [
+     "Mostrado aqui",
+     "Cerca de 1 bilhão de anos-luz"
+    ]
+   ],
+   "render": {
+    "virtual": true,
+    "nofly": true
+   },
+   "nasa": {
+    "horizons": null,
+    "sbdb": null,
+    "images": "Hubble Ultra Deep Field"
+   },
+   "action": null,
+   "live": []
+  }
+ ]
+}

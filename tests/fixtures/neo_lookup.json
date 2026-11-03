@@ -1,0 +1,38 @@
+{
+ "id": "3700000",
+ "neo_reference_id": "3700000",
+ "name": "(2026 TK3)",
+ "designation": "2026 TK3",
+ "absolute_magnitude_h": 24.3,
+ "is_potentially_hazardous_asteroid": false,
+ "orbital_data": {
+  "orbit_id": "5",
+  "orbit_determination_date": "2026-10-20 06:12:09",
+  "first_observation_date": "2026-10-12",
+  "last_observation_date": "2026-10-19",
+  "data_arc_in_days": 7,
+  "observations_used": 61,
+  "orbit_uncertainty": "6",
+  "minimum_orbit_intersection": ".00281",
+  "jupiter_tisserand_invariant": "5.12",
+  "epoch_osculation": "2461000.5",
+  "eccentricity": ".2876430977314841",
+  "semi_major_axis": "1.264402773110561",
+  "inclination": "4.12835613120938",
+  "ascending_node_longitude": "33.00410102396411",
+  "orbital_period": "519.3",
+  "perihelion_distance": ".9007",
+  "perihelion_argument": "251.3049153291838",
+  "aphelion_distance": "1.628",
+  "perihelion_time": "2461025.21",
+  "mean_anomaly": "342.8752014930434",
+  "mean_motion": ".6932064117891234",
+  "equinox": "J2000",
+  "orbit_class": {
+   "orbit_class_type": "APO",
+   "orbit_class_description": "Near-Earth asteroid orbits which cross the Earth's orbit similar to that of 1862 Apollo",
+   "orbit_class_range": "a (semi-major axis) > 1.0 AU; q (perihelion) < 1.017 AU"
+  }
+ },
+ "is_sentry_object": false
+}
