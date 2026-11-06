@@ -7,7 +7,7 @@ export const IntroModal = {
   name: 'IntroModal',
   setup() { return { store }; },
   template: `
-  <div class="overlay" v-if="store.introOpen" @click.self="store.introOpen = false">
+  <div class="overlay" v-if="store.introOpen && store.view === 'sim'" @click.self="store.introOpen = false">
     <div class="panel modal" role="dialog" aria-modal="true" aria-labelledby="intro-t">
       <h1 id="intro-t">Atlas do <b>Cosmos</b></h1>
       <p>Viaje do Sol até as galáxias mais distantes. As órbitas, as sondas, os asteroides desta semana e as estrelas com planetas vêm das APIs da NASA; as distâncias são proporcionais às reais.</p>

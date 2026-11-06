@@ -47,6 +47,10 @@ class Settings(BaseSettings):
     images_url: str = "https://images-api.nasa.gov/search"
     exoplanet_tap_url: str = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
     epic_archive_url: str = "https://epic.gsfc.nasa.gov/archive"
+    techtransfer_url: str = "https://technology.nasa.gov/api/api"
+    #: Fontes do blog (notícias e agenda de lançamentos), abertas e sem chave.
+    spaceflight_news_url: str = "https://api.spaceflightnewsapi.net/v4"
+    launch_library_url: str = "https://ll.thespacedevs.com/2.3.0"
     http_timeout: float = 25.0
     #: Quantas requisições simultâneas cada serviço externo pode receber.
     nasa_concurrency: int = 4
@@ -60,6 +64,9 @@ class Settings(BaseSettings):
     epic_ttl_minutes: int = 180
     flares_ttl_minutes: int = 60
     images_ttl_days: int = 7
+    news_ttl_minutes: int = 15
+    launches_ttl_minutes: int = 60
+    tech_ttl_hours: int = 24
     exoplanets_ttl_days: int = 7
     neo_limit: int = Field(default=10, ge=1, le=25)
 

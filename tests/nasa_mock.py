@@ -36,6 +36,10 @@ VECTORS_HEADER = (
 )
 
 
+#: Parâmetros das consultas feitas à Spaceflight News API (para os testes do blog).
+NEWS_REQUESTS: list[dict[str, str]] = []
+
+
 def fixture(name: str):
     return json.loads((FIXTURES / name).read_text("utf-8"))
 
@@ -158,7 +162,8 @@ def _exoplanets() -> httpx.Response:
 
 
 def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
-    """``fail`` pode conter: horizons, sbdb, neows, apod, donki, epic, images, exoplanets."""
+    """``fail`` pode conter: horizons, sbdb, neows, apod, donki, epic, images, exoplanets,
+    news, launches, techtransfer."""
     fail = fail or set()
 
     def handler(request: httpx.Request) -> httpx.Response:
@@ -180,6 +185,23 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
             )
         if host == "exoplanetarchive.ipac.caltech.edu":
             return httpx.Response(503) if down("exoplanets") else _exoplanets()
+        if host == "api.spaceflightnewsapi.net":
+            if down("news"):
+                return httpx.Response(503)
+            NEWS_REQUESTS.append(params)  # permite aos testes conferir os filtros enviados
+            return httpx.Response(200, json=fixture("snapi_articles.json"))
+        if host == "ll.thespacedevs.com":
+            return (
+                httpx.Response(503)
+                if down("launches")
+                else httpx.Response(200, json=fixture("ll2_upcoming.json"))
+            )
+        if host == "technology.nasa.gov":
+            return (
+                httpx.Response(503)
+                if down("techtransfer")
+                else httpx.Response(200, json=fixture("techtransfer_patent.json"))
+            )
         if host == "api.nasa.gov":
             if params.get("api_key") in (None, ""):
                 return httpx.Response(403, json={"error": {"code": "API_KEY_MISSING"}})

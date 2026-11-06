@@ -30,6 +30,15 @@ export const api = {
   epic: () => get('/api/media/epic'),
   images: slug => get(`/api/media/images/${encodeURIComponent(slug)}?limit=4`),
   flares: () => get('/api/space-weather/flares?days=30'),
+  // Blog
+  blogTopics: () => get('/api/blog/topics'),
+  blogFeed: ({ kind, topic, q, offset = 0, limit = 20 }) => {
+    const params = new URLSearchParams({ kind, topic, offset, limit });
+    if (q) params.set('q', q);
+    return get(`/api/blog/feed?${params}`);
+  },
+  blogLaunches: () => get('/api/blog/launches?limit=6'),
+  blogTech: area => get(`/api/blog/technologies/${encodeURIComponent(area)}?limit=4`),
 };
 
 /* Memoriza pedidos dos cards para não repetir a mesma consulta ao reabrir um astro. */
