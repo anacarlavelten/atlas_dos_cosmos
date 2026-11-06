@@ -4,8 +4,13 @@
 import { reactive, markRaw } from 'vue';
 import { CATCOL, fmt } from './engine/util.js';
 
+/* Aba aberta: 'blog' (página inicial) ou 'sim' (simulador). Vem do endereço
+   (#/blog ou #/simulador) para que o botão Voltar do navegador funcione. */
+export const viewFromHash = () => (location.hash.startsWith('#/simulador') ? 'sim' : 'blog');
+
 export const store = reactive({
-  phase: 'loading',            // loading | ready | error
+  view: viewFromHash(),
+  phase: 'idle',               // idle | loading | ready | error (o simulador só carrega ao abrir a aba)
   loadingMsg: 'Preparando o céu…',
   fatal: null,
   health: null,

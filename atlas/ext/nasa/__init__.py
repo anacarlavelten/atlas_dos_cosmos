@@ -2,7 +2,9 @@
 
 * Com a chave de https://api.nasa.gov: APOD, NeoWs, DONKI e EPIC.
 * Sem chave (serviços públicos da NASA/JPL/IPAC): Horizons, SBDB, Biblioteca de
-  Imagens e Exoplanet Archive.
+  Imagens, Exoplanet Archive e Technology Transfer.
+* Fontes abertas de notícias do setor espacial (usadas pelo blog): Spaceflight
+  News API e Launch Library 2 (The Space Devs).
 
 O cliente HTTP (``httpx.AsyncClient``) é criado no startup e fechado no
 shutdown da aplicação; todas as requisições reaproveitam suas conexões.
@@ -24,8 +26,11 @@ from atlas.ext.nasa.exoplanet_archive import ExoplanetArchiveClient
 from atlas.ext.nasa.horizons import HorizonsClient
 from atlas.ext.nasa.http import NasaError, NasaRateLimited
 from atlas.ext.nasa.images import ImagesClient
+from atlas.ext.nasa.launch_library import LaunchLibraryClient
 from atlas.ext.nasa.neows import NeoWsClient
 from atlas.ext.nasa.sbdb import SbdbClient
+from atlas.ext.nasa.spaceflight_news import SpaceflightNewsClient
+from atlas.ext.nasa.techtransfer import TechTransferClient
 
 __all__ = ["NasaError", "NasaGateway", "NasaRateLimited", "NasaDep", "init_app"]
 
@@ -55,6 +60,9 @@ class NasaGateway:
         self.sbdb = SbdbClient(self)
         self.images = ImagesClient(self)
         self.exoplanets = ExoplanetArchiveClient(self)
+        self.news = SpaceflightNewsClient(self)
+        self.launches = LaunchLibraryClient(self)
+        self.techtransfer = TechTransferClient(self)
 
     def observe(self, response: httpx.Response) -> None:
         """Guarda a cota restante informada pelos cabeçalhos do api.nasa.gov."""

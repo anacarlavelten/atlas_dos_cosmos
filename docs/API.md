@@ -168,3 +168,47 @@ Resumo das erupções solares do período (1 a 90 dias):
   "recent": [ { "class_type": "M5.6", "peak_time": "2026-10-22T08:22Z", "...": "..." } ],
   "source": "NASA DONKI", "fetched_at": "...", "stale": false }
 ```
+
+---
+
+## Blog (`atlas/blog`)
+
+A aba **Blog** (página inicial do frontend) usa só estas rotas e as de imagens, asteroides
+e clima espacial acima. Nenhum conteúdo fica fixo no frontend; o backend consulta APIs
+abertas (sem chave) e guarda as respostas no cache.
+
+| Fonte | Uso | Cache |
+|---|---|---|
+| [Spaceflight News API](https://spaceflightnewsapi.net) | notícias, blogs e relatórios | `NEWS_TTL_MINUTES` (15) |
+| [Launch Library 2](https://thespacedevs.com/llapi) | próximos lançamentos | `LAUNCHES_TTL_MINUTES` (60) |
+| [NASA Technology Transfer](https://technology.nasa.gov) | tecnologias da NASA | `TECH_TTL_HOURS` (24) |
+
+### `GET /api/blog/topics`
+Filtros disponíveis: `kinds` (`articles`, `blogs`, `reports`), `topics` (`tudo`,
+`tecnologia`, `lancamentos`, `lua-marte`, `astronomia`, `astronautas`) e `tech_areas`.
+Cada tópico é traduzido em palavras buscadas no título das publicações.
+
+### `GET /api/blog/feed?kind=articles&topic=tudo&q=&offset=0&limit=20`
+Linha do tempo, da publicação mais nova para a mais antiga. `q` é uma busca livre
+(até 80 caracteres). `404` para `kind`/`topic` desconhecidos.
+
+```json
+{ "kind": "articles", "topic": "tudo", "query": null, "total": 36799,
+  "offset": 0, "limit": 20, "has_more": true,
+  "posts": [ { "id": 40748, "kind": "articles", "title": "...", "summary": "...",
+               "url": "https://spacenews.com/...", "image_url": "https://...",
+               "news_site": "SpaceNews", "authors": ["SpaceNews Editor"],
+               "published_at": "2026-11-05T14:15:38Z", "featured": false,
+               "launches": 0, "events": 0 } ],
+  "source": "Spaceflight News API", "fetched_at": "...", "stale": false }
+```
+
+### `GET /api/blog/launches?limit=6`
+Próximos lançamentos: `name`, `net` (data prevista, UTC), `net_precision`, `status`,
+`status_abbrev` (`Go`, `TBC`, `TBD`...), `provider`, `rocket`, `mission`, `orbit`, `pad`,
+`location`, `image_url` e `page_url` (página no Space Launch Now).
+
+### `GET /api/blog/technologies/{area}?limit=4`
+Patentes da NASA disponíveis para licenciamento numa área (`propulsao`, `robotica`,
+`materiais`, `sensores`, `energia`, `saude`): `title`, `summary`, `category`, `center`
+(centro da NASA), `image_url`, `page_url`.

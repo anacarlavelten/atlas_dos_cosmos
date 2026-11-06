@@ -1,0 +1,35 @@
+{
+  "count": 36799,
+  "next": "https://api.spaceflightnewsapi.net/v4/articles/?limit=2&offset=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 40748,
+      "title": "Building a &#8216;highway to the moon&#8217; with a catapult",
+      "authors": [{ "name": "SpaceNews Editor", "socials": null }],
+      "url": "https://spacenews.com/exemplo-catapulta/",
+      "image_url": "https://example.org/catapulta.jpg",
+      "news_site": "SpaceNews",
+      "summary": "\nElectromagnetic launch technology could cut costs [&#8230;]\nThe post Building a highway appeared first on SpaceNews.",
+      "published_at": "2026-11-05T14:15:38Z",
+      "updated_at": "2026-11-05T14:20:24.713714Z",
+      "featured": true,
+      "launches": [{ "launch_id": "abc", "provider": "Launch Library 2" }],
+      "events": []
+    },
+    {
+      "id": 40747,
+      "title": "OHB awarded contract for next-gen Sentinel-3 satellite",
+      "authors": [],
+      "url": "https://europeanspaceflight.com/exemplo-ohb/",
+      "image_url": "",
+      "news_site": "European Spaceflight",
+      "summary": "German satellite manufacturer OHB has secured a contract.",
+      "published_at": "2026-11-05T13:00:00Z",
+      "updated_at": "2026-11-05T13:05:00Z",
+      "featured": false,
+      "launches": [],
+      "events": []
+    }
+  ]
+}

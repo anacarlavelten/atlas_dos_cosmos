@@ -1,9 +1,11 @@
 import { computed } from 'vue';
 import { store, engineRef } from '../store.js';
 import { overallStatus } from './SourcesPanel.js';
+import ViewSwitch from './ViewSwitch.js';
 
 export default {
   name: 'TopBar',
+  components: { ViewSwitch },
   setup() {
     const status = computed(() => overallStatus());
     const goLevel = n => engineRef.current?.goLevel(n, 'tab');
@@ -17,6 +19,7 @@ export default {
   template: `
   <div id="top">
     <div class="panel brand">Atlas do <b>Cosmos</b></div>
+    <ViewSwitch class="panel" />
     <div class="panel" id="tabs" role="tablist">
       <button v-for="l in store.levels" :key="l.level" role="tab" :aria-selected="store.level === l.level"
               :class="{ on: store.level === l.level }" @click="goLevel(l.level)">{{ l.name }}</button>

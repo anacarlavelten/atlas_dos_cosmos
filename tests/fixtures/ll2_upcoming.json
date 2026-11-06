@@ -1,0 +1,38 @@
+{
+  "count": 478,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": "711de6bc-f755-475b-a12f-ec5240da3a11",
+      "name": "Long March 2C | Unknown Payload",
+      "slug": "long-march-2c-unknown-payload",
+      "status": { "id": 1, "name": "Go for Launch", "abbrev": "Go" },
+      "net": "2026-11-05T16:00:00Z",
+      "net_precision": { "id": 2, "name": "Hour", "abbrev": "HR" },
+      "image": {
+        "image_url": "https://example.org/long-march.jpeg",
+        "thumbnail_url": "https://example.org/long-march-thumb.jpeg"
+      },
+      "launch_service_provider": { "id": 88, "name": "China Aerospace Science and Technology Corporation" },
+      "rocket": { "configuration": { "name": "Long March 2C", "full_name": "Long March 2C" } },
+      "mission": { "name": "Unknown Payload", "type": "Unknown", "orbit": { "name": "Low Earth Orbit" } },
+      "pad": {
+        "name": "Launch Complex 3 (LC-3/LA-1)",
+        "location": { "name": "Xichang Satellite Launch Center, People's Republic of China" }
+      }
+    },
+    {
+      "id": "b2",
+      "name": "Falcon 9 Block 5 | Starlink Group 10-1",
+      "slug": null,
+      "status": { "name": "To Be Confirmed", "abbrev": "TBC" },
+      "net": "2026-11-06T02:10:00Z",
+      "image": null,
+      "launch_service_provider": { "name": "SpaceX" },
+      "rocket": { "configuration": { "name": "Falcon 9" } },
+      "mission": null,
+      "pad": null
+    }
+  ]
+}

@@ -42,6 +42,7 @@ class Engine {
     this.labels = new LabelLayer(this, labelsEl, tipEl);
     this.tmp = new THREE.Vector3();
     this.hudT = 0;
+    this.active = true;
   }
 
   async build(data, progress) {
@@ -277,6 +278,7 @@ class Engine {
       this.zoomBy(Math.exp(clamp(d, -300, 300) * 0.0016));
     }, { passive: false });
     addEventListener('keydown', e => {
+      if (!this.active) return;
       if (e.key === 'Escape') this.select(null);
       if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); this.togglePlay(); }
     });
@@ -292,12 +294,20 @@ class Engine {
     this.universe.material.uniforms.uScale.value = scale;
   }
 
+  /* Liga/desliga a cena quando a aba do simulador aparece ou some: oculto, o
+     motor não desenha nem responde ao teclado (economiza GPU e bateria). */
+  setActive(on) {
+    this.active = !!on;
+    if (this.active) this.resize();
+  }
+
   /* ===================== LOOP ===================== */
   start() {
     let last = performance.now();
     const frame = now => {
       requestAnimationFrame(frame);
       const dt = Math.min((now - last) / 1000, 0.1); last = now;
+      if (!this.active) return;
       this.step(dt);
     };
     requestAnimationFrame(frame);
