@@ -1,105 +1,103 @@
-/* Destaques do topo do blog: a imagem astronômica do dia (NASA APOD) e a
-   contagem regressiva para o próximo lançamento orbital (Launch Library 2). */
-import { ref, computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { api, once } from '../../api.js';
 import { store } from '../../store.js';
-import { now, ago, countdown, dateLong, dateTime, hideBroken } from './format.js';
+import { ago, dateLong, now } from './format.js';
+import LaunchCountdown from './LaunchCountdown.js';
+import { futureLaunches } from './launches.js';
+import PostImage from './PostImage.js';
 
 export default {
   name: 'BlogHero',
-  setup() {
-    const apod = ref(null), apodErr = ref(null);
-    const launches = ref(null), launchErr = ref(null);
-
-    /* Se o APOD estiver fora do ar, o destaque passa a ser a publicação mais
-       recente com imagem (preferindo as marcadas como destaque pela fonte). */
-    const lead = ref(null);
-    const loadLead = () => api.blogFeed({ kind: 'articles', topic: 'tudo', offset: 0, limit: 12 }).then(d => {
-      const withImg = d.posts.filter(p => p.image_url);
-      lead.value = withImg.find(p => p.featured) || withImg[0] || null;
-    }, () => {});
+  components: { LaunchCountdown, PostImage },
+  props: {
+    lead: { type: Object, default: null },
+    sideStories: { type: Array, default: () => [] },
+    relatedStories: { type: Array, default: () => [] },
+  },
+  setup(props) {
+    const apod = ref(null);
+    const apodError = ref('');
+    const launches = ref([]);
+    const launchError = ref('');
+    const upcomingLaunches = computed(() => futureLaunches(launches.value, now.value));
+    const nextLaunch = computed(() => upcomingLaunches.value.find(launch => launch.net) || upcomingLaunches.value[0] || null);
+    const apodImage = computed(() => apod.value?.media_type === 'video'
+      ? apod.value.thumbnail_url
+      : apod.value?.url);
+    const visibleSideStories = computed(() => apod.value && props.lead
+      ? [props.lead, props.sideStories[0]].filter(Boolean)
+      : props.sideStories);
 
     onMounted(() => {
-      once('apod', api.apod).then(d => { apod.value = d; }, e => { apodErr.value = e.message; loadLead(); });
-      once('launches', api.blogLaunches).then(d => { launches.value = d; }, e => { launchErr.value = e.message; });
+      once('apod', api.apod).then(data => { apod.value = data; }, err => { apodError.value = err.message; });
+      once('launches', api.blogLaunches).then(data => { launches.value = data.launches || []; }, err => { launchError.value = err.message; });
     });
 
-    const apodImage = computed(() => {
-      const a = apod.value;
-      if (!a) return null;
-      return a.media_type === 'video' ? a.thumbnail_url : a.url;
-    });
-    /* Primeiro lançamento que ainda não aconteceu (a lista pode trazer um que acabou de sair). */
-    const next = computed(() => {
-      const list = launches.value?.launches || [];
-      return list.find(l => Date.parse(l.net) > now.value - 3600e3) || list[0] || null;
-    });
-    const t = computed(() => (next.value?.net ? countdown(next.value.net, now.value) : null));
-
-    return { store, apod, apodErr, apodImage, lead, ago, now, launches, launchErr, next, t, dateLong, dateTime, hideBroken };
+    return {
+      store, apod, apodError, apodImage, lead: computed(() => props.lead),
+      sideStories: visibleSideStories,
+      relatedStories: computed(() => props.relatedStories), nextLaunches: upcomingLaunches, nextLaunch, launchError,
+      ago, now, dateLong,
+    };
   },
   template: `
-  <section class="hero" aria-label="Destaques">
-    <article class="panel apod-hero" data-img>
-      <template v-if="apod">
-        <img v-if="apodImage" class="apod-bg" :src="apodImage" :alt="apod.title" @error="hideBroken" loading="eager">
-        <div class="apod-shade"></div>
-        <div class="apod-text">
-          <span class="chip" style="--c: var(--sun)"><i></i>Imagem astronômica do dia · NASA APOD</span>
-          <h2>{{ apod.title }}</h2>
-          <p class="clamp-3" lang="en">{{ apod.explanation }}</p>
-          <div class="meta">
-            <span>{{ dateLong(apod.date) }}</span>
-            <span v-if="apod.copyright">© {{ apod.copyright }}</span>
-            <span v-if="apod.stale">dados guardados</span>
+  <section class="portal-hero" aria-label="Destaques">
+    <div class="hero-main-column">
+      <article class="hero-lead">
+        <template v-if="apod">
+          <PostImage class="hero-background" :src="apodImage" :alt="'Imagem astronômica do dia: ' + apod.title" source="NASA · APOD" loading="eager" fetchpriority="high" />
+          <div class="hero-shade"></div>
+          <div class="hero-copy">
+            <span class="hero-category">NASA · IMAGEM DO DIA</span>
+            <h1>{{ apod.title }}</h1>
+            <p class="hero-summary">{{ apod.explanation }}</p>
+            <div class="hero-byline">
+              <span>{{ dateLong(apod.date) }}</span>
+              <span>{{ apod.copyright || 'NASA APOD' }}</span>
+              <span>{{ apod.stale ? 'Dados em cache' : 'Atualizado hoje' }}</span>
+            </div>
+            <a class="hero-cta" :href="apod.media_type === 'video' ? apod.url : (apod.hdurl || apod.url)" target="_blank" rel="noopener">
+              {{ apod.media_type === 'video' ? 'Assistir à publicação' : 'Explorar a imagem' }} <span aria-hidden="true">↗</span>
+            </a>
           </div>
-          <div class="row">
-            <button class="act sm-act" @click="store.apodOpen = true">Ver em tela cheia</button>
-            <a class="ghost" :href="apod.page_url" target="_blank" rel="noopener">Site do APOD ↗</a>
+        </template>
+        <template v-else-if="lead">
+          <PostImage class="hero-background" :src="lead.image_url" :fallback-src="lead.thumbnail || lead.image" :alt="'Imagem da notícia: ' + lead.title" :source="lead.news_site" loading="eager" fetchpriority="high" />
+          <div class="hero-shade"></div>
+          <div class="hero-copy">
+            <span class="hero-category">{{ lead.news_site }} · DESTAQUE</span>
+            <h1>{{ lead.title }}</h1>
+            <p v-if="lead.summary" class="hero-summary">{{ lead.summary }}</p>
+            <div class="hero-byline"><span>{{ ago(lead.published_at, now) }}</span><span>{{ lead.news_site }}</span><span>NASA APOD indisponível</span></div>
+            <a class="hero-cta" :href="lead.url" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">↗</span></a>
           </div>
+        </template>
+        <div v-else-if="apodError" class="hero-error" role="status">
+          <span class="hero-category">NASA · IMAGEM DO DIA</span>
+          <h1>O espaço, em perspectiva</h1>
+          <p>{{ apodError }}</p>
+          <p v-if="launchError">{{ launchError }}</p>
         </div>
-      </template>
-      <template v-else-if="apodErr && lead">
-        <img class="apod-bg" :src="lead.image_url" alt="" @error="hideBroken">
-        <div class="apod-shade"></div>
-        <div class="apod-text">
-          <span class="chip" style="--c: var(--sky)"><i></i>Em destaque · {{ lead.news_site }}</span>
-          <h2>{{ lead.title }}</h2>
-          <p class="clamp-3" lang="en" v-if="lead.summary">{{ lead.summary }}</p>
-          <div class="meta">
-            <span>{{ ago(lead.published_at, now) }}</span>
-            <span>A imagem astronômica do dia (NASA APOD) está indisponível no momento.</span>
-          </div>
-          <div class="row"><a class="act sm-act" :href="lead.url" target="_blank" rel="noopener">Ler a publicação ↗</a></div>
-        </div>
-      </template>
-      <div v-else-if="apodErr" class="apod-text"><span class="chip" style="--c: var(--sun)"><i></i>Imagem do dia</span><p class="muted">{{ apodErr }}</p></div>
-      <div v-else class="skel fill"></div>
-    </article>
-
-    <article class="panel next-launch">
-      <span class="chip" style="--c: var(--rose)"><i></i>Próximo lançamento</span>
-      <template v-if="next">
-        <h3>{{ next.name }}</h3>
-        <div class="count" v-if="t" :aria-label="'Faltam ' + t.d + ' dias, ' + t.h + ' horas e ' + t.m + ' minutos'">
-          <span class="tsign">T{{ t.sign }}</span>
-          <span><b>{{ t.d }}</b><small>dias</small></span>
-          <span><b>{{ t.h }}</b><small>horas</small></span>
-          <span><b>{{ t.m }}</b><small>min</small></span>
-          <span><b>{{ t.s }}</b><small>seg</small></span>
-        </div>
-        <dl>
-          <dt>Data</dt><dd>{{ dateTime(next.net) }}<small v-if="next.net_precision && next.net_precision !== 'Second' && next.net_precision !== 'Minute'"> · precisão: {{ next.net_precision }}</small></dd>
-          <template v-if="next.status"><dt>Situação</dt><dd><span class="status" :class="'st-' + (next.status_abbrev || '').toLowerCase()">{{ next.status }}</span></dd></template>
-          <template v-if="next.provider"><dt>Operador</dt><dd>{{ next.provider }}</dd></template>
-          <template v-if="next.rocket"><dt>Foguete</dt><dd>{{ next.rocket }}</dd></template>
-          <template v-if="next.orbit && next.orbit !== 'Unknown'"><dt>Órbita</dt><dd>{{ next.orbit }}</dd></template>
-          <template v-if="next.location"><dt>Local</dt><dd>{{ next.location }}</dd></template>
-        </dl>
-        <a class="linkbtn" :href="next.page_url" target="_blank" rel="noopener">Detalhes no Space Launch Now ↗</a>
-      </template>
-      <p v-else-if="launchErr" class="muted">{{ launchErr }}</p>
-      <div v-else class="skel" style="aspect-ratio:auto;height:220px;margin-top:10px"></div>
-    </article>
+        <div v-else class="hero-skeleton" aria-label="Carregando destaque"></div>
+      </article>
+      <div v-if="relatedStories.length" class="related-stories" aria-label="Notícias relacionadas">
+        <a v-for="post in relatedStories" :key="post.id" :href="post.url" target="_blank" rel="noopener" class="related-story">
+          <small>{{ post.featured ? 'DESTAQUE' : post.news_site }}</small>
+          <b>{{ post.title }}</b>
+          <time :datetime="post.published_at">{{ ago(post.published_at, now) }}</time>
+        </a>
+      </div>
+    </div>
+    <div class="hero-side-column">
+      <a v-for="post in sideStories" :key="post.id" class="hero-side-card" :href="post.url" target="_blank" rel="noopener">
+        <PostImage :src="post.image_url" :fallback-src="post.thumbnail || post.image" :alt="'Imagem da notícia: ' + post.title" :source="post.news_site" />
+        <span class="hero-side-shade"></span>
+        <span class="hero-category">{{ post.news_site }}</span>
+        <b>{{ post.title }}</b>
+        <time :datetime="post.published_at">{{ ago(post.published_at, now) }}</time>
+      </a>
+      <p v-if="!sideStories.length && !nextLaunches.length && launchError" class="hero-side-empty">{{ launchError }}</p>
+    </div>
+    <LaunchCountdown v-if="nextLaunch" class="hero-launch-countdown" :launch="nextLaunch" variant="detailed" />
   </section>`,
 };

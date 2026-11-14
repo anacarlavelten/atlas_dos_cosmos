@@ -12,7 +12,8 @@ from atlas.catalog.services import get_body
 from atlas.ext import cache
 from atlas.ext.config import Settings
 from atlas.ext.nasa import NasaGateway
-from atlas.media.schemas import ApodOut, BodyImagesOut, EpicOut
+from atlas.ext.nasa.apod import is_apod_payload
+from atlas.media.schemas import ApodOut, BirthImagesOut, BodyImagesOut, EpicOut
 
 
 def apod_page_url(day: str) -> str:
@@ -34,18 +35,24 @@ def shape_apod(data: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-async def get_apod(session: AsyncSession, nasa: NasaGateway, settings: Settings) -> ApodOut:
-    today = datetime.now(UTC).date()
+async def get_apod(
+    session: AsyncSession,
+    nasa: NasaGateway,
+    settings: Settings,
+    day: date | None = None,
+) -> ApodOut:
+    target_day = day or datetime.now(UTC).date()
 
     async def produce() -> dict[str, Any]:
-        return shape_apod(await nasa.apod.picture())
+        return shape_apod(await nasa.apod.picture(target_day if day else None))
 
     cached = await cache.remember(
         session,
-        f"apod:{today.isoformat()}",
+        f"apod:{target_day.isoformat()}",
         timedelta(minutes=settings.apod_ttl_minutes),
         produce,
         source="NASA APOD",
+        validate=lambda payload: is_apod_payload(payload, day),
     )
     return ApodOut(**cached.payload, fetched_at=cached.fetched_at, stale=cached.stale)
 
@@ -69,6 +76,27 @@ async def get_body_images(
     return BodyImagesOut(
         slug=slug,
         query=query,
+        images=cached.payload,
+        fetched_at=cached.fetched_at,
+        stale=cached.stale,
+    )
+
+
+async def get_birth_images(
+    session: AsyncSession, nasa: NasaGateway, settings: Settings, year: int
+) -> BirthImagesOut:
+    async def produce() -> list[dict[str, Any]]:
+        return await nasa.images.search_by_year(year, limit=40)
+
+    cached = await cache.remember(
+        session,
+        f"birth-images:{year}",
+        timedelta(days=settings.images_ttl_days),
+        produce,
+        source="NASA Image and Video Library",
+    )
+    return BirthImagesOut(
+        year=year,
         images=cached.payload,
         fetched_at=cached.fetched_at,
         stale=cached.stale,

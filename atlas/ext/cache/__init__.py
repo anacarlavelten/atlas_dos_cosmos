@@ -81,9 +81,14 @@ async def remember(
     *,
     source: str,
     force: bool = False,
+    validate: Callable[[Any], bool] | None = None,
 ) -> Cached:
     async with lock_for(key):
         entry = await read(session, key)
+        if entry is not None and validate is not None and not validate(entry.payload):
+            await session.delete(entry)
+            await session.commit()
+            entry = None
         if entry and not force and _aware(entry.expires_at) > utcnow():
             return Cached(entry.payload, _aware(entry.fetched_at), False, entry.source)
         try:

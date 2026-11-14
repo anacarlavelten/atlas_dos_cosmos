@@ -39,6 +39,8 @@ NASA.
 - **Dados ao vivo nos cards:** fotos da NASA de cada astro, erupções solares no Sol, foto da
   Terra inteira, asteroides da semana e estrelas com exoplanetas.
 - **Foto astronômica do dia (APOD).**
+- **Céu do seu nascimento:** encontre a APOD da data escolhida ou imagens reais da NASA
+  do ano de nascimento, com links para a fonte e para a imagem em alta resolução.
 - **Transparência:** o painel "Dados da NASA" mostra de onde veio cada informação (ao vivo,
   cache ou aproximação).
 - **Funciona mesmo com a NASA fora do ar:** usa a última resposta guardada ou a tabela

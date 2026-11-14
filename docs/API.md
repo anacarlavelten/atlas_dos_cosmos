@@ -141,9 +141,12 @@ Estrelas com planetas confirmados, já em coordenadas galácticas.
 
 ## Imagens (`atlas/media`)
 
-### `GET /api/media/apod`
-Foto astronômica do dia: `date`, `title`, `explanation` (em inglês, texto original),
+### `GET /api/media/apod?date=YYYY-MM-DD`
+Foto astronômica do dia (sem `date`, devolve a edição de hoje): `date`, `title`,
+`explanation` (em inglês, texto original),
 `media_type` (`image` ou `video`), `url`, `hdurl`, `thumbnail_url`, `copyright`, `page_url`.
+Cada data tem uma entrada de cache própria. A API aceita datas de `1995-06-16` até hoje;
+datas anteriores ou futuras retornam `422`.
 
 ### `GET /api/media/epic`
 Últimas fotos da Terra inteira pela câmera EPIC: `images[]` com `date`, `caption`,
@@ -153,6 +156,11 @@ para o arquivo público `epic.gsfc.nasa.gov` (sem a chave).
 ### `GET /api/media/images/{slug}?limit=4`
 Fotos do astro na NASA Image and Video Library, usando o termo de busca do catálogo
 (`nasa.images`). Cada imagem: `nasa_id`, `title`, `description`, `thumbnail`, `page_url`.
+
+### `GET /api/media/birth-images/{year}`
+Imagens de tema espacial da NASA Image and Video Library criadas no ano informado.
+Retorna `year`, `images[]` (com `date_created`, `center`, `thumbnail` e `page_url`) e
+metadados de cache. Não exige chave da NASA; resultados ficam em cache por ano.
 
 ---
 

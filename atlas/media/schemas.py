@@ -38,6 +38,13 @@ class BodyImagesOut(BaseModel):
     stale: bool = False
 
 
+class BirthImagesOut(BaseModel):
+    year: int
+    images: list[NasaImageOut]
+    fetched_at: datetime
+    stale: bool = False
+
+
 class EpicImageOut(BaseModel):
     date: str
     caption: str

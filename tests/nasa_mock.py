@@ -38,6 +38,8 @@ VECTORS_HEADER = (
 
 #: Parâmetros das consultas feitas à Spaceflight News API (para os testes do blog).
 NEWS_REQUESTS: list[dict[str, str]] = []
+APOD_REQUESTS: list[dict[str, str]] = []
+NASA_IMAGE_REQUESTS: list[dict[str, str]] = []
 
 
 def fixture(name: str):
@@ -178,11 +180,18 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
         if host == "ssd-api.jpl.nasa.gov":
             return httpx.Response(503) if down("sbdb") else _sbdb(params)
         if host == "images-api.nasa.gov":
-            return (
-                httpx.Response(503)
-                if down("images")
-                else httpx.Response(200, json=fixture("images.json"))
-            )
+            if down("images"):
+                return httpx.Response(503)
+            if "year_start" in params:
+                NASA_IMAGE_REQUESTS.append(params)
+                data = fixture("images.json")
+                if params["year_start"] == "1900":
+                    data["collection"]["items"] = []
+                else:
+                    for item in data["collection"]["items"]:
+                        item["data"][0]["date_created"] = f'{params["year_start"]}-06-15T00:00:00Z'
+                return httpx.Response(200, json=data)
+            return httpx.Response(200, json=fixture("images.json"))
         if host == "exoplanetarchive.ipac.caltech.edu":
             return httpx.Response(503) if down("exoplanets") else _exoplanets()
         if host == "api.spaceflightnewsapi.net":
@@ -207,11 +216,20 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
                 return httpx.Response(403, json={"error": {"code": "API_KEY_MISSING"}})
             headers = {"X-RateLimit-Limit": "1000", "X-RateLimit-Remaining": "987"}
             if path == "/planetary/apod":
-                return (
-                    httpx.Response(503)
-                    if down("apod")
-                    else httpx.Response(200, json=fixture("apod.json"), headers=headers)
-                )
+                APOD_REQUESTS.append(params)
+                if down("apod429"):
+                    return httpx.Response(429)
+                if down("apod"):
+                    return httpx.Response(503)
+                data = fixture("apod.json")
+                data["date"] = params.get("date", data["date"])
+                if down("apod-logo"):
+                    data.update(
+                        title="NASA Science",
+                        url="https://science.nasa.gov/wp-content/themes/nasa-child/assets/images/nasa-logo@2x.png",
+                        hdurl="https://science.nasa.gov/wp-content/themes/nasa-child/assets/images/nasa-logo@2x.png",
+                    )
+                return httpx.Response(200, json=data, headers=headers)
             if path == "/neo/rest/v1/feed":
                 return httpx.Response(503) if down("neows") else _neo_feed(params)
             if path.startswith("/neo/rest/v1/neo/"):
@@ -230,6 +248,27 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
                     if down("epic")
                     else httpx.Response(200, json=fixture("epic.json"), headers=headers)
                 )
+        if host == "apod.nasa.gov" and path.startswith("/apod/ap"):
+            if down("apod-page"):
+                return httpx.Response(503)
+            filename = path.rsplit("/", 1)[-1]
+            year = int(filename[2:4])
+            requested_date = date(
+                (1900 if year >= 95 else 2000) + year,
+                int(filename[4:6]),
+                int(filename[6:8]),
+            )
+            return httpx.Response(
+                200,
+                text=f"""
+                <html><head>
+                <meta property="article:published_time" content="{requested_date.isoformat()}T00:00:00Z">
+                <meta property="og:title" content="APOD: {requested_date:%Y %B} {requested_date.day} - A Test Galaxy - NASA Science">
+                <meta property="og:image" content="https://assets.science.nasa.gov/apod/test-galaxy.jpg">
+                </head></html>
+                """,
+                headers={"Content-Type": "text/html"},
+            )
         return httpx.Response(404, json={"error": "rota não simulada"})
 
     return httpx.MockTransport(handler)

@@ -49,6 +49,10 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
 #top .panel { position: relative; }
 .brand { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: .01em; padding: 8px 14px; white-space: nowrap; }
 .brand b { color: var(--sun); }
+.sim #top .views { display: flex; padding: 4px; gap: 2px; }
+.sim #top .views a { display: inline-flex; align-items: center; font: 500 13px var(--body); color: var(--muted); text-decoration: none; padding: 7px 14px; border-radius: 10px; white-space: nowrap; }
+.sim #top .views a.on { background: var(--ink); color: #0a0f1d; }
+.sim #top .views a:hover:not(.on) { color: var(--ink); }
 #tabs { display: flex; padding: 4px; gap: 2px; }
 #tabs button { font: 500 13px var(--body); color: var(--muted); background: none; border: 0; padding: 7px 14px; border-radius: 10px; cursor: pointer; white-space: nowrap; }
 #tabs button.on { background: var(--ink); color: #0a0f1d; }
