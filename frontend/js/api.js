@@ -27,6 +27,8 @@ export const api = {
   neoWeek: () => get('/api/neo/week'),
   exoHosts: () => get('/api/exoplanets/hosts'),
   apod: () => get('/api/media/apod'),
+  apodForDate: date => get(`/api/media/apod?date=${encodeURIComponent(date)}`),
+  birthImages: year => get(`/api/media/birth-images/${encodeURIComponent(year)}`),
   epic: () => get('/api/media/epic'),
   images: slug => get(`/api/media/images/${encodeURIComponent(slug)}?limit=4`),
   flares: () => get('/api/space-weather/flares?days=30'),

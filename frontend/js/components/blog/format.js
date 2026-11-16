@@ -75,4 +75,7 @@ export function countdown(iso, ref = now.value) {
 }
 
 /* Esconde o quadro da imagem quando ela não carrega (link quebrado na origem). */
-export const hideBroken = e => { e.target.closest('[data-img]')?.classList.add('noimg'); };
+export const hideBroken = e => {
+  const frame = e.target.closest('[data-img]');
+  (frame || e.target).classList.add('noimg');
+};

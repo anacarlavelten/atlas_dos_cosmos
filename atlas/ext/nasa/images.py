@@ -44,3 +44,16 @@ class ImagesClient(ServiceClient):
             {"q": query, "media_type": "image", "page_size": max(limit * 3, 12)},
         )
         return parse_image_items(data or {}, limit)
+
+    async def search_by_year(self, year: int, limit: int = 40) -> list[dict[str, Any]]:
+        data = await self.get_json(
+            self.settings.images_url,
+            {
+                "q": "space",
+                "media_type": "image",
+                "year_start": year,
+                "year_end": year,
+                "page_size": min(max(limit * 2, 40), 100),
+            },
+        )
+        return parse_image_items(data or {}, limit)
