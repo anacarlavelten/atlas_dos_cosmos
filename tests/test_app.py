@@ -32,6 +32,32 @@ def test_frontend_is_served(client):
     assert "Atlas do Cosmos" in r.text
 
 
+def test_frontend_files_are_always_revalidated(client):
+    """Sem etapa de build, o navegador não pode reaproveitar JS antigo após uma
+    atualização: ``no-cache`` + ETag (304 quando nada mudou)."""
+    first = client.get("/js/main.js")
+    assert first.headers["cache-control"] == "no-cache"
+    again = client.get("/js/main.js", headers={"If-None-Match": first.headers["etag"]})
+    assert again.status_code == 304
+
+
+def test_unexpected_errors_return_a_generic_500(make_client, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from atlas.catalog import services
+
+    async def boom(*_args, **_kwargs):
+        raise RuntimeError("detalhe interno que não pode vazar")
+
+    monkeypatch.setattr(services, "list_bodies", boom)
+    client = make_client()
+    safe = TestClient(client.app, raise_server_exceptions=False)
+    r = safe.get("/api/catalog/bodies")
+    assert r.status_code == 500
+    assert "detalhe interno" not in r.text
+    assert r.json()["detail"].startswith("Erro interno")
+
+
 def test_openapi_docs(client):
     assert client.get("/api/docs").status_code == 200
     paths = client.get("/api/openapi.json").json()["paths"]

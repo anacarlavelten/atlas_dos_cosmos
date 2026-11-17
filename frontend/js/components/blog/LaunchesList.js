@@ -4,16 +4,12 @@ import { dateTime, now } from './format.js';
 import LaunchCountdown from './LaunchCountdown.js';
 import { futureLaunches } from './launches.js';
 
-const PER_PAGE = 2;
+const PER_PAGE = 6;
 
 export default {
   name: 'LaunchesList',
   components: { LaunchCountdown },
-  props: {
-    hasNewsOnDate: { type: Function, default: () => false },
-    openNewsDate: { type: Function, default: () => {} },
-  },
-  setup(props) {
+  setup() {
     const data = ref(null);
     const error = ref('');
     const page = ref(0);
@@ -36,11 +32,7 @@ export default {
     }
 
     onMounted(load);
-    return {
-      data, error, loading, launches, pages, page, visible, load, dateTime,
-      hasNewsOnDate: props.hasNewsOnDate,
-      openNewsDate: props.openNewsDate,
-    };
+    return { data, error, loading, launches, pages, page, visible, load, dateTime };
   },
   template: `
   <section class="portal-card launches-module" aria-labelledby="launches-title">
@@ -51,16 +43,13 @@ export default {
       <ul class="launch-list">
         <li v-for="(launch, index) in visible" :key="launch.id">
           <a :href="launch.page_url" target="_blank" rel="noopener" class="launch-name">{{ launch.name }}</a>
-          <a v-if="hasNewsOnDate(launch.net)" class="launch-date-link" href="#latest-stories" @click.prevent="openNewsDate(launch.net)" :aria-label="'Ver notícias de ' + dateTime(launch.net)">
-            <time :datetime="launch.net">{{ dateTime(launch.net) }}</time>
-          </a>
-          <time v-else-if="launch.net" :datetime="launch.net">{{ dateTime(launch.net) }}</time>
+          <time v-if="launch.net" :datetime="launch.net">{{ dateTime(launch.net) }}</time>
           <span v-else>Data a confirmar</span>
           <span class="launch-operator">{{ launch.provider || 'Operador não informado' }}</span>
           <LaunchCountdown :launch="launch" :variant="index === 0 ? 'compact' : 'summary'" />
         </li>
       </ul>
-      <nav class="dot-pagination" aria-label="Páginas de lançamentos">
+      <nav v-if="pages > 1" class="dot-pagination" aria-label="Páginas de lançamentos">
         <button v-for="index in pages" :key="index" type="button" :aria-label="'Página ' + index" :aria-current="page === index - 1 ? 'page' : null" :class="{ active: page === index - 1 }" @click="page = index - 1">{{ index }}</button>
       </nav>
     </template>

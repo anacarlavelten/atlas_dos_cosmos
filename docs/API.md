@@ -1,8 +1,21 @@
 # API do Atlas do Cosmos
 
-Todas as rotas respondem JSON e aceitam apenas `GET`. A documentação interativa (gerada
-automaticamente pelo FastAPI a partir dos esquemas Pydantic) fica em
+Todas as rotas respondem JSON. Quase todas são de leitura (`GET`); o Diário de observação
+também recebe dados (`POST`) e permite apagar um registro (`DELETE`). A documentação
+interativa (gerada automaticamente pelo FastAPI a partir dos esquemas Pydantic) fica em
 `http://127.0.0.1:8000/api/docs`, onde dá para testar cada rota pelo navegador.
+
+Quando um dado enviado não passa na validação (parâmetro fora da faixa ou campo de
+formulário inválido), a resposta é **422** com uma mensagem em português por campo:
+
+```json
+{ "detail": "Confira os campos destacados.",
+  "errors": [ { "field": "sky_quality", "message": "O valor máximo é 5." },
+              { "field": "observed_at", "message": "A data da observação não pode estar no futuro." } ] }
+```
+
+Um erro inesperado no servidor devolve **500** com uma mensagem genérica; o detalhe técnico
+vai só para o log.
 
 Quando a NASA não responde e não há nada em cache, a rota devolve **503** (ou **429**
 se a cota da chave acabou) com uma mensagem:
@@ -220,3 +233,51 @@ Próximos lançamentos: `name`, `net` (data prevista, UTC), `net_precision`, `st
 Patentes da NASA disponíveis para licenciamento numa área (`propulsao`, `robotica`,
 `materiais`, `sensores`, `energia`, `saude`): `title`, `summary`, `category`, `center`
 (centro da NASA), `image_url`, `page_url`.
+
+---
+
+## Diário de observação (`atlas/observations`)
+
+Registros do céu enviados pelos visitantes pelo formulário do blog. É a única parte da API
+que grava dados vindos do usuário, por isso toda entrada é validada no servidor
+(`ObservationIn`, em `atlas/observations/schemas.py`).
+
+### `GET /api/observations/options`
+O que o formulário oferece: `instruments` (chave e rótulo), `sky_quality` (1 a 5, com
+descrição), `min_date` e `max_date` (a data máxima é hoje em UTC + 1 dia, por causa dos fusos).
+
+### `GET /api/observations?body=jupiter&offset=0&limit=20`
+Lista as observações, da data mais recente para a mais antiga. `body` (opcional) filtra pelo
+slug do astro. `limit` vai de 1 a 50.
+
+```json
+{ "total": 1, "offset": 0, "limit": 20,
+  "items": [ { "id": 7, "body": { "slug": "saturno", "name": "Saturno", "category": "planet", "kind": "..." },
+               "observer_name": "Ana Carla", "observed_at": "2026-11-14", "location": "Florianópolis, SC",
+               "instrument": "binoculo", "instrument_label": "Binóculo", "sky_quality": 5,
+               "notes": "Anéis visíveis com binóculo 15x70.", "created_at": "2026-11-16T13:20:00" } ] }
+```
+
+### `POST /api/observations` → `201 Created`
+Corpo JSON:
+
+| Campo | Regra |
+|---|---|
+| `body_slug` | obrigatório; precisa existir no catálogo (`/api/catalog/bodies`) |
+| `observer_name` | obrigatório; 2 a 80 caracteres, com pelo menos uma letra |
+| `observed_at` | obrigatório; data `AAAA-MM-DD` entre 1900-01-01 e hoje |
+| `location` | obrigatório; 2 a 120 caracteres, com pelo menos uma letra |
+| `instrument` | obrigatório; `olho-nu`, `binoculo`, `telescopio` ou `camera` |
+| `sky_quality` | obrigatório; inteiro de 1 a 5 |
+| `notes` | opcional; até 1000 caracteres |
+
+Espaços nas pontas são removidos e campos desconhecidos são recusados. A resposta é a
+observação criada com um campo a mais, `delete_token`: o código que permite apagá-la. Ele só
+aparece nesta resposta (o banco guarda apenas o hash SHA-256).
+
+### `GET /api/observations/{id}`
+Uma observação. `404` se não existir.
+
+### `DELETE /api/observations/{id}` → `204 No Content`
+Exige o cabeçalho `X-Delete-Token` com o código recebido na criação. Sem ele, ou com um
+código errado: `403`. Observação inexistente: `404`.

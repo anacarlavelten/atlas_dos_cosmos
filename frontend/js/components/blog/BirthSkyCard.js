@@ -19,7 +19,7 @@ export default {
   <section id="birth-sky" class="birth-sky" aria-labelledby="birth-sky-title">
     <div class="birth-heading">
       <span class="eyebrow">Arquivo do universo</span>
-      <h2 id="birth-sky-title">Céu do seu nascimento</h2>
+      <h2 id="birth-sky-title">Foto tirada no dia do seu nascimento</h2>
       <p v-if="unsupportedDate">A APOD ainda não existia nessa data. Veja imagens reais da NASA do mesmo ano ou a primeira APOD publicada.</p>
       <p v-else>Esta é a Imagem Astronômica do Dia publicada pela NASA na data do seu nascimento.</p>
     </div>

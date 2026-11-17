@@ -20,7 +20,9 @@ async def apod(
     session: SessionDep,
     nasa: NasaDep,
     settings: Settings = Depends(settings_from),
-    day: date | None = Query(default=None, alias="date", description="Data da APOD no formato YYYY-MM-DD"),
+    day: date | None = Query(
+        default=None, alias="date", description="Data da APOD no formato YYYY-MM-DD"
+    ),
 ) -> ApodOut:
     target_day = day or datetime.now(UTC).date()
     if target_day < APOD_FIRST_DATE:

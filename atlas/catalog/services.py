@@ -85,11 +85,18 @@ async def seed_catalog(
     session: AsyncSession, data: dict[str, Any] | None = None, *, replace: bool = False
 ) -> int:
     """Grava os astros do arquivo seed. Com ``replace=True`` apaga o catálogo antes
-    (as órbitas salvas são apagadas junto, em cascata)."""
+    (as órbitas salvas são apagadas junto, em cascata). As observações feitas pelos
+    visitantes são copiadas antes e religadas aos astros novos pelo slug."""
+    # Import tardio: o domínio de observações depende do catálogo, não o contrário.
+    from atlas.observations import services as observations
+
     data = data or load_seed()
+    saved_observations: list[dict[str, Any]] = []
     if replace:
+        saved_observations = await observations.snapshot(session)
         await session.execute(delete(Body))
         await session.commit()
+        session.expunge_all()
     elif await count_bodies(session):
         return 0
 
@@ -126,4 +133,5 @@ async def seed_catalog(
             by_slug[item["slug"]].parent = by_slug[item["parent"]]
 
     await session.commit()
+    await observations.restore(session, saved_observations)
     return len(by_slug)

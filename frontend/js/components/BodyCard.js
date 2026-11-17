@@ -1,11 +1,11 @@
 /* Card com as informações do astro selecionado. */
 import { computed } from 'vue';
 import { store, engineRef, cardFor, colorOf } from '../store.js';
-import { ImageStrip, FlaresWidget, EpicWidget, NeosWidget, ExoWidget } from './LiveWidgets.js';
+import { ImageStrip, EpicWidget, NeosWidget, ExoWidget } from './LiveWidgets.js';
 
 export default {
   name: 'BodyCard',
-  components: { ImageStrip, FlaresWidget, EpicWidget, NeosWidget, ExoWidget },
+  components: { ImageStrip, EpicWidget, NeosWidget, ExoWidget },
   setup() {
     const card = computed(() => cardFor(store.selectedId));
     const color = computed(() => (card.value ? colorOf(card.value.category) : '#fff'));
@@ -28,7 +28,6 @@ export default {
         <template v-for="f in card.facts" :key="f.label"><dt>{{ f.label }}</dt><dd>{{ f.value }}</dd></template>
       </dl>
       <div class="cur" v-if="card.curiosity"><b>Você sabia?</b>{{ card.curiosity }}</div>
-      <FlaresWidget v-if="has('flares')" />
       <EpicWidget v-if="has('epic')" />
       <NeosWidget v-if="has('neos')" />
       <ExoWidget v-if="has('exoplanets')" />

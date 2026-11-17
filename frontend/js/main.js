@@ -1,8 +1,8 @@
 /* Ponto de entrada do frontend (Vue 3, sem etapa de build).
 
-   O Atlas tem duas abas:
-   - Blog (página inicial): linha do tempo de notícias do espaço e da tecnologia
-     espacial, vindas das APIs abertas por meio do backend.
+   O Atlas tem várias páginas, cada uma com seu endereço (veja PAGES em store.js):
+   - Notícias (página inicial): linha do tempo de notícias do espaço.
+   - Agenda de voos, Céu do nascimento, Asteroides, Tecnologias e Diário.
    - Simulador: o cosmos em 3D. Ele só é carregado na primeira vez que a aba é
      aberta e fica pausado enquanto o visitante está no blog.
 
@@ -12,7 +12,7 @@
    3. Liga os eventos do motor ao estado reativo que os componentes exibem. */
 import { createApp, ref, watch, onMounted } from 'vue';
 import { api, once } from './api.js';
-import { store, engineRef, raw, viewFromHash } from './store.js';
+import { store, engineRef, raw, routeFromHash, isRouteHash, PAGES } from './store.js';
 import { createEngine } from './engine/index.js';
 import TopBar from './components/TopBar.js';
 import SourcesPanel from './components/SourcesPanel.js';
@@ -71,9 +71,19 @@ const App = {
   setup() {
     const canvas = ref(null), labels = ref(null), tip = ref(null), fade = ref(null);
 
-    addEventListener('hashchange', () => { store.view = viewFromHash(); });
+    addEventListener('hashchange', () => {
+      if (!isRouteHash()) return;   // âncora dentro da página atual
+      const route = routeFromHash();
+      store.view = route.view;
+      if (route.page) store.page = route.page;
+    });
+    const setTitle = () => {
+      const page = PAGES.find(p => p.key === store.page);
+      document.title = store.view === 'sim' ? 'Simulador · Atlas do Cosmos' : `${page?.title || 'Notícias'} · Atlas do Cosmos`;
+    };
+    watch(() => store.page, () => { setTitle(); scrollTo(0, 0); });
     const enter = view => {
-      document.title = view === 'sim' ? 'Simulador · Atlas do Cosmos' : 'Atlas do Cosmos · Blog do espaço';
+      setTitle();
       if (view === 'sim' && store.phase === 'idle') {
         boot({ canvas: canvas.value, labelsEl: labels.value, tipEl: tip.value, fadeEl: fade.value });
       }
@@ -110,7 +120,7 @@ const App = {
         <template v-else>
           <div class="err">Não foi possível iniciar o simulador: {{ store.fatal }}</div>
           <div>Confira se o servidor está rodando (<code>uvicorn app:app</code>) e recarregue a página.</div>
-          <a class="ibtn" href="#/blog">Voltar ao blog</a>
+          <a class="ibtn" href="#/noticias">Voltar ao Atlas</a>
         </template>
       </div>
     </div>

@@ -34,6 +34,8 @@ class Settings(BaseSettings):
     app_name: str = "Atlas do Cosmos"
     environment: Literal["development", "production", "testing"] = "development"
     debug: bool = False
+    #: Nível do log do Atlas: DEBUG, INFO, WARNING ou ERROR.
+    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
 
     # ------------------------------------------------------------------
     # NASA

@@ -174,3 +174,40 @@ def test_flares_summary(client):
     assert data["strongest"]["class_type"] == "X1.2"
     assert data["by_class"] == {"C": 1, "M": 2, "X": 1}
     assert data["recent"][0]["class_type"] == "M5.6"
+
+
+# --- Planos B e mensagens de erro -------------------------------------------------
+def test_apod_falls_back_to_public_page_when_api_is_down(make_client):
+    data = make_client(fail={"apod"}).get("/api/media/apod?date=2001-02-03").json()
+    assert data["title"] == "A Test Galaxy"
+    assert data["url"] == "https://assets.science.nasa.gov/apod/test-galaxy.jpg"
+
+
+def test_apod_falls_back_to_spaceflight_news_when_nasa_is_down(make_client):
+    r = make_client(fail={"apod", "apod-page"}).get("/api/media/apod?date=2026-11-16")
+    assert r.status_code == 200
+    data = r.json()
+    assert data["title"] == "Nebulosa Republicada"
+    assert data["date"] == "2026-11-16"
+    assert data["page_url"] == "https://science.nasa.gov/image-article/apod-teste/"
+
+
+def test_apod_unavailable_everywhere_returns_503(make_client):
+    r = make_client(fail={"apod", "apod-page", "news"}).get("/api/media/apod?date=2026-11-16")
+    assert r.status_code == 503
+    assert "APOD" in r.json()["detail"]
+
+
+def test_donki_404_explains_that_nasa_is_down(make_client):
+    r = make_client(fail={"donki404"}).get("/api/space-weather/flares")
+    assert r.status_code == 503
+    assert "fora do ar" in r.json()["detail"]
+
+
+def test_requests_and_nasa_failures_are_logged(make_client, caplog):
+    caplog.set_level("INFO", logger="atlas")
+    make_client(fail={"neows"}).get("/api/neo/week")
+    messages = [r.getMessage() for r in caplog.records]
+    assert any("GET /api/neo/week -> 503" in m for m in messages)
+    assert any("NeoWs indisponível" in m for m in messages)
+    assert not any("TEST-KEY-123" in m for m in messages)  # a chave nunca vai para o log

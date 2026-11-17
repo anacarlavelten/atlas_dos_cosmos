@@ -10,15 +10,15 @@ from __future__ import annotations
 import httpx
 from fastapi import FastAPI
 
-from atlas import blog, catalog, exoplanets, media, neo, orbits, spaceweather
-from atlas.ext import cache, config, db, nasa, web
+from atlas import blog, catalog, exoplanets, media, neo, observations, orbits, spaceweather
+from atlas.ext import cache, config, db, log, nasa, web
 from atlas.ext.config import Settings, get_settings
 from atlas.ext.lifecycle import lifespan, prepare_hooks
 
 __version__ = "2.0.0"
 
 #: Domínios da aplicação, na ordem em que suas rotas são registradas.
-DOMAINS = (catalog, orbits, neo, exoplanets, media, spaceweather, blog)
+DOMAINS = (catalog, orbits, neo, exoplanets, media, spaceweather, blog, observations)
 
 
 def create_app(
@@ -50,6 +50,7 @@ def create_app(
     # Extensões (infraestrutura)
     # ----------------------------------------------------------
     config.init_app(app, settings)
+    log.init_app(app)
     db.init_app(app)
     cache.init_app(app)
     nasa.init_app(app, transport=nasa_transport)

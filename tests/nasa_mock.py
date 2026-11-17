@@ -165,7 +165,7 @@ def _exoplanets() -> httpx.Response:
 
 def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
     """``fail`` pode conter: horizons, sbdb, neows, apod, donki, epic, images, exoplanets,
-    news, launches, techtransfer."""
+    news, launches, techtransfer, donki404, apod-page, apod429, apod-logo."""
     fail = fail or set()
 
     def handler(request: httpx.Request) -> httpx.Response:
@@ -189,7 +189,7 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
                     data["collection"]["items"] = []
                 else:
                     for item in data["collection"]["items"]:
-                        item["data"][0]["date_created"] = f'{params["year_start"]}-06-15T00:00:00Z'
+                        item["data"][0]["date_created"] = f"{params['year_start']}-06-15T00:00:00Z"
                 return httpx.Response(200, json=data)
             return httpx.Response(200, json=fixture("images.json"))
         if host == "exoplanetarchive.ipac.caltech.edu":
@@ -198,6 +198,26 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
             if down("news"):
                 return httpx.Response(503)
             NEWS_REQUESTS.append(params)  # permite aos testes conferir os filtros enviados
+            terms = params.get("title_contains_one", "")
+            if terms.startswith("APOD: "):
+                # A SNAPI republica a APOD do dia: usada como plano B quando a NASA cai.
+                return httpx.Response(
+                    200,
+                    json={
+                        "count": 1,
+                        "results": [
+                            {
+                                "id": 1,
+                                "title": f"{terms} – Nebulosa Republicada",
+                                "url": "https://science.nasa.gov/image-article/apod-teste/",
+                                "image_url": "https://assets.science.nasa.gov/apod/republicada.jpg",
+                                "news_site": "NASA",
+                                "summary": "",
+                                "published_at": "2026-11-16T05:00:00Z",
+                            }
+                        ],
+                    },
+                )
             return httpx.Response(200, json=fixture("snapi_articles.json"))
         if host == "ll.thespacedevs.com":
             return (
@@ -237,6 +257,8 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
                     httpx.Response(503) if down("neows") else _neo_lookup(path.rsplit("/", 1)[-1])
                 )
             if path == "/DONKI/FLR":
+                if down("donki404"):
+                    return httpx.Response(404, json={"status": 404, "error": "Not Found"})
                 return (
                     httpx.Response(503)
                     if down("donki")

@@ -2,13 +2,11 @@ import { computed, onMounted, ref } from 'vue';
 import { api, once } from '../../api.js';
 import { store } from '../../store.js';
 import { ago, dateLong, now } from './format.js';
-import LaunchCountdown from './LaunchCountdown.js';
-import { futureLaunches } from './launches.js';
 import PostImage from './PostImage.js';
 
 export default {
   name: 'BlogHero',
-  components: { LaunchCountdown, PostImage },
+  components: { PostImage },
   props: {
     lead: { type: Object, default: null },
     sideStories: { type: Array, default: () => [] },
@@ -17,26 +15,24 @@ export default {
   setup(props) {
     const apod = ref(null);
     const apodError = ref('');
-    const launches = ref([]);
-    const launchError = ref('');
-    const upcomingLaunches = computed(() => futureLaunches(launches.value, now.value));
-    const nextLaunch = computed(() => upcomingLaunches.value.find(launch => launch.net) || upcomingLaunches.value[0] || null);
     const apodImage = computed(() => apod.value?.media_type === 'video'
       ? apod.value.thumbnail_url
       : apod.value?.url);
+    /* A Spaceflight News republica a APOD como notícia ("APOD: 2026 November 16 – …").
+       Quando a APOD já está no destaque, essa notícia não aparece de novo ao lado. */
+    const repeatsApod = post => Boolean(apod.value?.title && post?.title?.includes(apod.value.title));
     const visibleSideStories = computed(() => apod.value && props.lead
-      ? [props.lead, props.sideStories[0]].filter(Boolean)
+      ? [props.lead, ...props.sideStories].filter(post => post && !repeatsApod(post)).slice(0, 2)
       : props.sideStories);
 
     onMounted(() => {
       once('apod', api.apod).then(data => { apod.value = data; }, err => { apodError.value = err.message; });
-      once('launches', api.blogLaunches).then(data => { launches.value = data.launches || []; }, err => { launchError.value = err.message; });
     });
 
     return {
       store, apod, apodError, apodImage, lead: computed(() => props.lead),
       sideStories: visibleSideStories,
-      relatedStories: computed(() => props.relatedStories), nextLaunches: upcomingLaunches, nextLaunch, launchError,
+      relatedStories: computed(() => props.relatedStories),
       ago, now, dateLong,
     };
   },
@@ -76,7 +72,6 @@ export default {
           <span class="hero-category">NASA · IMAGEM DO DIA</span>
           <h1>O espaço, em perspectiva</h1>
           <p>{{ apodError }}</p>
-          <p v-if="launchError">{{ launchError }}</p>
         </div>
         <div v-else class="hero-skeleton" aria-label="Carregando destaque"></div>
       </article>
@@ -96,8 +91,6 @@ export default {
         <b>{{ post.title }}</b>
         <time :datetime="post.published_at">{{ ago(post.published_at, now) }}</time>
       </a>
-      <p v-if="!sideStories.length && !nextLaunches.length && launchError" class="hero-side-empty">{{ launchError }}</p>
     </div>
-    <LaunchCountdown v-if="nextLaunch" class="hero-launch-countdown" :launch="nextLaunch" variant="detailed" />
   </section>`,
 };

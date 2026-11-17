@@ -8,7 +8,7 @@ from html.parser import HTMLParser
 from typing import Any
 from urllib.parse import urlparse
 
-from atlas.ext.nasa.http import KeyedClient, NasaError
+from atlas.ext.nasa.http import KeyedClient, NasaError, NasaRateLimited
 
 
 class _ApodPageMetadata(HTMLParser):
@@ -85,17 +85,28 @@ class ApodClient(KeyedClient):
     service = "APOD"
 
     async def picture(self, day: date | None = None) -> dict[str, Any]:
+        """Busca a APOD na API; se a API falhar ou responder algo que não é uma
+        APOD, tenta a página pública do dia. O limite de cota (429) não tem plano B:
+        ele sobe direto para a rota responder 429."""
         params = self.keyed(thumbs="true")
         if day:
             params["date"] = day.isoformat()
-        data = await self.get_json(self.url("planetary/apod"), params)
-        if not is_apod_payload(data, day):
-            image_day = day or datetime.now(UTC).date()
-            page = await self.get_text(
-                f"https://apod.nasa.gov/apod/ap{image_day:%y%m%d}.html"
-            )
-            fallback = parse_apod_page(page, image_day)
-            if fallback is None or not is_apod_payload(fallback, image_day):
-                raise NasaError(self.service, "resposta inválida: não contém uma APOD")
+        api_error: NasaError | None = None
+        try:
+            data = await self.get_json(self.url("planetary/apod"), params)
+        except NasaRateLimited:
+            raise
+        except NasaError as exc:
+            api_error, data = exc, None
+        if is_apod_payload(data, day):
+            return data
+
+        image_day = day or datetime.now(UTC).date()
+        try:
+            page = await self.get_text(f"https://apod.nasa.gov/apod/ap{image_day:%y%m%d}.html")
+        except NasaError:
+            page = ""
+        fallback = parse_apod_page(page, image_day) if page else None
+        if fallback is not None and is_apod_payload(fallback, image_day):
             return fallback
-        return data
+        raise api_error or NasaError(self.service, "resposta inválida: não contém uma APOD")

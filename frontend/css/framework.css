@@ -1,0 +1,35 @@
+/* Framework CSS do Atlas: Bulma 1.0 (MIT), servido localmente em vendor/.
+
+   - Usamos o build "prefixado": todas as classes começam com "bulma-"
+     (bulma-field, bulma-input, bulma-columns...), então não colidem com as
+     classes já existentes no Atlas (.panel, .tag, .box...).
+   - O Bulma entra numa camada de cascata (@layer). Regras fora de camada, como
+     as de style.css e blog.css, sempre vencem as de dentro de uma camada. Assim o
+     "reset" global do Bulma só preenche o que o Atlas não define, sem mudar o
+     visual que já existia. */
+@import url("../vendor/bulma.min.css") layer(bulma);
+
+/* Tema do Bulma nas áreas que usam o framework: escuro e com o azul do blog. */
+.atlas-bulma {
+  --bulma-primary-h: 216deg;
+  --bulma-primary-s: 100%;
+  --bulma-primary-l: 54%;
+  --bulma-link-h: 216deg;
+  --bulma-link-s: 100%;
+  --bulma-link-l: 70%;
+  --bulma-family-primary: var(--body);
+  --bulma-radius: 10px;
+  --bulma-radius-small: 6px;
+  --bulma-control-radius: 10px;
+  --bulma-scheme-main: #0b1220;
+  --bulma-scheme-main-bis: #0f172a;
+  --bulma-border: rgba(255, 255, 255, .16);
+  --bulma-border-hover: rgba(130, 180, 255, .55);
+  --bulma-text: #c3cee0;
+  --bulma-text-strong: #fff;
+  --bulma-text-weak: #94a3b8;
+  --bulma-input-placeholder-color: rgba(195, 206, 224, .45);
+  --bulma-label-color: #fff;
+  --bulma-label-weight: 700;
+  color: var(--bulma-text);
+}

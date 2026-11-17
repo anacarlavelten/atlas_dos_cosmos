@@ -262,10 +262,26 @@ Detalhes que valem explicar na apresentação:
 - O **SBDB** às vezes omite `a` e `ma` (quando a época não é a padrão, como no cometa
   Halley). Eles são calculados: `a = q / (1 − e)` e `M = n · (época − tp)`.
 
+### `log` — logging
+Configura o `logging` da biblioteca padrão com o nível de `LOG_LEVEL` (`.env`). Cada módulo
+usa um logger com prefixo `atlas.` (`atlas.access`, `atlas.web`, `atlas.cache`,
+`atlas.observations`, `atlas.media`, `atlas.orbits`). Nenhuma mensagem registra URLs
+externas completas (a chave da NASA vai na URL) nem a senha do banco.
+
 ### `web` — camada HTTP comum
-CORS (para rodar o frontend em outra porta), GZip (a lista de exoplanetas é grande),
-conversão de `NasaError` em 503/429, a rota `/api/health` e a montagem da pasta
-`frontend/` na raiz `/`.
+CORS (para rodar o frontend em outra porta; libera `GET`, `POST` e `DELETE`), GZip (a lista
+de exoplanetas é grande), log de acesso de cada requisição `/api` (método, caminho, status e
+tempo), a rota `/api/health` e o tratamento de erros com um formato único:
+
+| Exceção | Resposta |
+|---|---|
+| `RequestValidationError` (Pydantic) | 422 `{"detail", "errors": [{"field", "message"}]}`, mensagens traduzidas para português |
+| `FormError` (regra que depende do banco) | 422 no mesmo formato |
+| `NasaError` / `NasaRateLimited` | 503 / 429 com mensagem amigável, sem expor a chave |
+| qualquer outra | 500 genérico; o detalhe vai só para o log |
+
+Também monta a pasta `frontend/` na raiz `/` com `Cache-Control: no-cache` (o navegador
+revalida pelo ETag e nunca reaproveita JS antigo depois de uma atualização).
 
 ### `cli` — comandos de terminal
 `atlas init-db`, `seed`, `refresh`, `check-nasa` e `shell` (ver o README). Feitos com
@@ -316,6 +332,24 @@ Este é o único domínio que usa outro domínio: `get_body` do `catalog`.
 ### `spaceweather` — clima espacial
 Erupções solares do DONKI: conta por classe (A, B, C, M, X), encontra a mais forte
 (`flare_strength` converte "M2.5" em número comparável) e lista as recentes.
+
+### `blog` — notícias, lançamentos e tecnologias
+Linha do tempo da Spaceflight News API (notícias, blogs e relatórios), com tópicos que viram
+termos de busca no título; próximos lançamentos da Launch Library 2; patentes da NASA
+Technology Transfer por área. Tudo passa pelo cache (15 min, 1 h e 24 h).
+
+### `observations` — Diário de observação
+O único domínio que **recebe dados do usuário**.
+- **Modelo:** `Observation`, N:1 com `Body` (`ON DELETE CASCADE`), com `CHECK` na nota do
+  céu (1 a 5) e no instrumento. Guarda só o hash SHA-256 do código de exclusão.
+- **Esquema de entrada:** `ObservationIn` (Pydantic) valida tipos, tamanhos, faixas, data
+  (1900 até hoje), texto com letras e recusa campos desconhecidos.
+- **Service:** confere se o astro existe (`FormError` se não existir), grava, lista com
+  filtro e paginação e apaga só com o código certo (`hmac.compare_digest`).
+- **Seed:** `seed_catalog(replace=True)` copia as observações antes de recriar o catálogo e
+  as religa aos astros novos pelo `slug`.
+- **Rotas:** `GET /api/observations/options`, `GET /api/observations`,
+  `POST /api/observations`, `GET/DELETE /api/observations/{id}`.
 
 ## 7. Banco de dados
 
@@ -425,6 +459,19 @@ A Unidade 6 prevê um frontend em Vue 3 separado do backend. Aqui o Vue é carre
 `index.html`. Não há `npm install` nem etapa de build: os arquivos rodam como estão.
 O Three.js também fica em `vendor/`, então o site não depende de CDN.
 
+### Bulma (framework CSS)
+O **Bulma 1.0** fica em `vendor/bulma.min.css` e é carregado por `css/framework.css`. Usamos
+o build **com prefixo** (`bulma-field`, `bulma-input`, `bulma-columns`...), para não colidir
+com classes já existentes como `.panel` e `.tag`, e o importamos numa **camada de cascata**:
+
+```css
+@import url("../vendor/bulma.min.css") layer(bulma);
+```
+
+Regras fora de camada (`style.css` e `blog.css`) sempre vencem as de dentro de uma camada, então o
+reset global do Bulma não altera o visual do simulador nem do blog. O tema (cores do Atlas,
+modo escuro) é aplicado na classe `.atlas-bulma`, usada pelo Diário de observação.
+
 ### Fluxo de inicialização (`js/main.js`)
 1. Busca `health`, `levels` e `bodies` no backend.
 2. Busca em paralelo `orbits`, `neo/week` e `exoplanets/hosts`. Se algum falhar, o erro é
@@ -441,7 +488,7 @@ O Three.js também fica em `vendor/`, então o site não depende de CDN.
 | `SourcesPanel` | de onde veio cada dado (ao vivo, cache, aproximado, erro) e o aviso de DEMO_KEY |
 | `BodyList` | lista lateral agrupada (inclui os asteroides da semana) |
 | `BodyCard` | card do astro: resumo, tabela, curiosidade, ação e os painéis ao vivo |
-| `LiveWidgets` | `ImageStrip` (fotos), `FlaresWidget` (Sol), `EpicWidget` (Terra), `NeosWidget`, `ExoWidget` |
+| `LiveWidgets` | `ImageStrip` (fotos), `EpicWidget` (Terra), `NeosWidget`, `ExoWidget` |
 | `ControlBar` | tempo, inverter, hoje, tamanho dos astros e camadas (órbitas, asteroides, exoplanetas, nomes) |
 | `Modals` | introdução e foto astronômica do dia |
 

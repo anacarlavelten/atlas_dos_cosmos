@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Atlas do Cosmos — Documentação</title>
+<!-- Página usada só para gerar o PDF da entrega (invoke pdf).
+     O Markdown é convertido no próprio navegador (marked) e os diagramas
+     Mermaid viram SVG antes de o Chrome/Edge imprimir em PDF. -->
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font: 10.5pt/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; color: #1b2433; }
+  h1 { font-size: 22pt; margin: 0 0 12pt; color: #0b3d91; }
+  h2 { font-size: 15pt; margin: 22pt 0 8pt; padding-bottom: 4pt; border-bottom: 2px solid #1672ff; color: #0b3d91; break-after: avoid; }
+  h3 { font-size: 12pt; margin: 14pt 0 6pt; break-after: avoid; }
+  h2:not(:first-of-type) { break-before: page; }
+  p, li { orphans: 3; widows: 3; }
+  a { color: #0b5bd3; text-decoration: none; }
+  table { width: 100%; border-collapse: collapse; margin: 8pt 0 12pt; font-size: 9.5pt; break-inside: auto; }
+  tr { break-inside: avoid; }
+  th, td { border: 1px solid #ccd6e6; padding: 4pt 6pt; text-align: left; vertical-align: top; }
+  th { background: #eef3fb; }
+  code { font: 9pt Consolas, "Cascadia Mono", monospace; background: #f2f5fa; padding: 0 3px; border-radius: 3px; }
+  pre { background: #f5f7fb; border: 1px solid #dde4ef; border-radius: 6px; padding: 8pt 10pt; white-space: pre-wrap; word-break: break-word; break-inside: avoid; }
+  pre code { background: none; padding: 0; font-size: 8.5pt; }
+  .mermaid { text-align: center; margin: 10pt 0; break-inside: avoid; }
+  .mermaid svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<main id="doc"></main>
+<script id="source" type="text/markdown">__MARKDOWN__</script>
+<script>
+  const md = document.getElementById('source').textContent;
+  document.getElementById('doc').innerHTML = marked.parse(md);
+  // Blocos ```mermaid viram <div class="mermaid"> para o Mermaid desenhar.
+  document.querySelectorAll('pre code.language-mermaid').forEach(code => {
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = code.textContent;
+    code.parentElement.replaceWith(div);
+  });
+  mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'strict' });
+  mermaid.run().then(() => { document.body.dataset.ready = '1'; });
+</script>
+</body>
+</html>

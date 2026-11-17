@@ -9,8 +9,9 @@
 ![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D?logo=vuedotjs&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-r170-000000?logo=threedotjs&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/Supabase-PostgreSQL-3FCF8E?logo=supabase&logoColor=white)
-![Testes](https://img.shields.io/badge/testes-41%20passando-brightgreen)
-![Cobertura](https://img.shields.io/badge/cobertura-91%25-brightgreen)
+![Bulma](https://img.shields.io/badge/Bulma-1.0-00D1B2?logo=bulma&logoColor=white)
+![Testes](https://img.shields.io/badge/testes-91%20%2B%2031%20passando-brightgreen)
+![Cobertura](https://img.shields.io/badge/cobertura-93%25-brightgreen)
 
 </div>
 
@@ -27,6 +28,21 @@ Terra são os desta semana, e as fotos, erupções solares e exoplanetas vêm di
 NASA.
 
 ## ✨ Funcionalidades
+
+O site tem duas abas: o **Blog** (página inicial) e o **Simulador**.
+
+**Blog** (cada item da navegação abre uma página própria: `#/noticias`, `#/lancamentos`,
+`#/ceu`, `#/asteroides`, `#/tecnologias`, `#/diario` e `#/simulador`)
+
+- **Notícias (página inicial):** linha do tempo do espaço e da tecnologia espacial
+  (Spaceflight News API), com destaques, filtros por tópico, tipo e busca.
+- **Agenda de voos, Céu do nascimento, Asteroides da semana e Tecnologias da NASA**,
+  cada um em sua página.
+- **Diário de observação:** formulário em que o visitante registra o que viu no céu. Os dados
+  são validados no servidor (mensagens em português ao lado de cada campo) e gravados no
+  banco.
+
+**Simulador**
 
 - **3 níveis de escala com transição contínua:** Sistema Solar (em UA), Via Láctea (em
   milhares de anos-luz) e Universo (em milhões de anos-luz). Basta afastar a câmera para
@@ -52,7 +68,7 @@ NASA.
 |---|---|
 | **Backend** | Python 3.11+, [FastAPI](https://fastapi.tiangolo.com), Uvicorn, Pydantic, httpx, Typer |
 | **Banco de dados** | SQLAlchemy 2 (assíncrono), PostgreSQL no [Supabase](https://supabase.com) (asyncpg) e SQLite em desenvolvimento (aiosqlite) |
-| **Frontend** | [Vue 3](https://vuejs.org) e [Three.js](https://threejs.org), sem etapa de build |
+| **Frontend** | [Vue 3](https://vuejs.org), [Bulma](https://bulma.io) (framework CSS) e [Three.js](https://threejs.org), sem etapa de build |
 | **Qualidade** | PyTest, pytest-cov, Ruff e Invoke |
 
 ## 🏗️ Arquitetura
@@ -167,8 +183,10 @@ API da NASA. Eles ficam no catálogo do projeto, em `atlas/catalog/data/catalog.
 | Comando | O que faz |
 |---|---|
 | `invoke run` | Sobe o servidor de desenvolvimento (recarrega ao salvar) |
-| `invoke test` / `invoke cov` | Roda os testes / com relatório de cobertura |
+| `invoke test` / `invoke cov` | Roda os testes do backend e do frontend / com cobertura |
 | `invoke lint` / `invoke format` | Verifica / formata o código com o Ruff |
+| `invoke package --grupo X` | Gera o `.zip` da entrega (sem `.venv`, `__pycache__` e `.env`) |
+| `invoke pdf` | Gera `dist/Documentacao.pdf` a partir do `Documentacao.md` (precisa de Chrome ou Edge) |
 | `atlas init-db [--reset]` | Cria (ou apaga e recria) as tabelas e carrega o catálogo |
 | `atlas seed --replace` | Recarrega o catálogo depois de editar o `catalog.json` |
 | `atlas refresh` | Atualiza agora as órbitas e as sondas a partir do JPL |
@@ -187,22 +205,24 @@ atlas-cosmos/
 │   ├── neo/            # asteroides próximos da Terra
 │   ├── exoplanets/     # estrelas com exoplanetas
 │   ├── media/          # foto do dia, foto da Terra e fotos dos astros
-│   └── spaceweather/   # erupções solares
-├── frontend/           # Vue 3 + Three.js (componentes e motor 3D)
-├── tests/              # PyTest com a NASA simulada
+│   ├── spaceweather/   # erupções solares
+│   ├── blog/           # notícias, lançamentos e tecnologias
+│   └── observations/   # Diário de observação (formulário + banco)
+├── frontend/           # Vue 3 + Bulma + Three.js (componentes, motor 3D e testes)
+├── tests/              # PyTest com as APIs externas simuladas
 └── docs/               # documentação detalhada
 ```
 
 ## 🧪 Testes
 
 ```bash
-invoke test      # ou: pytest
+invoke test      # backend (pytest) + frontend (node --test)
 invoke cov       # com relatório de cobertura
 ```
 
-São 41 testes, com 91% de cobertura. Eles **não acessam a internet**: `tests/nasa_mock.py`
-simula todas as APIs da NASA no formato das respostas reais, incluindo falhas e cache
-vencido. Cada teste usa um banco SQLite temporário.
+São 91 testes no backend, com 93% de cobertura, e 31 no frontend. Eles **não acessam a
+internet**: `tests/nasa_mock.py` simula todas as APIs externas no formato das respostas
+reais, incluindo falhas e cache vencido. Cada teste usa um banco SQLite temporário.
 
 ## 🔭 Aproximações
 

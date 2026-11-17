@@ -9,6 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from atlas.ext.db import Base
 
 if TYPE_CHECKING:
+    from atlas.observations.models import Observation
     from atlas.orbits.models import OrbitalElements
 
 
@@ -97,6 +98,14 @@ class Body(Base):
         back_populates="body",
         uselist=False,
         cascade="all, delete-orphan",
+    )
+
+    #: Registros do Diário de observação feitos pelos visitantes para este astro.
+    observations: Mapped[list[Observation]] = relationship(
+        "Observation",
+        back_populates="body",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )
 
     def __repr__(self) -> str:

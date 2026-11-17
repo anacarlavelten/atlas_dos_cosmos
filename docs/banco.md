@@ -13,6 +13,7 @@ mudar, gere este arquivo de novo (veja [Como regenerar](#como-regenerar)).
 | `body_facts` | [`atlas/catalog/models.py`](../atlas/catalog/models.py) — `BodyFact` | As linhas da tabela de dados de cada card |
 | `orbital_elements` | [`atlas/orbits/models.py`](../atlas/orbits/models.py) — `OrbitalElements` | A órbita de cada astro, vinda do JPL |
 | `cache_entries` | [`atlas/ext/cache/models.py`](../atlas/ext/cache/models.py) — `CacheEntry` | As respostas da NASA já processadas, com validade |
+| `observations` | [`atlas/observations/models.py`](../atlas/observations/models.py) — `Observation` | O Diário de observação: registros enviados pelos visitantes pelo formulário do blog |
 
 ## Diagrama
 
@@ -21,6 +22,7 @@ erDiagram
     bodies ||--o{ bodies : "parent_id (lua → planeta)"
     bodies ||--o{ body_facts : "body_id"
     bodies ||--o| orbital_elements : "body_id (1 órbita por astro)"
+    bodies ||--o{ observations : "body_id (astro observado)"
 
     bodies {
         SERIAL id PK
@@ -72,6 +74,18 @@ erDiagram
         VARCHAR source
         TIMESTAMPTZ fetched_at
         TIMESTAMPTZ expires_at
+    }
+    observations {
+        SERIAL id PK
+        INTEGER body_id FK
+        VARCHAR observer_name
+        DATE observed_at
+        VARCHAR location
+        VARCHAR instrument
+        SMALLINT sky_quality
+        TEXT notes
+        VARCHAR delete_token_hash
+        TIMESTAMP created_at
     }
 ```
 
@@ -164,6 +178,28 @@ CREATE TABLE orbital_elements (
 CREATE UNIQUE INDEX ix_orbital_elements_body_id ON orbital_elements (body_id);
 
 -- =====================================================================
+-- observations: Diário de observação (dados enviados pelos visitantes)
+-- =====================================================================
+CREATE TABLE observations (
+    id                SERIAL       NOT NULL,
+    body_id           INTEGER      NOT NULL,          -- astro observado
+    observer_name     VARCHAR(80)  NOT NULL,
+    observed_at       DATE         NOT NULL,          -- de 1900-01-01 até hoje
+    location          VARCHAR(120) NOT NULL,
+    instrument        VARCHAR(20)  NOT NULL,          -- olho-nu | binoculo | telescopio | camera
+    sky_quality       SMALLINT     NOT NULL,          -- 1 (ruim) a 5 (excelente)
+    notes             TEXT         NOT NULL,          -- até 1000 caracteres (validado na API)
+    delete_token_hash VARCHAR(64)  NOT NULL,          -- SHA-256 do código para apagar
+    created_at        TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT ck_observations_sky_quality CHECK (sky_quality BETWEEN 1 AND 5),
+    CONSTRAINT ck_observations_instrument CHECK (instrument IN ('olho-nu', 'binoculo', 'telescopio', 'camera')),
+    FOREIGN KEY (body_id) REFERENCES bodies (id) ON DELETE CASCADE
+);
+CREATE INDEX ix_observations_observed_at ON observations (observed_at);
+CREATE INDEX ix_observations_body_id     ON observations (body_id);
+
+-- =====================================================================
 -- Segurança no Supabase: RLS ligado e sem policies.
 -- A API REST pública (anon key) não lê nem altera nada; o backend conecta
 -- como dono das tabelas e não é afetado. Ver Database.create_all.
@@ -172,6 +208,7 @@ ALTER TABLE bodies           ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cache_entries    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE body_facts       ENABLE ROW LEVEL SECURITY;
 ALTER TABLE orbital_elements ENABLE ROW LEVEL SECURITY;
+ALTER TABLE observations     ENABLE ROW LEVEL SECURITY;
 ```
 
 ## Regras de integridade
@@ -184,6 +221,9 @@ ALTER TABLE orbital_elements ENABLE ROW LEVEL SECURITY;
 | Uma linha por posição | `uq_body_fact_position` | O mesmo card não tem duas linhas na mesma posição |
 | Uma órbita por astro | `ix_orbital_elements_body_id` (único) | Relação 1:1 entre `bodies` e `orbital_elements` |
 | Órbita do astro | `orbital_elements.body_id` `ON DELETE CASCADE` | Apagar um astro apaga a órbita dele |
+| Observação de um astro | `observations.body_id` `ON DELETE CASCADE` | Toda observação aponta para um astro que existe. O `atlas seed --replace` copia as observações antes de recriar o catálogo e as religa pelo `slug` |
+| Nota do céu de 1 a 5 | `ck_observations_sky_quality` | O banco recusa a nota fora da faixa, mesmo sem passar pela API |
+| Instrumento conhecido | `ck_observations_instrument` | Só os quatro instrumentos do formulário são aceitos |
 
 As datas de `cache_entries` e `orbital_elements` têm fuso horário (sempre em UTC). As de
 `bodies` não têm e são preenchidas pelo próprio banco (`now()`).
@@ -212,10 +252,17 @@ SELECT key, source, fetched_at, expires_at, expires_at < now() AS vencido
 FROM cache_entries
 ORDER BY fetched_at DESC;
 
+-- Astros mais observados no Diário de observação
+SELECT b.name, count(o.id) AS observacoes, round(avg(o.sky_quality), 1) AS ceu_medio
+FROM observations o
+JOIN bodies b ON b.id = o.body_id
+GROUP BY b.name
+ORDER BY observacoes DESC;
+
 -- Conferir se o RLS está ligado
 SELECT relname, relrowsecurity
 FROM pg_class
-WHERE relname IN ('bodies', 'body_facts', 'cache_entries', 'orbital_elements');
+WHERE relname IN ('bodies', 'body_facts', 'cache_entries', 'orbital_elements', 'observations');
 ```
 
 ## Como regenerar
@@ -226,5 +273,8 @@ Depois de mudar um modelo, gere o SQL de novo com o ambiente virtual ativado:
 python -c "from sqlalchemy.schema import CreateTable, CreateIndex; from sqlalchemy.dialects import postgresql; from atlas.ext.db import Base, register_models; register_models(); d = postgresql.dialect(); [print(str(CreateTable(t).compile(dialect=d)).strip() + ';', *[str(CreateIndex(i).compile(dialect=d)).strip() + ';' for i in t.indexes], sep='\n') for t in Base.metadata.sorted_tables]"
 ```
 
-Lembre-se de que `create_all` só cria tabelas que ainda não existem. Para aplicar uma mudança
-de coluna no Supabase, rode `atlas init-db --reset`.
+Lembre-se de que `create_all` só cria tabelas que ainda não existem (uma tabela nova, como
+`observations`, é criada sozinha ao subir o servidor). Para aplicar uma mudança de coluna em
+uma tabela que já existe, rode `atlas init-db --reset`. **Atenção:** o reset apaga também as
+observações enviadas pelos visitantes, que não podem ser recriadas. Antes de um reset em
+produção, exporte a tabela `observations` (no Supabase: *Table Editor → Export to CSV*).

@@ -37,24 +37,6 @@ export const ImageStrip = {
   </div>`,
 };
 
-/* Erupções solares dos últimos 30 dias (DONKI). */
-export const FlaresWidget = {
-  name: 'FlaresWidget',
-  setup() { return { ...useFetch('flares', api.flares), when }; },
-  template: `
-  <div class="live">
-    <h4>Atividade solar · últimos 30 dias</h4>
-    <p class="muted" v-if="loading" style="margin:0">Consultando o DONKI…</p>
-    <p class="muted" v-else-if="error" style="margin:0">{{ error }}</p>
-    <template v-else>
-      <div><b>{{ data.count }}</b> erupções solares registradas<span v-if="data.strongest">; a mais forte foi <b>{{ data.strongest.class_type }}</b> em {{ when(data.strongest.peak_time) }}</span>.</div>
-      <div class="pills"><span class="pill" v-for="(n, k) in data.by_class" :key="k">classe {{ k }}: {{ n }}</span></div>
-      <p class="muted" style="margin:8px 0 0;font-size:12.5px">Classes A, B, C, M e X: cada letra é 10 vezes mais forte que a anterior. Erupções X podem afetar rádio e GPS na Terra.</p>
-      <p class="src" style="margin-top:6px">NASA DONKI (clima espacial)<span v-if="data.stale"> · dados guardados</span></p>
-    </template>
-  </div>`,
-};
-
 /* A Terra inteira fotografada pela câmera EPIC, a 1,5 milhão de km. */
 export const EpicWidget = {
   name: 'EpicWidget',

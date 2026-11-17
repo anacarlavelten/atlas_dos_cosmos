@@ -1,11 +1,7 @@
 /* News portal home and the filterable all-stories archive. */
-import { reactive, computed, onMounted, onBeforeUnmount, nextTick, ref, watch } from 'vue';
+import { reactive, computed, onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import { api, once } from '../../api.js';
 import { ago, now } from './format.js';
-import BirthSkyCard from './BirthSkyCard.js';
-import BlogSidebar from './BlogSidebar.js';
-import DownloadsRow from './DownloadsRow.js';
-import LaunchesList from './LaunchesList.js';
 import PostImage from './PostImage.js';
 import PostGroups from './PostGroups.js';
 import StoryRow from './StoryRow.js';
@@ -23,7 +19,7 @@ const REFRESH_MS = 5 * 60 * 1000;
 
 export default {
   name: 'BlogTimeline',
-  components: { BirthSkyCard, BlogSidebar, DownloadsRow, LaunchesList, PostImage, PostGroups, StoryRow, TopStories },
+  components: { PostImage, PostGroups, StoryRow, TopStories },
   emits: ['distribution-update'],
   setup(_props, { emit }) {
     const f = reactive({ kinds: [], topics: [], kind: 'articles', topic: 'tudo', q: '', draft: '', error: null });
@@ -110,38 +106,11 @@ export default {
     const kindLabel = computed(() => f.kinds.find(k => k.key === f.kind)?.label || '');
     const updated = computed(() => (feed.fetchedAt ? ago(feed.fetchedAt, now.value) : ''));
     const highlight = computed(() => distribution.value.dailyFeature);
-    const bannerFeature = computed(() => distribution.value.bannerFeature);
     const bannerMedia = computed(() => distribution.value.bannerMedia);
     const topStories = computed(() => distribution.value.topStories);
     const topFeature = computed(() => distribution.value.topFeature);
     const storyTexts = computed(() => distribution.value.storyTexts);
     const storyCards = computed(() => distribution.value.storyCards);
-    const dayKey = iso => {
-      const date = new Date(iso);
-      return Number.isNaN(date.getTime()) ? '' : `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    };
-    const dayTargets = computed(() => {
-      const targets = new Map();
-      distribution.value.latest.forEach(post => targets.set(dayKey(post.published_at), 'latest'));
-      distribution.value.archive.forEach(post => {
-        const key = dayKey(post.published_at);
-        if (!targets.has(key)) targets.set(key, 'archive');
-      });
-      return targets;
-    });
-    const hasNewsOnDate = iso => dayTargets.value.has(dayKey(iso));
-    async function openNewsDate(iso) {
-      const key = dayKey(iso);
-      const target = dayTargets.value.get(key);
-      if (!target) return;
-      if (target === 'archive') {
-        const index = distribution.value.archive.findIndex(post => dayKey(post.published_at) === key);
-        archiveVisible.value = Math.max(archiveVisible.value, index + 1);
-      }
-      await nextTick();
-      document.getElementById(`${target}-day-${key}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
     function loadMoreLatest() {
       latestVisible.value += LATEST_BATCH;
       if (!distribution.value.archive.length && feed.hasMore) load(false);
@@ -154,8 +123,8 @@ export default {
 
     return {
       f, feed, distribution, latestGroups, archiveGroups, latestHasMore, archiveHasMore,
-      topicInfo, kindLabel, updated, highlight, bannerFeature, bannerMedia,
-      topStories, topFeature, storyTexts, storyCards, hasNewsOnDate, openNewsDate,
+      topicInfo, kindLabel, updated, highlight, bannerMedia,
+      topStories, topFeature, storyTexts, storyCards,
       load, setKind, setTopic, search, clearSearch, showFresh, loadMoreLatest, loadMoreArchive,
       ago, now,
     };
@@ -170,36 +139,20 @@ export default {
       <p v-else-if="f.error" class="module-error" role="alert">Tópicos indisponíveis: {{ f.error }}</p>
     </section>
 
-    <div class="portal-grid">
-      <BirthSkyCard />
-      <LaunchesList :has-news-on-date="hasNewsOnDate" :open-news-date="openNewsDate" />
+    <div class="news-grid" :class="{ 'without-highlight': !highlight }">
       <TopStories :posts="topStories" :feature="topFeature" />
-    </div>
-
-    <div class="information-grid" :class="{ 'without-highlight': !highlight }">
-      <BlogSidebar />
       <article v-if="highlight" class="daily-highlight">
         <PostImage :src="highlight.image_url" :fallback-src="highlight.thumbnail || highlight.image" :alt="'Imagem do destaque: ' + highlight.title" :source="highlight.news_site" />
         <span class="daily-shade"></span>
-        <div class="daily-copy"><span class="eyebrow">Destaque do dia · {{ highlight.news_site }}</span><h2>{{ highlight.title }}</h2><a href="#stories" class="pill-primary">Mais histórias</a></div>
+        <div class="daily-copy"><span class="eyebrow">Destaque do dia · {{ highlight.news_site }}</span><h2>{{ highlight.title }}</h2><a :href="highlight.url" target="_blank" rel="noopener" class="pill-primary">Ler a notícia ↗</a></div>
       </article>
     </div>
 
-    <section class="mission-banner-section">
-      <nav class="mission-tabs" aria-label="Temas do Atlas">
-        <a href="#birth-sky">Sistema Solar</a><a href="#space-weather">Clima espacial</a><a href="#near-asteroids">Asteroides</a><a href="#technology-tools">Tecnologias</a>
-      </nav>
-      <article class="mission-banner" :class="{ 'has-image': bannerFeature }">
-        <PostImage v-if="bannerFeature" :src="bannerFeature.image_url" :fallback-src="bannerFeature.thumbnail || bannerFeature.image" :alt="'Imagem espacial: ' + bannerFeature.title" :source="bannerFeature.news_site" />
-        <span class="mission-banner-shade"></span>
-        <div class="mission-banner-copy"><span class="eyebrow">Atlas do Cosmos · Explore</span><h2>Viaje do Sol até as galáxias</h2><p>Órbitas reais, sondas, asteroides e milhares de estrelas com planetas no simulador do Atlas.</p><a href="#/simulador" class="pill-primary">Abrir simulador 3D <span aria-hidden="true">↗</span></a></div>
-      </article>
-      <div v-if="bannerMedia.length" class="banner-media-row" aria-label="Imagens das últimas publicações">
-        <a v-for="post in bannerMedia" :key="post.id" :href="post.url" target="_blank" rel="noopener" class="banner-media-card">
-          <PostImage :src="post.image_url" :fallback-src="post.thumbnail || post.image" :alt="'Imagem da publicação: ' + post.title" :source="post.news_site" /><span>{{ post.news_site }} · {{ post.title }}</span>
-        </a>
-      </div>
-    </section>
+    <div v-if="bannerMedia.length" class="banner-media-row" aria-label="Imagens das últimas publicações">
+      <a v-for="post in bannerMedia" :key="post.id" :href="post.url" target="_blank" rel="noopener" class="banner-media-card">
+        <PostImage :src="post.image_url" :fallback-src="post.thumbnail || post.image" :alt="'Imagem da publicação: ' + post.title" :source="post.news_site" /><span>{{ post.news_site }} · {{ post.title }}</span>
+      </a>
+    </div>
 
     <StoryRow
       :text-posts="storyTexts"
@@ -208,7 +161,6 @@ export default {
       :loading="feed.loading"
       @load-more="loadMoreLatest"
     />
-    <DownloadsRow />
 
     <section id="latest-stories" class="archive-section latest-section" aria-labelledby="latest-title">
       <div class="archive-heading">

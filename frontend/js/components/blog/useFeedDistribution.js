@@ -80,7 +80,6 @@ export function distributeFeed(posts, latestLimit = 12, failedImages = new Set()
   const dailyFeature = take(pool, 1, imageAvailable)[0] || null;
   const storyTexts = take(pool, 3);
   const storyCards = take(pool, 5, imageAvailable);
-  const bannerFeature = take(pool, 1, imageAvailable)[0] || null;
   const bannerMedia = take(pool, 4, imageAvailable);
   const latest = take(pool, Math.max(0, latestLimit));
 
@@ -94,7 +93,6 @@ export function distributeFeed(posts, latestLimit = 12, failedImages = new Set()
     dailyFeature,
     storyTexts,
     storyCards,
-    bannerFeature,
     bannerMedia,
     latest,
     archive: pool,

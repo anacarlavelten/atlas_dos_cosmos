@@ -4,12 +4,34 @@
 import { reactive, markRaw } from 'vue';
 import { CATCOL, fmt } from './engine/util.js';
 
-/* Aba aberta: 'blog' (página inicial) ou 'sim' (simulador). Vem do endereço
-   (#/blog ou #/simulador) para que o botão Voltar do navegador funcione. */
-export const viewFromHash = () => (location.hash.startsWith('#/simulador') ? 'sim' : 'blog');
+/* Páginas do Atlas. Cada uma tem seu endereço (#/noticias, #/ceu, ...) para que
+   o botão Voltar do navegador e os links diretos funcionem. O simulador é a única
+   página fora do layout do blog (view 'sim'). */
+export const PAGES = [
+  { key: 'noticias', label: 'Notícias', title: 'Notícias do espaço' },
+  { key: 'lancamentos', label: 'Agenda de voos', title: 'Agenda de voos' },
+  { key: 'ceu', label: 'Céu do nascimento', title: 'Céu do seu nascimento' },
+  { key: 'asteroides', label: 'Asteroides', title: 'Asteroides próximos' },
+  { key: 'tecnologias', label: 'Tecnologias', title: 'Tecnologias espaciais' },
+  { key: 'diario', label: 'Diário', title: 'Diário de observação' },
+];
+const PAGE_KEYS = new Set(PAGES.map(p => p.key));
+
+/* Endereços que são rotas começam com "#/". Os demais (#all-stories...) são
+   âncoras dentro da página atual e não trocam de página. */
+export const isRouteHash = (hash = location.hash) => !hash || hash === '#' || hash.startsWith('#/');
+
+export function routeFromHash(hash = location.hash) {
+  const key = (hash.match(/^#\/([\w-]+)/) || [])[1] || '';
+  if (key === 'simulador') return { view: 'sim', page: null };   // mantém a última página do blog
+  return { view: 'blog', page: PAGE_KEYS.has(key) ? key : 'noticias' };
+}
+
+const initial = routeFromHash(isRouteHash() ? location.hash : '');
 
 export const store = reactive({
-  view: viewFromHash(),
+  view: initial.view,          // 'blog' (páginas do Atlas) ou 'sim' (simulador)
+  page: initial.page || 'noticias',        // página aberta dentro do blog
   phase: 'idle',               // idle | loading | ready | error (o simulador só carrega ao abrir a aba)
   loadingMsg: 'Preparando o céu…',
   fatal: null,

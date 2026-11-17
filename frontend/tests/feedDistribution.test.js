@@ -25,7 +25,6 @@ function allAllocated(distribution) {
     distribution.dailyFeature,
     ...distribution.storyTexts,
     ...distribution.storyCards,
-    distribution.bannerFeature,
     ...distribution.bannerMedia,
     ...distribution.latest,
     ...distribution.archive,
@@ -53,8 +52,8 @@ test('duplicates are removed by normalized URL and title', () => {
 test('latest gets the newest unused stories and at least twelve from a pool of sixty', () => {
   const distribution = distributeFeed(posts(60));
   assert.equal(distribution.latest.length, 12);
-  assert.equal(distribution.latest[0].id, 30);
-  assert.equal(distribution.latest.at(-1).id, 19);
+  assert.equal(distribution.latest[0].id, 31);
+  assert.equal(distribution.latest.at(-1).id, 20);
   assert.ok(distribution.latest.every((post, index, list) => (
     index === 0 || Date.parse(list[index - 1].published_at) >= Date.parse(post.published_at)
   )));
@@ -73,7 +72,6 @@ test('archive excludes latest and all editorial highlights', () => {
     distribution.dailyFeature,
     ...distribution.storyTexts,
     ...distribution.storyCards,
-    distribution.bannerFeature,
     ...distribution.bannerMedia,
     ...distribution.latest,
   ].filter(Boolean).map(post => post.id));
@@ -106,7 +104,6 @@ test('image-only sections do not receive posts without an image', () => {
   assert.deepEqual(distribution.heroSides, []);
   assert.equal(distribution.topFeature, null);
   assert.deepEqual(distribution.storyCards, []);
-  assert.equal(distribution.bannerFeature, null);
   assert.deepEqual(distribution.bannerMedia, []);
 });
 

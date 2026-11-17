@@ -14,6 +14,7 @@ e às vezes ficam fora do ar. Por isso toda resposta externa passa por
 from __future__ import annotations
 
 import asyncio
+import logging
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
@@ -42,6 +43,8 @@ def _aware(moment: datetime) -> datetime:
     # O SQLite devolve datas sem fuso; tratamos tudo como UTC.
     return moment if moment.tzinfo else moment.replace(tzinfo=UTC)
 
+
+log = logging.getLogger("atlas.cache")
 
 _locks: dict[tuple[int, str], asyncio.Lock] = {}
 
@@ -90,11 +93,14 @@ async def remember(
             await session.commit()
             entry = None
         if entry and not force and _aware(entry.expires_at) > utcnow():
+            log.debug("cache válido: %s", key)
             return Cached(entry.payload, _aware(entry.fetched_at), False, entry.source)
+        log.debug("cache %s: consultando %s", "vencido" if entry else "vazio", source)
         try:
             payload = await producer()
-        except NasaError:
+        except NasaError as exc:
             if entry is not None:
+                log.warning("%s falhou (%s); usando a cópia guardada de %s", source, exc, key)
                 return Cached(entry.payload, _aware(entry.fetched_at), True, entry.source)
             raise
         saved = await write(session, key, payload, ttl, source)

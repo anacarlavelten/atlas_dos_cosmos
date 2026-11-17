@@ -113,6 +113,7 @@ def register_models() -> None:
     """Importa os módulos que definem modelos para registrá-los no metadata."""
     import atlas.catalog.models  # noqa: F401
     import atlas.ext.cache.models  # noqa: F401
+    import atlas.observations.models  # noqa: F401
     import atlas.orbits.models  # noqa: F401
 
 
