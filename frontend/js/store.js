@@ -3,6 +3,7 @@
    observá-los e o motor 3D os recebe como objetos simples. */
 import { reactive, markRaw } from 'vue';
 import { CATCOL, fmt } from './engine/util.js';
+import { isAuthenticated } from './auth.js';
 
 /* Páginas do Atlas. Cada uma tem seu endereço (#/noticias, #/ceu, ...) para que
    o botão Voltar do navegador e os links diretos funcionem. O simulador é a única
@@ -13,7 +14,7 @@ export const PAGES = [
   { key: 'ceu', label: 'Céu do nascimento', title: 'Céu do seu nascimento' },
   { key: 'asteroides', label: 'Asteroides', title: 'Asteroides próximos' },
   { key: 'tecnologias', label: 'Tecnologias', title: 'Tecnologias espaciais' },
-  { key: 'diario', label: 'Diário', title: 'Diário de observação' },
+  { key: 'perfil', label: 'Meu perfil', title: 'Meu perfil' },
 ];
 const PAGE_KEYS = new Set(PAGES.map(p => p.key));
 
@@ -24,6 +25,7 @@ export const isRouteHash = (hash = location.hash) => !hash || hash === '#' || ha
 export function routeFromHash(hash = location.hash) {
   const key = (hash.match(/^#\/([\w-]+)/) || [])[1] || '';
   if (key === 'simulador') return { view: 'sim', page: null };   // mantém a última página do blog
+  if (key === 'diario') return { view: 'blog', page: 'perfil' };
   return { view: 'blog', page: PAGE_KEYS.has(key) ? key : 'noticias' };
 }
 
@@ -48,6 +50,11 @@ export const store = reactive({
   introOpen: true,
   apodOpen: false,
   sourcesOpen: false,
+  authenticated: isAuthenticated(),
+  authModalOpen: false,
+  authMode: 'login',
+  authError: '',
+  pendingAuthDestination: null,
   playing: true,
   dir: 1,
   speedValue: 400,

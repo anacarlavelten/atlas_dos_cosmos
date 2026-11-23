@@ -21,6 +21,7 @@ import BodyCard from './components/BodyCard.js';
 import ControlBar, { syncControls } from './components/ControlBar.js';
 import { IntroModal, ApodModal } from './components/Modals.js';
 import BlogPage from './components/blog/BlogPage.js';
+import LoginModal from './components/LoginModal.js';
 
 async function boot(els) {
   store.phase = 'loading';
@@ -67,16 +68,36 @@ async function boot(els) {
 }
 
 const App = {
-  components: { TopBar, SourcesPanel, BodyList, BodyCard, ControlBar, IntroModal, ApodModal, BlogPage },
+  components: { TopBar, SourcesPanel, BodyList, BodyCard, ControlBar, IntroModal, ApodModal, BlogPage, LoginModal },
   setup() {
     const canvas = ref(null), labels = ref(null), tip = ref(null), fade = ref(null);
 
-    addEventListener('hashchange', () => {
+    const requireLogin = destination => {
+      if (store.page === 'perfil') store.page = 'noticias';
+      store.view = 'blog';
+      store.pendingAuthDestination = destination;
+      store.authMode = 'login';
+      store.authError = '';
+      store.authModalOpen = true;
+      history.replaceState(null, '', `#/${store.page}`);
+    };
+    const syncRoute = () => {
       if (!isRouteHash()) return;   // âncora dentro da página atual
       const route = routeFromHash();
+      if ((route.view === 'sim' || route.page === 'perfil') && !store.authenticated) {
+        requireLogin(route.view === 'sim' ? 'sim' : 'profile');
+        return;
+      }
       store.view = route.view;
       if (route.page) store.page = route.page;
-    });
+      if (location.hash === '#/diario') history.replaceState(null, '', '#/perfil');
+    };
+    if ((store.view === 'sim' || store.page === 'perfil') && !store.authenticated) {
+      requireLogin(store.view === 'sim' ? 'sim' : 'profile');
+    } else if (location.hash === '#/diario') {
+      history.replaceState(null, '', '#/perfil');
+    }
+    addEventListener('hashchange', syncRoute);
     const setTitle = () => {
       const page = PAGES.find(p => p.key === store.page);
       document.title = store.view === 'sim' ? 'Simulador · Atlas do Cosmos' : `${page?.title || 'Notícias'} · Atlas do Cosmos`;
@@ -125,6 +146,7 @@ const App = {
       </div>
     </div>
     <ApodModal />
+    <LoginModal />
   `,
 };
 
