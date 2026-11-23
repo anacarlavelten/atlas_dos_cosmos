@@ -10,7 +10,7 @@
 ![Three.js](https://img.shields.io/badge/Three.js-r170-000000?logo=threedotjs&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/Supabase-PostgreSQL-3FCF8E?logo=supabase&logoColor=white)
 ![Bulma](https://img.shields.io/badge/Bulma-1.0-00D1B2?logo=bulma&logoColor=white)
-![Testes](https://img.shields.io/badge/testes-91%20%2B%2031%20passando-brightgreen)
+![Testes](https://img.shields.io/badge/testes-91%20%2B%2036%20passando-brightgreen)
 ![Cobertura](https://img.shields.io/badge/cobertura-93%25-brightgreen)
 
 </div>
@@ -220,7 +220,7 @@ invoke test      # backend (pytest) + frontend (node --test)
 invoke cov       # com relatório de cobertura
 ```
 
-São 91 testes no backend, com 93% de cobertura, e 31 no frontend. Eles **não acessam a
+São 91 testes no backend, com 93% de cobertura, e 36 no frontend. Eles **não acessam a
 internet**: `tests/nasa_mock.py` simula todas as APIs externas no formato das respostas
 reais, incluindo falhas e cache vencido. Cada teste usa um banco SQLite temporário.
 

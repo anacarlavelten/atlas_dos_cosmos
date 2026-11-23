@@ -1,6 +1,3 @@
-/* Layout das páginas do Atlas: cabeçalho com a navegação, a página aberta e o
-   rodapé. Cada item da navegação abre uma página própria (#/noticias, #/ceu...);
-   as páginas visitadas ficam em memória (KeepAlive) para não recarregar os dados. */
 import { computed, nextTick, onBeforeUnmount, onMounted, watch } from 'vue';
 import { PAGES, store } from '../../store.js';
 import { now } from './format.js';
@@ -61,7 +58,6 @@ export default {
       store.authModalOpen = true;
     }
 
-    /* A busca fica no arquivo de notícias: abre a página de notícias e leva até ela. */
     function openSearch() {
       const focus = () => nextTick(() => {
         document.getElementById('all-stories')?.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -9,24 +9,14 @@ from sqlalchemy.orm import Mapped, mapped_column
 from atlas.ext.db import Base
 
 
-# === CacheEntry (respostas da NASA já processadas) ===
 class CacheEntry(Base):
     __tablename__ = "cache_entries"
 
-    # ======================================================
-    # IDENTIFICAÇÃO
-    # ======================================================
     key: Mapped[str] = mapped_column(String(200), primary_key=True)
 
-    # ======================================================
-    # CONTEÚDO
-    # ======================================================
     payload: Mapped[Any] = mapped_column(JSON, nullable=False)
     source: Mapped[str] = mapped_column(String(60), nullable=False)
 
-    # ======================================================
-    # VALIDADE
-    # ======================================================
     fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 

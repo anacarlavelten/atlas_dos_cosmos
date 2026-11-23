@@ -1,5 +1,3 @@
-/* Atalho entre o Atlas (páginas de notícias e ferramentas) e o Simulador.
-   A troca é feita pelo endereço (#/noticias, #/simulador); main.js observa o hash. */
 import { store } from '../store.js';
 
 export default {

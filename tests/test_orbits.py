@@ -29,7 +29,7 @@ def test_spacecraft_positions(client):
     v1 = craft["voyager"]
     assert v1["source"] == "JPL Horizons"
     distance = sum(c * c for c in v1["position"]) ** 0.5
-    assert 150 < distance < 200  # UA
+    assert 150 < distance < 200
 
 
 def test_falls_back_to_approximate_elements(make_client):

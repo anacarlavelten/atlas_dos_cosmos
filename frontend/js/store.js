@@ -5,9 +5,6 @@ import { reactive, markRaw } from 'vue';
 import { CATCOL, fmt } from './engine/util.js';
 import { isAuthenticated } from './auth.js';
 
-/* Páginas do Atlas. Cada uma tem seu endereço (#/noticias, #/ceu, ...) para que
-   o botão Voltar do navegador e os links diretos funcionem. O simulador é a única
-   página fora do layout do blog (view 'sim'). */
 export const PAGES = [
   { key: 'noticias', label: 'Notícias', title: 'Notícias do espaço' },
   { key: 'lancamentos', label: 'Agenda de voos', title: 'Agenda de voos' },
@@ -24,7 +21,7 @@ export const isRouteHash = (hash = location.hash) => !hash || hash === '#' || ha
 
 export function routeFromHash(hash = location.hash) {
   const key = (hash.match(/^#\/([\w-]+)/) || [])[1] || '';
-  if (key === 'simulador') return { view: 'sim', page: null };   // mantém a última página do blog
+  if (key === 'simulador') return { view: 'sim', page: null };
   if (key === 'diario') return { view: 'blog', page: 'perfil' };
   return { view: 'blog', page: PAGE_KEYS.has(key) ? key : 'noticias' };
 }
@@ -32,8 +29,8 @@ export function routeFromHash(hash = location.hash) {
 const initial = routeFromHash(isRouteHash() ? location.hash : '');
 
 export const store = reactive({
-  view: initial.view,          // 'blog' (páginas do Atlas) ou 'sim' (simulador)
-  page: initial.page || 'noticias',        // página aberta dentro do blog
+  view: initial.view,
+  page: initial.page || 'noticias',
   phase: 'idle',               // idle | loading | ready | error (o simulador só carrega ao abrir a aba)
   loadingMsg: 'Preparando o céu…',
   fatal: null,
@@ -44,7 +41,7 @@ export const store = reactive({
   orbits: null,
   neos: null,
   exo: null,
-  errors: {},                  // erro por fonte: { orbits, neos, exo }
+  errors: {},
   selectedId: null,
   listOpen: false,
   introOpen: true,
@@ -68,7 +65,6 @@ export const store = reactive({
   hud: { dist: '', date: null, reversing: false, hint: '' },
 });
 
-/* Referência ao motor 3D (preenchida quando a cena termina de carregar). */
 export const engineRef = { current: null };
 
 export const raw = v => (v && typeof v === 'object' ? markRaw(v) : v);
@@ -92,7 +88,6 @@ const fmtDay = iso => {
 };
 const fmtJd = jd => fmtDay(new Date((jd - 2440587.5) * 86400000).toISOString());
 
-/* Monta o "modelo" do card a partir do id selecionado (astro do catálogo ou asteroide). */
 export function cardFor(id) {
   if (!id) return null;
   if (id.startsWith('neo:')) {

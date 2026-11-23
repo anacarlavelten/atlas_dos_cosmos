@@ -1,9 +1,3 @@
-/* Nível 2 — Via Láctea (unidade: mil anos-luz).
-
-   A galáxia é desenhada com ~95 mil partículas: disco com 4 braços em espiral
-   logarítmica, bojo, barra central e halo. Os astros do catálogo são posicionados
-   pelas coordenadas galácticas (l, b) e distância a partir do Sol; as estrelas
-   com exoplanetas vêm do NASA Exoplanet Archive. */
 import * as THREE from 'three';
 import { Level } from './level.js';
 import { TAU, D2R, clamp, rnd, gauss } from './util.js';
@@ -30,7 +24,7 @@ function buildGalaxyGeometry() {
   const N = 64000 + 20000 + 9000 + 2500, pos = new Float32Array(N * 3), col = new Float32Array(N * 3), siz = new Float32Array(N);
   let n = 0;
   const put = (x, y, z, c, s, k) => { pos[n * 3] = x; pos[n * 3 + 1] = y; pos[n * 3 + 2] = z; col[n * 3] = c[0] * k; col[n * 3 + 1] = c[1] * k; col[n * 3 + 2] = c[2] * k; siz[n] = s; n++; };
-  for (let i = 0; i < 64000; i++) {            // disco e braços
+  for (let i = 0; i < 64000; i++) {
     let r; do { r = -7.5 * Math.log(1 - rnd() * 0.999) + 3; } while (r > 46);
     const inArm = rnd() < 0.7; let th, young = false;
     if (inArm) { const k = (rnd() * 4) | 0; th = armTheta(k, r) + gauss() * clamp(2.3 / r, 0.07, 0.34); young = rnd() < 0.55; } else th = rnd() * TAU;
@@ -39,13 +33,13 @@ function buildGalaxyGeometry() {
     if (!young) { c[1] = 0.8 + 0.12 * (1 - warm); c[2] = 0.5 + 0.25 * (1 - warm); }
     put(r * Math.cos(th), y, r * Math.sin(th), c, 0.14 + 0.25 * rnd(), young ? 0.52 : 0.4);
   }
-  for (let i = 0; i < 20000; i++) {            // bojo
+  for (let i = 0; i < 20000; i++) {
     const rr = Math.abs(gauss()) * 1.8, a = rnd() * TAU, ph = Math.acos(2 * rnd() - 1);
     put(rr * Math.sin(ph) * Math.cos(a) * 1.1, rr * Math.cos(ph) * 0.65, rr * Math.sin(ph) * Math.sin(a) * 1.1, [1, 0.78, 0.5], 0.12 + 0.2 * rnd(), 0.3);
   }
-  const bar = 27 * D2R;                         // barra
+  const bar = 27 * D2R;
   for (let i = 0; i < 9000; i++) { const a = gauss() * 2.4, b = gauss() * 0.65; put(a * Math.cos(bar) - b * Math.sin(bar), gauss() * 0.35, a * Math.sin(bar) + b * Math.cos(bar), [1, 0.78, 0.5], 0.12 + 0.2 * rnd(), 0.3); }
-  for (let i = 0; i < 2500; i++) {             // halo
+  for (let i = 0; i < 2500; i++) {
     const rr = 6 + Math.pow(rnd(), 0.8) * 28, a = rnd() * TAU, ph = Math.acos(2 * rnd() - 1);
     put(rr * Math.sin(ph) * Math.cos(a), rr * Math.cos(ph) * 0.8, rr * Math.sin(ph) * Math.sin(a), [0.8, 0.82, 1], 0.15 + 0.15 * rnd(), 0.38);
   }
@@ -107,7 +101,6 @@ export class GalaxyLevel extends Level {
       }
     }
 
-    // Picks virtuais (só lista + card): a galáxia inteira e as estrelas com exoplanetas.
     const center = new THREE.Object3D(); this.group.add(center);
     for (const body of bodies.filter(b => b.level === 2 && b.render?.virtual)) {
       const r = body.render;
@@ -124,7 +117,6 @@ export class GalaxyLevel extends Level {
     this.sky = makeSky(3500, 0.25);
   }
 
-  /* Uma partícula por estrela com planeta confirmado: [l, b, distância em anos-luz, nº de planetas]. */
   buildExoplanets(hosts) {
     const pos = new Float32Array(hosts.length * 3), col = new Float32Array(hosts.length * 3), v = new THREE.Vector3();
     hosts.forEach(([l, b, d, n], i) => {

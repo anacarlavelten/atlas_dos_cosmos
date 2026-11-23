@@ -1,9 +1,3 @@
-/* Lógica do formulário do Diário de observação.
-
-   A validação de verdade acontece no servidor (Pydantic): o formulário envia os
-   dados e, se o servidor recusar (HTTP 422), mostra a mensagem de cada campo ao
-   lado dele. Aqui só fazemos o que é conveniência para quem preenche: limpar
-   espaços, converter a nota para número e lembrar o código de exclusão. */
 import { computed, reactive, ref } from '../../../vendor/vue.esm-browser.prod.js';
 import { api, once } from '../../api.js';
 
@@ -28,7 +22,6 @@ function writeJson(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* armazenamento é opcional */ }
 }
 
-/* Converte o estado do formulário no JSON que a API espera. */
 export function toPayload(form) {
   const text = value => String(value ?? '').trim();
   const quality = text(form.sky_quality);
@@ -63,7 +56,6 @@ export default function useObservationForm() {
   const list = reactive({ items: [], total: 0, filter: '', loading: false, error: '' });
   const tokens = ref(readJson(TOKENS_KEY, {}));
 
-  /* Astros agrupados como na lista do simulador (Planetas, Luas...). */
   const bodyGroups = computed(() => {
     const groups = new Map();
     for (const body of bodies.value) {

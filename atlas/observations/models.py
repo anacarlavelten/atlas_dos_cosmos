@@ -21,7 +21,6 @@ from atlas.ext.db import Base
 if TYPE_CHECKING:
     from atlas.catalog.models import Body
 
-#: Instrumentos aceitos no formulário: chave gravada no banco -> rótulo exibido.
 INSTRUMENTS: dict[str, str] = {
     "olho-nu": "A olho nu",
     "binoculo": "Binóculo",
@@ -30,7 +29,6 @@ INSTRUMENTS: dict[str, str] = {
 }
 
 
-# === Observation (registro do Diário de observação) ===
 class Observation(Base):
     """Uma observação do céu registrada por um visitante pelo formulário do blog.
 

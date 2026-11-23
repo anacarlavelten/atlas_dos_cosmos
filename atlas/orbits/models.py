@@ -12,7 +12,6 @@ if TYPE_CHECKING:
     from atlas.catalog.models import Body
 
 
-# === OrbitalElements (órbita de um astro, vinda do JPL) ===
 class OrbitalElements(Base):
     """Elementos orbitais osculadores numa época. Com eles o frontend calcula a
     posição do astro em qualquer data pela equação de Kepler."""
@@ -28,18 +27,11 @@ class OrbitalElements(Base):
         index=True,
     )
 
-    # ======================================================
-    # ORIGEM
-    # ======================================================
-    #: "JPL Horizons" ou "JPL SBDB"
     source: Mapped[str] = mapped_column(String(40), nullable=False)
     #: Centro de referência (ex.: "500@10" = Sol, "500@599" = Júpiter).
     center: Mapped[str] = mapped_column(String(30), nullable=False)
     fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 
-    # ======================================================
-    # ELEMENTOS (UA, graus, dias)
-    # ======================================================
     epoch_jd: Mapped[float] = mapped_column(Float, nullable=False)
     a: Mapped[float] = mapped_column(Float, nullable=False)  # semieixo maior (UA)
     e: Mapped[float] = mapped_column(Float, nullable=False)  # excentricidade

@@ -198,7 +198,6 @@
 }
 .module-error, .birth-error { color: #ffd1d1; font-size: 12px; line-height: 1.5; }
 
-/* Scrollable NASA TV / quick media rail */
 .media-strip {
   display: grid;
   grid-template-columns: 160px minmax(0, 1fr);
@@ -228,7 +227,6 @@
 .media-fallback { display: grid; width: 100%; height: 100%; place-items: center; color: var(--blog-blue-light); background: linear-gradient(135deg, #0b3d91, #101c34); font-size: 22px; }
 .media-loading { color: var(--blog-muted); font-size: 11px; }
 
-/* Feature mosaic */
 .portal-hero { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: var(--blog-gap); margin-bottom: 30px; }
 .hero-main-column { min-width: 0; }
 .hero-lead { position: relative; min-height: 490px; overflow: hidden; border: 1px solid var(--blog-line); border-radius: var(--blog-radius); background: var(--blog-card-solid); box-shadow: inset 0 1px 0 rgba(255,255,255,.1); }
@@ -285,7 +283,6 @@
 .related-story:hover b { color: #a9ccff; }
 .related-story time { color: var(--blog-muted); font-size: 9px; }
 
-/* Main topic bar and three feature modules */
 .topic-panel { display: grid; grid-template-columns: minmax(160px, .7fr) 2fr; align-items: center; gap: 16px; margin: 12px 0 16px; padding: 14px 16px; border: 1px solid var(--blog-line); border-radius: var(--blog-radius); background: rgba(15,23,42,.48); }
 .topic-panel h2 { font-size: 18px; }
 .topic-pills { display: flex; flex-wrap: wrap; gap: 7px; }
@@ -360,7 +357,6 @@
 .birth-footer .text-button { color: #fff; }
 .share-message { flex-basis: 100%; color: #e0ebff; font-size: 9px; }
 
-/* Launch pager and top stories */
 .launches-module, .top-stories { display: flex; flex-direction: column; }
 .launch-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
 .launch-list li { position: relative; display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--blog-line-soft); }
@@ -395,7 +391,6 @@
 .top-feature-copy small { color: #c2dcff; font-size: 8px; text-transform: uppercase; }
 .top-feature-copy b { display: -webkit-box; overflow: hidden; color: #fff; font: 700 12px/1.25 var(--display); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 
-/* Data cards, day feature and news image row */
 .signal-card, .technology-widget { min-width: 0; padding: 17px; border: 1px solid var(--blog-line); border-radius: var(--blog-radius); background: var(--blog-card); box-shadow: inset 0 1px 0 rgba(255,255,255,.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .signal-card .module-heading { margin-bottom: 9px; }
 .signal-card .module-heading h2, .technology-widget .module-heading h2 { font-size: 17px; }
@@ -435,7 +430,6 @@
 .banner-media-card::after { position: absolute; inset: 30% 0 0; background: linear-gradient(to top, rgba(0,0,0,.85), transparent); content: ""; }
 .banner-media-card span { position: absolute; right: 8px; bottom: 8px; left: 8px; z-index: 1; display: -webkit-box; overflow: hidden; font-size: 9px; font-weight: 700; line-height: 1.3; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 
-/* Story shelves */
 .story-shelf, .archive-section { margin-top: 34px; }
 .section-heading, .archive-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 14px; }
 .section-heading > a { color: #a9ccff !important; font-size: 9px; font-weight: 700; text-decoration: none; text-transform: uppercase; }
@@ -459,7 +453,6 @@
 .shelf-more { display: flex; margin: 16px auto 0; }
 .shelf-end { text-align: center; }
 
-/* Filterable archive retains day grouping, counts and refresh behavior */
 .archive-section { padding-top: 24px; border-top: 1px solid var(--blog-line); scroll-margin-top: 120px; }
 .archive-heading { align-items: center; }
 .archive-heading h2 { margin: 5px 0; font-size: 29px; }
@@ -516,7 +509,6 @@
 .bfoot > .bwrap > b { color: #fff; font-size: 11px; text-transform: uppercase; }
 .bfoot p { margin: 7px 0 0; color: var(--blog-muted); line-height: 1.7; }
 .bfoot p a { color: #b7d4ff !important; }
-/* Páginas: notícias (inicial) e uma página por ferramenta */
 .news-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: var(--blog-gap); align-items: stretch; }
 .news-grid.without-highlight { grid-template-columns: minmax(0, 1fr); }
 .banner-media-row { margin-top: 18px; }
@@ -604,7 +596,6 @@
   .footer-nav { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
-/* ---------- Diário de observação (componentes do Bulma; tema em framework.css) ---------- */
 .observation-diary { margin: 34px 0; padding: 22px; border: 1px solid var(--blog-line); border-radius: var(--blog-radius); background: var(--blog-card); }
 .diary-intro { max-width: 640px; margin: 6px 0 0; color: var(--blog-copy); font-size: 13px; line-height: 1.55; }
 .diary-form { padding: 18px; border: 1px solid var(--blog-line-soft); border-radius: var(--blog-radius); background: rgba(2, 4, 8, .35); }
@@ -633,7 +624,6 @@
   .diary-form { padding: 14px; }
 }
 
-/* ---------- Perfil pessoal e diário local ---------- */
 #blog main.page-perfil > * { width: min(1180px, 100%); margin-top: 0; }
 #blog .bnav a[href="#/perfil"].active { color: #ffc25a !important; }
 #blog .bnav a[href="#/perfil"].active::after { background: #ffc25a; }

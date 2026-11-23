@@ -1,9 +1,3 @@
-/* Nível 1 — Sistema Solar (unidade: UA).
-
-   As posições vêm dos elementos orbitais entregues pela API (/api/orbits), que
-   por sua vez vêm do JPL Horizons/SBDB. As luas orbitam o planeta com a órbita
-   real (orientação e fase), mas com a distância ampliada junto com os tamanhos
-   para continuarem visíveis. As sondas usam posição + velocidade do Horizons. */
 import * as THREE from 'three';
 import { Level, worldPos } from './level.js';
 import { TAU, D2R, AU_KM, J2000, clamp, rnd, gauss, yieldUI } from './util.js';
@@ -19,7 +13,7 @@ export class SolarLevel extends Level {
   constructor(state) {
     super(1, 'Sistema Solar', 700);
     this.state = state;
-    this.bodies = {};      // astros com esfera (Sol, planetas, anões, luas)
+    this.bodies = {};
     this.moons = [];
     this.comets = [];
     this.probes = [];
@@ -139,7 +133,6 @@ export class SolarLevel extends Level {
           break;
         }
         case 'neo':
-          // Card explicativo do grupo; a câmera vai até a Terra.
           this.add({ ...meta(body), virtual: true, getPos: out => (this.bodies.terra ? this.bodies.terra.node.getWorldPosition(out) : out.set(1, 0, 0)), view: r.view || 0.35, minD: 0.01 });
           break;
       }
@@ -168,7 +161,6 @@ export class SolarLevel extends Level {
     this.applyScale();
   }
 
-  /* Asteroides da semana (NeoWs): órbita + marcador clicável. */
   setNeos(list) {
     for (const n of list) {
       if (!n.elements) continue;

@@ -1,6 +1,3 @@
-/* Diário de observação: formulário (Bulma) enviado ao servidor e lista dos
-   registros salvos no banco. Toda regra de validação mora no backend; as
-   mensagens que aparecem embaixo de cada campo vêm da resposta HTTP 422. */
 import { onMounted } from 'vue';
 import { dateLong } from './format.js';
 import useObservationForm from './useObservationForm.js';

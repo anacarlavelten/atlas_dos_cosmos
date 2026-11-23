@@ -41,4 +41,4 @@ def test_seed_is_idempotent(client):
         async with app.state.db.sessionmaker() as session:
             return await seed_catalog(session)
 
-    assert asyncio.run(run()) == 0  # já existia
+    assert asyncio.run(run()) == 0

@@ -1,4 +1,3 @@
-/* Utilidades matemáticas e constantes compartilhadas pelo motor 3D. */
 export const TAU = Math.PI * 2;
 export const D2R = Math.PI / 180;
 export const AU_KM = 149597870.7;
@@ -27,7 +26,6 @@ export const yieldUI = () => new Promise(r => requestAnimationFrame(() => setTim
 export const jdNow = () => Date.now() / 86400000 + 2440587.5;
 export const jdToDate = jd => new Date((jd - 2440587.5) * 86400000);
 
-/* Cor de cada categoria de astro (lista, rótulos e card). */
 export const CATCOL = {
   star: '#ffd27a', planet: '#79bfff', moon: '#c9d1e6', dwarf: '#d9a3ff', comet: '#a0d8ff',
   region: '#8fe0b0', probe: '#ff8f7a', neo: '#ffb070', bh: '#b8a2ff', cluster: '#9fc4ff',

@@ -142,7 +142,6 @@ def pdf(c, saida="dist/Documentacao.pdf"):
     print(f"PDF gerado em {target} ({target.stat().st_size // 1024} KB)")
 
 
-#: Pastas e arquivos que não vão para o .zip da entrega (ambiente, caches e segredos).
 PACKAGE_SKIP_DIRS = {
     ".git",
     ".venv",

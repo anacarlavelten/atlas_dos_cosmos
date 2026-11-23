@@ -1,4 +1,3 @@
-/* Estado de carregamento de uma fonte de dados das páginas do Atlas. */
 import { reactive } from 'vue';
 import { once } from '../../api.js';
 

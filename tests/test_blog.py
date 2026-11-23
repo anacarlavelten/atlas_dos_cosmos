@@ -70,7 +70,7 @@ def test_technologies(client):
     assert first["title"] == "Robot-Driven Blind Mate Interface"
     assert first["summary"] == "Many robot operations require connecting modules & tools."
     assert first["page_url"] == "https://technology.nasa.gov/patent/GSC-TOPS-247"
-    assert len(data["items"]) == 2  # a linha incompleta é ignorada
+    assert len(data["items"]) == 2
     assert data["items"][1]["image_url"] is None
     assert client.get("/api/blog/technologies/culinaria").status_code == 404
 

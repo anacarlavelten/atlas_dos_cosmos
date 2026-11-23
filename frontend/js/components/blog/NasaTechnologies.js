@@ -1,4 +1,3 @@
-/* Página de tecnologias do programa espacial (NASA Technology Transfer). */
 import { onMounted, ref } from 'vue';
 import { api, once } from '../../api.js';
 import { hideBroken } from './format.js';

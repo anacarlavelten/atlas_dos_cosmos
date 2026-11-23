@@ -1,4 +1,3 @@
-/* Lista lateral de astros do nível atual, agrupada como no catálogo. */
 import { computed } from 'vue';
 import { store, engineRef, colorOf } from '../store.js';
 

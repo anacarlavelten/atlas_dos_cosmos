@@ -27,7 +27,7 @@ def init_app(app: FastAPI) -> None:
             log.info(
                 "Órbitas prontas (%d astros, %d avisos)", len(result.bodies), len(result.warnings)
             )
-        except Exception:  # noqa: BLE001 - nunca derrubar o servidor por causa do prefetch
+        except Exception:  # noqa: BLE001
             log.exception("Falha ao pré-carregar as órbitas")
 
     async def startup(app: FastAPI) -> None:

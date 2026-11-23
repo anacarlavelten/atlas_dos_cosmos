@@ -49,6 +49,7 @@ pronto para a interface.
 | Tecnologias da NASA disponíveis para a sociedade, por área | NASA Technology Transfer |
 | "Céu do seu nascimento": a APOD da data escolhida (ou imagens da NASA do ano) | NASA APOD e NASA Image Library |
 | **Diário de observação**: formulário em que o visitante registra o que viu no céu | Banco de dados do Atlas |
+| **Login, cadastro e "Meu perfil"** (bio, local e relatos de observação) | Navegador do visitante |
 
 ### Simulador
 
@@ -70,6 +71,17 @@ o nome, o local e anotações. O formulário envia os dados ao servidor, que **v
 mensagem do servidor, em português. Quem registrou uma observação pode apagá-la depois (o
 navegador guarda um código secreto; o banco guarda só o hash dele).
 
+### Login e "Meu perfil"
+
+O **Simulador** e a página **Meu perfil** (`#/perfil`) só abrem depois do login ou do
+cadastro, feitos numa janela modal (`LoginModal.js`). O formulário confere nome (mínimo de 2
+letras), formato do e-mail, senha com pelo menos 6 caracteres e confirmação da senha
+(`frontend/js/auth.js`). A sessão dura enquanto a aba estiver aberta (`sessionStorage`).
+
+No perfil, o visitante edita nome, bio e local e publica relatos de observação, que podem ser
+filtrados por astro e editados depois. Esses dados ficam no próprio navegador
+(`localStorage`), separados por e-mail (`frontend/js/profile.js`).
+
 ## 2. Como o projeto atende aos critérios
 
 | # | Critério | Onde está no projeto |
@@ -78,7 +90,7 @@ navegador guarda um código secreto; o banco guarda só o hash dele).
 | 2 | Organização em módulos / rotas | Um pacote por domínio (`catalog`, `orbits`, `neo`, `exoplanets`, `media`, `spaceweather`, `blog`, `observations`), cada um com `models` / `schemas` / `services` / `routes` e seu próprio `APIRouter` (equivalente ao Blueprint) |
 | 3 | Formulários e validação | Diário de observação: `ObservationIn` (Pydantic) valida tipo, tamanho, faixa, data no futuro e campos extras; o service valida o astro no banco (`FormError`); `ext/web` traduz os erros para português, campo a campo (HTTP 422); o formulário Vue mostra cada mensagem ao lado do campo |
 | 4 | Interface e frontend | Vue 3 com componentes, **Bulma** como framework CSS (formulário, grade de colunas, avisos, tags e botões do Diário), layout responsivo testado em celular (390 px) e desktop |
-| 5 | Testes automatizados | **91 testes** PyTest (rotas, validação, ORM, cache, falhas da NASA, logging) com **93% de cobertura** + **31 testes** do frontend com `node:test` |
+| 5 | Testes automatizados | **91 testes** PyTest (rotas, validação, ORM, cache, falhas da NASA, logging) com **93% de cobertura** + **36 testes** do frontend com `node:test` |
 | 6 | Persistência e ORM | SQLAlchemy 2 assíncrono; 5 entidades com chaves estrangeiras, 1:1, 1:N, autorrelacionamento e `CHECK`; PostgreSQL no Supabase e SQLite em desenvolvimento |
 | 7 | Qualidade e boas práticas | `.env` (12-Factor), logging com nível configurável, tratamento de erros padronizado (422/404/403/429/503/500), Ruff (lint e formatação), Invoke, Git com branches e pull requests |
 
@@ -492,7 +504,7 @@ que a chave nunca aparece no log.
 | Suíte | Ferramenta | Quantidade | O que cobre |
 |---|---|---|---|
 | Backend | PyTest + pytest-cov | **91 testes, 93% de cobertura** | Fábrica, todas as rotas, formulário (campos obrigatórios, tamanhos, faixas, datas, opções, campos extras, astro inexistente), CRUD do Diário, `CHECK` do banco, preservação no reseed, cache e cache vencido, falhas e planos B das APIs, logging, erro 500, cabeçalhos de cache do frontend, CLI e configuração do Supabase |
-| Frontend | `node:test` | **31 testes** | Distribuição das notícias sem repetição, contagem regressiva, imagens com fallback, "Céu do seu nascimento" e o formulário do Diário (erros do servidor por campo, sucesso, exclusão, erro de rede) |
+| Frontend | `node:test` | **36 testes** | Distribuição das notícias sem repetição, contagem regressiva, imagens com fallback, "Céu do seu nascimento", o formulário do Diário (erros do servidor por campo, sucesso, exclusão, erro de rede), validação do login e do cadastro e o perfil salvo por usuário |
 
 Os testes **não acessam a internet**: `tests/nasa_mock.py` simula todas as APIs externas no
 formato das respostas reais, incluindo falhas, limite de cota e cache vencido. Cada teste
@@ -596,8 +608,13 @@ Node.js 18+ (opcional).
 - **Representações:** braços da Via Láctea, cinturões de asteroides e de Kuiper e galáxias de
   fundo do nível Universo são ilustrativos.
 - **Textos das notícias em inglês:** são os originais de cada site (a página avisa).
-- **Diário sem login:** qualquer visitante pode registrar observações; só quem registrou pode
-  apagar (pelo código guardado no navegador). Um próximo passo seria autenticação.
+- **Login só no navegador:** o login e o cadastro validam os campos e controlam o acesso às
+  páginas, mas não há contas no servidor: as senhas não são conferidas nem guardadas, e o
+  perfil fica no `localStorage` do navegador (some se os dados do site forem apagados e não
+  aparece em outro computador). O próximo passo é uma tabela `users` com senha em hash e
+  sessão no backend.
+- **Diário da API sem dono:** qualquer visitante pode registrar observações pela API; só quem
+  registrou pode apagar (pelo código guardado no navegador).
 - **Evolução do banco:** `create_all()` cria tabelas novas, mas não altera colunas de tabelas
   existentes. Como o Diário guarda dados que não podem ser recriados, o próximo passo é usar o
   **Alembic** para migrações.

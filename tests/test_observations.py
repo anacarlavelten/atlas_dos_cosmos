@@ -25,7 +25,6 @@ def errors_by_field(response) -> dict[str, str]:
     return {e["field"]: e["message"] for e in body["errors"]}
 
 
-# ---------------------------------------------------------------- opções
 def test_form_options_come_from_the_api(client):
     data = client.get("/api/observations/options").json()
     assert [i["key"] for i in data["instruments"]] == [
@@ -38,7 +37,6 @@ def test_form_options_come_from_the_api(client):
     assert data["min_date"] == "1900-01-01"
 
 
-# ---------------------------------------------------------------- criação
 def test_create_observation(client):
     r = client.post("/api/observations", json=VALID)
     assert r.status_code == 201
@@ -88,7 +86,6 @@ def test_get_one_and_404(client):
     assert r.status_code == 404 and r.json()["detail"] == "Observação não encontrada."
 
 
-# ---------------------------------------------------------------- validação
 def test_missing_fields_are_reported_one_by_one(client):
     fields = errors_by_field(client.post("/api/observations", json={}))
     assert set(fields) == {
@@ -149,7 +146,6 @@ def test_nothing_is_saved_when_validation_fails(client):
     assert client.get("/api/observations").json()["total"] == 0
 
 
-# ---------------------------------------------------------------- exclusão
 def test_delete_requires_the_token_from_creation(client):
     created = client.post("/api/observations", json=VALID).json()
     url = f"/api/observations/{created['id']}"
@@ -165,7 +161,6 @@ def test_delete_requires_the_token_from_creation(client):
     )
 
 
-# ---------------------------------------------------------------- integridade
 def test_observations_survive_catalog_reseed(client):
     created = client.post("/api/observations", json=VALID).json()
 
@@ -178,7 +173,6 @@ def test_observations_survive_catalog_reseed(client):
     assert len(items) == 1
     assert items[0]["body"]["slug"] == "jupiter"
     assert items[0]["observed_at"] == VALID["observed_at"]
-    # O código de exclusão continua valendo depois do reseed.
     r = client.delete(
         f"/api/observations/{items[0]['id']}", headers={"X-Delete-Token": created["delete_token"]}
     )
@@ -213,7 +207,6 @@ def test_database_check_constraint_blocks_invalid_rows(client):
         asyncio.run(insert_invalid())
 
 
-# ---------------------------------------------------------------- outras rotas
 def test_query_validation_uses_the_same_format(client):
     fields = errors_by_field(client.get("/api/catalog/bodies", params={"level": 9}))
     assert fields == {"level": "O valor máximo é 3."}

@@ -1,5 +1,3 @@
-/* Texturas procedurais: superfícies dos planetas e luas, brilhos e galáxias.
-   Tudo é desenhado em <canvas> com ruído, sem baixar imagens. */
 import * as THREE from 'three';
 import { TAU, mulberry32, gauss } from './util.js';
 
@@ -117,7 +115,6 @@ export function radialTex(stops, S = 128) {
 export const glowTex = radialTex([[0, 'rgba(255,255,255,1)'], [0.15, 'rgba(255,240,200,.75)'], [0.4, 'rgba(255,190,100,.22)'], [1, 'rgba(255,150,60,0)']], 256);
 export const dotTex = radialTex([[0, 'rgba(255,255,255,1)'], [0.45, 'rgba(255,255,255,.9)'], [1, 'rgba(255,255,255,0)']], 32);
 
-/* Sprites das galáxias (espiral, elíptica, irregular, anel, de perfil...). */
 function galTex(kind) {
   const S = 256, cv = document.createElement('canvas'); cv.width = cv.height = S;
   const g = cv.getContext('2d'); g.translate(S / 2, S / 2); const r = mulberry32(kind.length * 997 + 5);
@@ -151,7 +148,6 @@ function galTex(kind) {
 const galTexCache = {};
 export const getGalTex = k => galTexCache[k] || (galTexCache[k] = galTex(k));
 
-/* Material de atmosfera: brilho na borda do planeta (efeito Fresnel). */
 export function atmoMat(col, k, p) {
   return new THREE.ShaderMaterial({
     uniforms: { c: { value: new THREE.Color(col) }, k: { value: k }, p: { value: p } },

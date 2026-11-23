@@ -36,7 +36,6 @@ VECTORS_HEADER = (
 )
 
 
-#: Parâmetros das consultas feitas à Spaceflight News API (para os testes do blog).
 NEWS_REQUESTS: list[dict[str, str]] = []
 APOD_REQUESTS: list[dict[str, str]] = []
 NASA_IMAGE_REQUESTS: list[dict[str, str]] = []
@@ -123,7 +122,6 @@ def _sbdb(params: dict[str, str]) -> httpx.Response:
 def _neo_feed(params: dict[str, str]) -> httpx.Response:
     start = date.fromisoformat(params["start_date"])
     data = fixture("neo_feed.json")
-    # Reposiciona as datas da fixture para a semana pedida.
     days = list(data["near_earth_objects"].values())
     data["near_earth_objects"] = {
         (start + timedelta(days=i)).isoformat(): objs for i, objs in enumerate(days)
@@ -134,7 +132,6 @@ def _neo_feed(params: dict[str, str]) -> httpx.Response:
 def _neo_lookup(neo_id: str) -> httpx.Response:
     data = fixture("neo_lookup.json")
     data["id"] = neo_id
-    # Varia um pouco a órbita para cada asteroide.
     k = int(neo_id) % 7
     od = data["orbital_data"]
     od["mean_anomaly"] = str((float(od["mean_anomaly"]) + 37 * k) % 360)
@@ -144,7 +141,6 @@ def _neo_lookup(neo_id: str) -> httpx.Response:
 
 def _exoplanets() -> httpx.Response:
     rows = fixture("exoplanets_sample.json")
-    # Acrescenta sistemas sintéticos espalhados até ~3 mil anos-luz.
     for i in range(300):
         ra = (i * 137.508) % 360
         dec = math.degrees(math.asin(((i * 0.618) % 2) - 1))
@@ -197,7 +193,7 @@ def make_transport(fail: set[str] | None = None) -> httpx.MockTransport:
         if host == "api.spaceflightnewsapi.net":
             if down("news"):
                 return httpx.Response(503)
-            NEWS_REQUESTS.append(params)  # permite aos testes conferir os filtros enviados
+            NEWS_REQUESTS.append(params)
             terms = params.get("title_contains_one", "")
             if terms.startswith("APOD: "):
                 # A SNAPI republica a APOD do dia: usada como plano B quando a NASA cai.

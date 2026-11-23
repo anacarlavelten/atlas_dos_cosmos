@@ -1,5 +1,3 @@
-/* Cliente da API do backend. Todas as chamadas à NASA passam pelo backend:
-   o navegador nunca vê a chave da API. */
 import { API_BASE } from './config.js';
 
 async function request(method, path, { body, headers } = {}) {
@@ -41,7 +39,6 @@ export const api = {
   birthImages: year => get(`/api/media/birth-images/${encodeURIComponent(year)}`),
   epic: () => get('/api/media/epic'),
   images: slug => get(`/api/media/images/${encodeURIComponent(slug)}?limit=4`),
-  // Blog
   blogTopics: () => get('/api/blog/topics'),
   blogFeed: ({ kind, topic, q, offset = 0, limit = 20 }) => {
     const params = new URLSearchParams({ kind, topic, offset, limit });
@@ -50,7 +47,6 @@ export const api = {
   },
   blogLaunches: () => get('/api/blog/launches?limit=6'),
   blogTech: area => get(`/api/blog/technologies/${encodeURIComponent(area)}?limit=4`),
-  // Diário de observação (formulário enviado ao servidor)
   observationOptions: () => get('/api/observations/options'),
   observations: ({ body, offset = 0, limit = 6 } = {}) => {
     const params = new URLSearchParams({ offset, limit });
@@ -61,7 +57,6 @@ export const api = {
   deleteObservation: (id, token) => request('DELETE', `/api/observations/${id}`, { headers: { 'X-Delete-Token': token } }),
 };
 
-/* Memoriza pedidos dos cards para não repetir a mesma consulta ao reabrir um astro. */
 const memo = new Map();
 export function once(key, fn) {
   if (!memo.has(key)) memo.set(key, fn().catch(err => { memo.delete(key); throw err; }));

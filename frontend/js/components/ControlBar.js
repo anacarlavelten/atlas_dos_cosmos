@@ -1,4 +1,3 @@
-/* Barra inferior: tempo, escala dos astros e camadas visíveis. */
 import { store, engineRef } from '../store.js';
 
 export function syncControls() {

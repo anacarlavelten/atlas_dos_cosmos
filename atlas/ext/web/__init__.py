@@ -58,9 +58,6 @@ async def health(request: Request) -> dict:
     }
 
 
-# ----------------------------------------------------------------------
-# Mensagens de validação em português
-# ----------------------------------------------------------------------
 _MESSAGES: dict[str, str] = {
     "missing": "Campo obrigatório.",
     "string_type": "Informe um texto.",

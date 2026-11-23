@@ -26,7 +26,6 @@ export function meanAnomaly(el, jd) {
   return ((M % TAU) + TAU) % TAU;
 }
 
-/* Posição (em UA, coordenadas da cena) para uma anomalia excêntrica E. */
 export function positionFromE(el, E, out) {
   const w = el.w * D2R, Om = el.om * D2R, inc = el.i * D2R, a = el.a, e = el.e;
   const xp = a * (Math.cos(E) - e), yp = a * Math.sqrt(1 - e * e) * Math.sin(E);
@@ -44,7 +43,6 @@ export function positionAt(el, jd, out) {
 /* Converte um vetor eclíptico (x, y, z) do JPL para os eixos da cena. */
 export const eclipticToScene = (v, out) => out.set(v[0], v[2], -v[1]);
 
-/* Pontos da elipse completa (para desenhar a linha da órbita). */
 export function orbitPoints(el, N = 360) {
   const pts = new Float32Array((N + 1) * 3), v = new THREE.Vector3();
   for (let k = 0; k <= N; k++) {

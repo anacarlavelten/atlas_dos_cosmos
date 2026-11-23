@@ -1,4 +1,3 @@
-/* Página de asteroides que passam perto da Terra nesta semana (NASA NeoWs). */
 import { computed, onMounted } from 'vue';
 import { api } from '../../api.js';
 import { fmt } from '../../engine/util.js';

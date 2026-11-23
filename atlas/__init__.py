@@ -17,7 +17,6 @@ from atlas.ext.lifecycle import lifespan, prepare_hooks
 
 __version__ = "2.0.0"
 
-#: Domínios da aplicação, na ordem em que suas rotas são registradas.
 DOMAINS = (catalog, orbits, neo, exoplanets, media, spaceweather, blog, observations)
 
 
@@ -46,9 +45,6 @@ def create_app(
     )
     prepare_hooks(app)
 
-    # ----------------------------------------------------------
-    # Extensões (infraestrutura)
-    # ----------------------------------------------------------
     config.init_app(app, settings)
     log.init_app(app)
     db.init_app(app)
@@ -56,9 +52,6 @@ def create_app(
     nasa.init_app(app, transport=nasa_transport)
     web.init_app(app)
 
-    # ----------------------------------------------------------
-    # Domínios (cada um registra seu APIRouter e seus hooks)
-    # ----------------------------------------------------------
     for domain in DOMAINS:
         domain.init_app(app)
 

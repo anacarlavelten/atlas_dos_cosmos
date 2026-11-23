@@ -106,9 +106,6 @@ async def delete_observation(session: AsyncSession, observation_id: int, token: 
     log.info("Observação %s apagada", observation_id)
 
 
-# ----------------------------------------------------------------------
-# Preservação durante ``atlas seed --replace``
-# ----------------------------------------------------------------------
 async def snapshot(session: AsyncSession) -> list[dict[str, Any]]:
     """Copia as observações (com o slug do astro) antes de o catálogo ser recriado."""
     rows = (await session.scalars(select(Observation))).unique().all()

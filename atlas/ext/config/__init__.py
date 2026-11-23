@@ -16,7 +16,6 @@ from fastapi import FastAPI, Request
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-#: Raiz do projeto (pasta que contém ``app.py``, ``pyproject.toml`` e ``.env``).
 BASE_DIR = Path(__file__).resolve().parents[3]
 INSTANCE_DIR = BASE_DIR / "instance"
 
@@ -34,12 +33,8 @@ class Settings(BaseSettings):
     app_name: str = "Atlas do Cosmos"
     environment: Literal["development", "production", "testing"] = "development"
     debug: bool = False
-    #: Nível do log do Atlas: DEBUG, INFO, WARNING ou ERROR.
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
 
-    # ------------------------------------------------------------------
-    # NASA
-    # ------------------------------------------------------------------
     #: Chave pessoal de https://api.nasa.gov. Sem ela, usa-se a DEMO_KEY
     #: (limite baixo: ~30 requisições/hora e 50/dia por IP).
     nasa_api_key: str = "DEMO_KEY"
@@ -50,16 +45,11 @@ class Settings(BaseSettings):
     exoplanet_tap_url: str = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
     epic_archive_url: str = "https://epic.gsfc.nasa.gov/archive"
     techtransfer_url: str = "https://technology.nasa.gov/api/api"
-    #: Fontes do blog (notícias e agenda de lançamentos), abertas e sem chave.
     spaceflight_news_url: str = "https://api.spaceflightnewsapi.net/v4"
     launch_library_url: str = "https://ll.thespacedevs.com/2.3.0"
     http_timeout: float = 25.0
-    #: Quantas requisições simultâneas cada serviço externo pode receber.
     nasa_concurrency: int = 4
 
-    # ------------------------------------------------------------------
-    # Cache (tempo de vida dos dados vindos da NASA)
-    # ------------------------------------------------------------------
     orbits_ttl_hours: int = 24
     neo_ttl_minutes: int = 180
     apod_ttl_minutes: int = 360
@@ -72,17 +62,10 @@ class Settings(BaseSettings):
     exoplanets_ttl_days: int = 7
     neo_limit: int = Field(default=10, ge=1, le=25)
 
-    # ------------------------------------------------------------------
-    # Persistência
-    # ------------------------------------------------------------------
     database_url: str = f"sqlite+aiosqlite:///{INSTANCE_DIR / 'atlas.db'}"
     auto_seed: bool = True
-    #: Ao subir o servidor, já busca as órbitas na NASA em segundo plano.
     prefetch_on_startup: bool = True
 
-    # ------------------------------------------------------------------
-    # Web
-    # ------------------------------------------------------------------
     serve_frontend: bool = True
     frontend_dir: Path = BASE_DIR / "frontend"
     cors_origins: list[str] = [

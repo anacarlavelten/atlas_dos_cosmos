@@ -1,15 +1,3 @@
-/* Ponto de entrada do frontend (Vue 3, sem etapa de build).
-
-   O Atlas tem várias páginas, cada uma com seu endereço (veja PAGES em store.js):
-   - Notícias (página inicial): linha do tempo de notícias do espaço.
-   - Agenda de voos, Céu do nascimento, Asteroides, Tecnologias e Diário.
-   - Simulador: o cosmos em 3D. Ele só é carregado na primeira vez que a aba é
-     aberta e fica pausado enquanto o visitante está no blog.
-
-   Carga do simulador:
-   1. Busca no backend o catálogo e os dados da NASA (órbitas, asteroides, exoplanetas).
-   2. Cria o motor 3D com esses dados.
-   3. Liga os eventos do motor ao estado reativo que os componentes exibem. */
 import { createApp, ref, watch, onMounted } from 'vue';
 import { api, once } from './api.js';
 import { store, engineRef, raw, routeFromHash, isRouteHash, PAGES } from './store.js';
@@ -36,7 +24,7 @@ async function boot(els) {
     const soft = (key, promise) => promise.catch(err => { store.errors[key] = err.message; return null; });
     const [orbits, neos, exo] = await Promise.all([
       soft('orbits', api.orbits()),
-      soft('neos', once('neoWeek', api.neoWeek)),   // compartilhado com o blog
+      soft('neos', once('neoWeek', api.neoWeek)),
       soft('exo', api.exoHosts()),
     ]);
     store.orbits = raw(orbits);

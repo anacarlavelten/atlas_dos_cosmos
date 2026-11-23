@@ -1,10 +1,3 @@
-/* Motor 3D do Atlas do Cosmos.
-
-   createEngine() recebe os dados já carregados da API e os elementos do DOM,
-   monta os três níveis e devolve um objeto com métodos que a interface (Vue)
-   chama: select, goLevel, togglePlay, setSpeedSlider... Os acontecimentos da cena
-   (clique num astro, troca de nível, texto do HUD) voltam para a interface pelos
-   callbacks em `on`. */
 import './setup.js';
 import * as THREE from 'three';
 import { D2R, clamp, lerp, ease, fmt, jdNow, jdToDate, yieldUI } from './util.js';
@@ -70,7 +63,6 @@ class Engine {
 
   get level() { return this.levels[this.state.level]; }
 
-  /* ===================== CÂMERA ===================== */
   minDistFor(o) {
     if (!o || o.minD === undefined) return 1e-6;
     return typeof o.minD === 'function' ? o.minD() : o.minD;
@@ -133,7 +125,6 @@ class Engine {
     }
   }
 
-  /* ===================== SELEÇÃO ===================== */
   select(id, { fly = true } = {}) {
     const o = id ? this.level.find(id) : null;
     this.selected = o;
@@ -141,7 +132,6 @@ class Engine {
     if (o && fly && o.getPos && !o.nofly) this.flyTo(o, this.viewFor(o), 1.7);
   }
 
-  /* ===================== NÍVEIS ===================== */
   goLevel(n, how = 'tab') {
     const st = this.state;
     if (this.switching || n === st.level || n < 1 || n > 3) return;
@@ -166,7 +156,6 @@ class Engine {
     }, 470);
   }
 
-  /* ===================== TEMPO E ESCALA ===================== */
   speedSliderValue() {
     const st = this.state;
     if (st.level === 1) return (Math.log(st.sp[1] / L1MIN) / Math.log(L1MAX / L1MIN)) * 1000;
@@ -208,7 +197,6 @@ class Engine {
   setShowNeos(v) { this.solar.setNeosVisible(v); }
   setShowExo(v) { this.galaxy.setExoVisible(v); }
 
-  /* ===================== HUD ===================== */
   hud() {
     const d = this.ctl.dist, lv = this.state.level;
     let dist;
@@ -232,7 +220,6 @@ class Engine {
     return { dist, date, reversing: this.state.dir < 0, hint };
   }
 
-  /* ===================== ENTRADA ===================== */
   bindInput() {
     const canvas = this.canvas, ptrs = new Map();
     let down = null, pinch0 = 0;
@@ -301,7 +288,6 @@ class Engine {
     if (this.active) this.resize();
   }
 
-  /* ===================== LOOP ===================== */
   start() {
     let last = performance.now();
     const frame = now => {
@@ -342,6 +328,6 @@ export async function createEngine(opts, data, progress) {
   const engine = new Engine(opts);
   await engine.build(data, progress);
   engine.start();
-  window.__atlas = engine; // útil para depurar no console do navegador
+  window.__atlas = engine;
   return engine;
 }

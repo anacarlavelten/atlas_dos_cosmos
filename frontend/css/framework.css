@@ -9,7 +9,6 @@
      visual que já existia. */
 @import url("../vendor/bulma.min.css") layer(bulma);
 
-/* Tema do Bulma nas áreas que usam o framework: escuro e com o azul do blog. */
 .atlas-bulma {
   --bulma-primary-h: 216deg;
   --bulma-primary-s: 100%;

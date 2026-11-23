@@ -10,7 +10,7 @@ class HostStarOut(BaseModel):
     distance_ly: float
     planets: int
     planet_names: list[str]
-    l: float  # noqa: E741 - longitude galáctica (nome usado na astronomia)
+    l: float  # noqa: E741
     b: float
 
 

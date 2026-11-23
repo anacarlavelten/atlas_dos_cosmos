@@ -137,5 +137,4 @@ async def get_session(request: Request) -> AsyncIterator[AsyncSession]:
         yield session
 
 
-#: Atalho para declarar a sessão nos parâmetros das rotas.
 SessionDep = Annotated[AsyncSession, Depends(get_session)]

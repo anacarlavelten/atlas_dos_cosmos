@@ -1,4 +1,3 @@
-/* Utilidades de data e texto do blog (pt-BR). */
 import { ref } from 'vue';
 
 /* Relógio compartilhado: um único timer atualiza contagens regressivas e
@@ -39,7 +38,6 @@ export const dateTime = iso => {
 
 const dayKey = d => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 
-/* Rótulo do dia na linha do tempo: "Hoje", "Ontem" ou "terça-feira, 3 de novembro". */
 export function dayLabel(iso) {
   const d = new Date(iso);
   const today = new Date();
@@ -50,7 +48,6 @@ export function dayLabel(iso) {
   return { title: full.charAt(0).toUpperCase() + full.slice(1), sub: '' };
 }
 
-/* Agrupa publicações (já ordenadas da mais nova para a mais antiga) por dia local. */
 export function groupByDay(posts) {
   const groups = [];
   for (const p of posts) {
@@ -62,7 +59,6 @@ export function groupByDay(posts) {
   return groups;
 }
 
-/* Contagem regressiva "T− 2d 04:12:09" (ou "T+" depois do horário). */
 export function countdown(iso, ref = now.value) {
   const t = Date.parse(iso);
   if (Number.isNaN(t)) return null;
@@ -74,7 +70,6 @@ export function countdown(iso, ref = now.value) {
   return { sign, d, h: pad(h), m: pad(m), s: pad(sec), past: sign === '+' };
 }
 
-/* Esconde o quadro da imagem quando ela não carrega (link quebrado na origem). */
 export const hideBroken = e => {
   const frame = e.target.closest('[data-img]');
   (frame || e.target).classList.add('noimg');

@@ -36,7 +36,6 @@ class ServiceClient:
     ``get_json``/``get_text`` para conversar com a API correspondente."""
 
     service = "NASA"
-    #: Quantas tentativas extras em erros transitórios (timeout, 5xx).
     retries = 1
 
     def __init__(self, gateway: NasaGateway) -> None:

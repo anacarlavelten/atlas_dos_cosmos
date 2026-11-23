@@ -1,4 +1,3 @@
-/* News portal home and the filterable all-stories archive. */
 import { reactive, computed, onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import { api, once } from '../../api.js';
 import { ago, now } from './format.js';
@@ -75,7 +74,7 @@ export default {
         const unique = deduplicatePosts([...existing, ...d.posts]);
         feed.fresh = unique.filter(post => !existingIds.has(post.id)
           && post.published_at > feed.posts[0].published_at);
-      } catch { /* The next scheduled check retries without disrupting reading. */ }
+      } catch {  }
     }
 
     const showFresh = () => {

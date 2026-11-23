@@ -1,5 +1,3 @@
-/* Painéis com dados ao vivo exibidos dentro do card. Cada um busca na API
-   somente quando aparece na tela. */
 import { ref, onMounted, computed } from 'vue';
 import { api, once } from '../api.js';
 import { store, engineRef } from '../store.js';
@@ -18,7 +16,6 @@ function useFetch(key, fn) {
   return { data, error, loading };
 }
 
-/* Fotos do astro na NASA Image and Video Library. */
 export const ImageStrip = {
   name: 'ImageStrip',
   props: { slug: { type: String, required: true } },
@@ -37,7 +34,6 @@ export const ImageStrip = {
   </div>`,
 };
 
-/* A Terra inteira fotografada pela câmera EPIC, a 1,5 milhão de km. */
 export const EpicWidget = {
   name: 'EpicWidget',
   setup() { return { ...useFetch('epic', api.epic), when }; },
@@ -53,7 +49,6 @@ export const EpicWidget = {
   </div>`,
 };
 
-/* Lista dos asteroides da semana (usa os dados já carregados no início). */
 export const NeosWidget = {
   name: 'NeosWidget',
   setup() {
@@ -75,7 +70,6 @@ export const NeosWidget = {
   </div>`,
 };
 
-/* Resumo do NASA Exoplanet Archive. */
 export const ExoWidget = {
   name: 'ExoWidget',
   setup() {

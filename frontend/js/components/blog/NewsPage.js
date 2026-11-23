@@ -1,4 +1,3 @@
-/* Página inicial: só notícias (destaques, histórias e o arquivo completo). */
 import { ref } from 'vue';
 import BlogHero from './BlogHero.js';
 import BlogTimeline from './BlogTimeline.js';

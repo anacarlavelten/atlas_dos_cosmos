@@ -1,8 +1,3 @@
-/* Nível 3 — Universo (unidade: milhões de anos-luz).
-
-   A Via Láctea reaproveita as partículas do nível 2 em miniatura. As outras
-   galáxias são sprites posicionados por (l, b, distância). Os pontos de fundo são
-   ilustrativos, só para dar ideia de que existem bilhões de galáxias. */
 import * as THREE from 'three';
 import { Level } from './level.js';
 import { TAU, rnd, gauss } from './util.js';
@@ -61,7 +56,6 @@ export class UniverseLevel extends Level {
     sc.add(new THREE.Points(bg, new THREE.PointsMaterial({ size: 2.2, sizeAttenuation: false, vertexColors: true, map: dotTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })));
   }
 
-  /* Galáxias nunca ficam menores que alguns pixels, para continuarem visíveis. */
   updateSprites(dt, camera, viewportHeight, fovTan) {
     const px = (2 * fovTan) / viewportHeight;
     for (const sp of this.sprites) {

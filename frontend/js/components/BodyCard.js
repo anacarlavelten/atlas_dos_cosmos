@@ -1,4 +1,3 @@
-/* Card com as informações do astro selecionado. */
 import { computed } from 'vue';
 import { store, engineRef, cardFor, colorOf } from '../store.js';
 import { ImageStrip, EpicWidget, NeosWidget, ExoWidget } from './LiveWidgets.js';

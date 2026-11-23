@@ -12,7 +12,7 @@ def test_neo_week(client):
     data = client.get("/api/neo/week").json()
     objects = data["objects"]
     assert data["total_in_week"] == 21
-    assert len(objects) == 10  # NEO_LIMIT padrão
+    assert len(objects) == 10
     distances = [o["miss_distance_km"] for o in objects]
     assert distances == sorted(distances)
     assert all(o["elements"] for o in objects)
@@ -176,7 +176,6 @@ def test_flares_summary(client):
     assert data["recent"][0]["class_type"] == "M5.6"
 
 
-# --- Planos B e mensagens de erro -------------------------------------------------
 def test_apod_falls_back_to_public_page_when_api_is_down(make_client):
     data = make_client(fail={"apod"}).get("/api/media/apod?date=2001-02-03").json()
     assert data["title"] == "A Test Galaxy"
@@ -210,4 +209,4 @@ def test_requests_and_nasa_failures_are_logged(make_client, caplog):
     messages = [r.getMessage() for r in caplog.records]
     assert any("GET /api/neo/week -> 503" in m for m in messages)
     assert any("NeoWs indisponível" in m for m in messages)
-    assert not any("TEST-KEY-123" in m for m in messages)  # a chave nunca vai para o log
+    assert not any("TEST-KEY-123" in m for m in messages)

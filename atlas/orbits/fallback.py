@@ -32,7 +32,6 @@ JPL_APPROX: dict[str, list[float]] = {
 }
 # fmt: on
 
-#: Cometa Halley: elementos da passagem de 1986 (periélio em 9/fev/1986).
 HALLEY = {
     "epoch_jd": 2446470.95,
     "a": 17.93,

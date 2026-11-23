@@ -1,5 +1,3 @@
-/* Painel "Dados da NASA": mostra, para cada fonte, se os dados vieram ao vivo,
-   do cache ou da tabela aproximada (quando a NASA não respondeu). */
 import { computed } from 'vue';
 import { store } from '../store.js';
 

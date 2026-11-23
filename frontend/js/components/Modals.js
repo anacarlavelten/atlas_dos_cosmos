@@ -1,4 +1,3 @@
-/* Janelas: introdução e foto astronômica do dia (APOD). */
 import { ref, watch } from 'vue';
 import { store } from '../store.js';
 import { api, once } from '../api.js';

@@ -33,7 +33,6 @@ export class LabelLayer {
     }
   }
 
-  /* Converte a posição 3D de cada astro em coordenadas de tela. */
   project(level, camera, ctlDist, fovTan) {
     const W = innerWidth, H = innerHeight, f = H / (2 * fovTan);
     _m.copy(camera.matrixWorld).invert();
@@ -49,7 +48,6 @@ export class LabelLayer {
       o.vis = o.sx > -30 && o.sx < W + 30 && o.sy > -30 && o.sy < H + 30;
       if (o.arm && ctlDist < 2) o.vis = false;
     }
-    // Luas "coladas" no planeta somem até a câmera chegar perto.
     const selected = this.engine.selected;
     for (const o of level.picks) {
       if (o.parentPick && o.vis && o.parentPick.vis && o !== selected) {

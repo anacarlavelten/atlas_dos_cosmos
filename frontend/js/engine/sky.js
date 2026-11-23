@@ -1,5 +1,3 @@
-/* Céu de fundo: estrelas fixas numa esfera distante, com a faixa da Via Láctea
-   orientada como a vemos da Terra. */
 import * as THREE from 'three';
 import { TAU, rnd, gauss } from './util.js';
 import { dotTex, glowTex } from './textures.js';

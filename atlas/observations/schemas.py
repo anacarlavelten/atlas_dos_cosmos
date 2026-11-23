@@ -15,7 +15,6 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 Instrument = Literal["olho-nu", "binoculo", "telescopio", "camera"]
 
-#: A data mínima aceita (registros históricos são permitidos, datas absurdas não).
 MIN_DATE = date(1900, 1, 1)
 
 

@@ -85,7 +85,6 @@ TOPICS: dict[str, tuple[str, str, list[str]]] = {
     ),
 }
 
-#: chave -> (rótulo, descrição, termo buscado no catálogo Technology Transfer).
 TECH_AREAS: dict[str, tuple[str, str, str]] = {
     "propulsao": ("Propulsão", "Motores e sistemas de propulsão.", "propulsion"),
     "robotica": ("Robótica", "Robôs, automação e sistemas autônomos.", "robot"),
@@ -219,7 +218,6 @@ def shape_launch(raw: dict[str, Any]) -> dict[str, Any]:
         "pad": _dig(raw, "pad", "name"),
         "location": _dig(raw, "pad", "location", "name"),
         "image_url": image_url if isinstance(image_url, str) else None,
-        # Space Launch Now é o site público da The Space Devs (mesma base de dados).
         "page_url": f"{LAUNCH_PAGE}/{slug}" if slug else LAUNCH_PAGE,
     }
 

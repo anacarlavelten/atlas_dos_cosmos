@@ -1,5 +1,3 @@
-/* Atlas do Cosmos — layout em tela cheia com o cosmos ao fundo: lista à esquerda,
-   card do astro à direita, controles embaixo. Visual escuro, como o céu à noite. */
 :root {
   --bg: #03050b;
   --panel: rgba(9, 13, 24, .84);
@@ -27,7 +25,6 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
 #gl.hov { cursor: pointer; }
 #gl.drag { cursor: grabbing; }
 
-/* ---------- rótulos ---------- */
 #labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
 .lb { position: absolute; left: 0; top: 0; will-change: transform; display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 12px; color: var(--c, #fff); text-shadow: 0 0 4px #000, 0 0 8px #000; opacity: 0; transition: opacity .2s; }
 .lb.on { opacity: 1; }
@@ -42,7 +39,6 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
 #tip b { display: block; font-family: var(--display); font-size: 14px; }
 #tip span { color: var(--muted); }
 
-/* ---------- painéis ---------- */
 .panel { position: fixed; background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 14px; }
 #top { position: fixed; top: max(12px, env(safe-area-inset-top, 0px)); left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); display: flex; gap: 10px; align-items: center; pointer-events: none; z-index: 7; }
 #top > * { pointer-events: auto; }
@@ -65,7 +61,6 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
 .dot.fallback, .dot.error { background: var(--bad); }
 .dot.neutral { background: var(--muted); }
 
-/* ---------- lista ---------- */
 #list { top: max(64px, calc(env(safe-area-inset-top, 0px) + 56px)); left: max(16px, env(safe-area-inset-left, 0px)); width: 240px; max-height: calc(100% - 170px); display: flex; flex-direction: column; z-index: 4; overflow: hidden; }
 #list h3 { margin: 0; padding: 12px 14px 6px; font: 700 11px var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .lscroll { overflow: auto; padding: 0 6px 8px; overscroll-behavior: contain; }
@@ -76,7 +71,6 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
 .it i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex: none; }
 .it small { margin-left: auto; color: var(--muted); font-size: 11px; }
 
-/* ---------- card ---------- */
 #card { top: max(64px, calc(env(safe-area-inset-top, 0px) + 56px)); right: max(16px, env(safe-area-inset-right, 0px)); width: 370px; max-height: calc(100% - 170px); overflow: auto; z-index: 6; padding: 18px 18px 16px; transform: translateX(calc(100% + 40px)); opacity: 0; transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .25s; overscroll-behavior: contain; }
 #card.on { transform: none; opacity: 1; }
 #card .x { position: absolute; right: 10px; top: 10px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel2); color: var(--ink); cursor: pointer; font-size: 16px; line-height: 1; }
@@ -113,7 +107,6 @@ img.apod-media { min-height: 120px; }
 .act { margin-top: 12px; width: 100%; font: 700 14px var(--body); background: var(--sun); color: #1b1305; border: 0; border-radius: 10px; padding: 11px; cursor: pointer; }
 .linkbtn { display: inline-block; margin-top: 4px; font-size: 13px; }
 
-/* ---------- barra de controles ---------- */
 #bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: max(12px, env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 14px; padding: 9px 14px; z-index: 5; max-width: calc(100% - 32px); flex-wrap: wrap; justify-content: center; }
 #bar label { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 12.5px; white-space: nowrap; }
 #bar input[type=range] { width: 150px; accent-color: var(--sun); }
@@ -123,12 +116,10 @@ img.apod-media { min-height: 120px; }
 .sm { font: 500 12.5px var(--body); color: var(--ink); background: var(--panel2); border: 1px solid var(--line); border-radius: 9px; padding: 6px 10px; cursor: pointer; }
 .sep { width: 1px; height: 22px; background: var(--line); }
 
-/* ---------- HUD ---------- */
 #hud { position: fixed; left: 50%; transform: translateX(-50%); top: max(66px, calc(env(safe-area-inset-top, 0px) + 58px)); text-align: center; pointer-events: none; z-index: 3; font-size: 12.5px; color: var(--muted); text-shadow: 0 0 6px #000; line-height: 1.5; }
 #hud b { color: var(--ink); font-variant-numeric: tabular-nums; }
 #hud .hint { color: var(--sun); }
 
-/* ---------- janelas (intro, foto do dia, fontes) ---------- */
 .overlay { position: fixed; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 40%, rgba(10, 16, 34, .78), rgba(2, 3, 8, .94)); padding: 20px; }
 .modal { position: relative; max-width: 560px; width: 100%; padding: 26px; max-height: calc(100% - 40px); overflow: auto; }
 .modal.wide { max-width: 860px; }
@@ -155,7 +146,6 @@ iframe.apod-media { aspect-ratio: 16 / 9; border: 0; height: auto; }
 #load .err { color: var(--bad); max-width: 460px; line-height: 1.5; }
 @keyframes rot { to { transform: rotate(360deg); } }
 
-/* ---------- modal de autenticação ---------- */
 .auth-overlay {
   position: fixed;
   inset: 0;
@@ -314,7 +304,6 @@ iframe.apod-media { aspect-ratio: 16 / 9; border: 0; height: auto; }
 }
 .auth-switch:hover { color: #5efce8; }
 
-/* ---------- responsivo ---------- */
 @media (max-width: 900px) {
   #list { display: none; width: auto; right: max(16px, env(safe-area-inset-right, 0px)); max-height: 55%; }
   #list.open { display: flex; }
@@ -323,7 +312,6 @@ iframe.apod-media { aspect-ratio: 16 / 9; border: 0; height: auto; }
 }
 @media (min-width: 901px) { .only-m { display: none !important; } }
 @media (max-width: 700px) {
-  /* Duas linhas: abas em cima, botões embaixo à direita. */
   #top { gap: 6px; row-gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
   #tabs { flex: 1 1 100%; min-width: 0; justify-content: space-between; }
   #list, .sources { top: max(112px, calc(env(safe-area-inset-top, 0px) + 104px)); }

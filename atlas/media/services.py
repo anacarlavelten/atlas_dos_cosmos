@@ -108,7 +108,7 @@ async def get_apod(
 async def get_body_images(
     session: AsyncSession, nasa: NasaGateway, settings: Settings, slug: str, limit: int = 4
 ) -> BodyImagesOut:
-    body = await get_body(session, slug)  # levanta BodyNotFound se não existir
+    body = await get_body(session, slug)
     query = body.image_query or body.name
 
     async def produce() -> list[dict[str, Any]]:

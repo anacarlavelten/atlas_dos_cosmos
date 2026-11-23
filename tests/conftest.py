@@ -34,7 +34,7 @@ def make_client(settings):
     def factory(fail: set[str] | None = None, **overrides) -> TestClient:
         app = create_app(settings.model_copy(update=overrides), nasa_transport=make_transport(fail))
         client = TestClient(app)
-        client.__enter__()  # executa o lifespan (cria tabelas, carrega o catálogo)
+        client.__enter__()
         opened.append(client)
         return client
 
